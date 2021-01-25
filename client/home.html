@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ChatApp</title>
+    <!--css-->
+    <link rel="stylesheet" href="./CSS/style.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+</head>
+
+<body class="primary-background">
+
+    <nav class="navbar navbar-expand-lg navbar-dark nav-background">
+
+        <a class="navbar-brand " href="#"> <span class="fa fa-paper-plane-o"></span> ChatApp</a>
+        <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button> -->
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link " href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#">Developers</a>
+                </li>
+
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+
+        </div>
+    </nav>
+
+    <main class="d-flex align-items-center primary-background" style="height: 80vh">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-4 offset-md-4">
+                    <div class="card" id="login_card">
+                        <div class="card-header text-white " style="background: #20292e">
+                            <p>Login to ChatApp</p>
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="email">Email address</label>
+                                    <input type="email" class="form-control" id="email"
+                                        aria-describedby="email_field" placeholder="Enter email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" id="password"
+                                        placeholder="Password">
+                                </div>
+                                <input type="checkbox" id="rem_login"> Remember Me
+                                <div >
+                                    <button type="submit" class="btn text-white float-right"
+                                        style="background: #20292e">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer ">
+                            <div class="d-flex justify-content-center">
+                                new to ChatApp? <a href="javascript:;" onclick="registerToggle()"> register here</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="display: none;" id="register_card">
+                        <div class="card-header text-white " style="background: #20292e">
+                            <p>Register to ChatApp</p>
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" class="form-control" id="name"
+                                        aria-describedby="name_field" placeholder="Enter name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email address</label>
+                                    <input type="email" class="form-control" id="email"
+                                        aria-describedby="emailHelp" placeholder="Enter email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" id="password"
+                                        placeholder="Password">
+                                </div>
+                                <div> <button type="submit" class="btn text-white float-right"
+                                        style="background: #20292e">Submit</button>
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="card-footer ">
+                            <div class="d-flex justify-content-center">
+                                Already a member?<a href="javascript:;" onclick="loginToggle()"> login here</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!--script-->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="./js/cookie.js"></script>
+    <script>
+
+        function registerToggle() {
+            $('#register_card').show();
+            $('#login_card').hide();
+        }
+
+        function loginToggle() {
+            $('#register_card').hide();
+            $('#login_card').show();
+        }
+    </script>
+</body>
+
+</html>
