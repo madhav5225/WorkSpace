@@ -7,17 +7,12 @@ require('dotenv').config({
 
 const app = express();
 
-// app.use(express.static(__dirname));
-// app.use(bodyParser.json());
 app.use(express.static(__dirname+ '/client'));
 // initialize body-parser to parse incoming parameters requests to req.body
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/',(req,res)=>{
    res.sendFile('./client/home.html',{root:__dirname});
-})
-app.get('/dashboard',(req,res)=>{
-    console.log('hekefn');
 })
 
 const route = require('./server/routes/routes.js');
