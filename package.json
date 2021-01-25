@@ -1,7 +1,12 @@
 {
+<<<<<<< HEAD
   "name": "ChatApp",
   "version": "1.0.0",
   "description": "",
+=======
+  "name": "chatapp",
+  "version": "1.0.0",
+>>>>>>> 7901e2b33433bd2618fabdfb65a1f09ca9d2f4bc
   "main": "home.js",
   "scripts": {
     "start": "nodemon server"
@@ -23,6 +28,13 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "fs": "0.0.1-security",
+<<<<<<< HEAD
     "socket.io": "^3.1.0"
   }
+=======
+    "mongoose": "^5.11.13",
+    "socket.io": "^3.1.0"
+  },
+  "description": ""
+>>>>>>> 7901e2b33433bd2618fabdfb65a1f09ca9d2f4bc
 }
