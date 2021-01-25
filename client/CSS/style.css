@@ -1,6 +1,5 @@
 
 .primary-background{
-<<<<<<< HEAD
     background-color: #b3d8ec;
 }
 .nav-background{
@@ -19,25 +18,15 @@
     margin-top: 1rem;
 }
 
-=======
-    background-color: #20292e;
-}
->>>>>>> 7901e2b33433bd2618fabdfb65a1f09ca9d2f4bc
 .left
 {
     float: left;
     clear: both;
-<<<<<<< HEAD
     border-top-left-radius: 0px;
-=======
->>>>>>> 7901e2b33433bd2618fabdfb65a1f09ca9d2f4bc
 }
 .right
 {
     float: right;
     clear: both;
-<<<<<<< HEAD
     border-top-right-radius: 0px;
-=======
->>>>>>> 7901e2b33433bd2618fabdfb65a1f09ca9d2f4bc
 }

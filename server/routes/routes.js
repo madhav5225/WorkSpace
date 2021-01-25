@@ -1,29 +1,31 @@
 const express = require('express');
-const mongoose=require('mongoose');
+const mongoose = require('mongoose');
 var User = require("../models/user.js");
 const router = express.Router();
 
-router.post('/login',async (req,res)=>{
-    console.log('hello Old USer'+req.body.email);
-    console.log('hello Old USer'+req.body.password);
-    
-    const user=await User.findOne(
-        { "email": ''+req.body.email,
-          "password": ''+req.body.password  
-         }
-        ).exec();
-        if(user) {
+router.post('/login',(req, res) => {
+    console.log('hello')
+    const { email, password } = req.body;
+    console.log('hello Old USer ' + email);
+    console.log('hello Old USer ' + password);
+
+    User.findOne({ email }).exec((err,user)=>{
+
+        if (user) {
             console.log('true1');
             console.log(user);
-            
-            //res.json({ user: 'tobi' });
-            res.end();
-            
+
+            res.redirect('/dashboard');
+            // res.send({success:"true"});
+
         }
         else {
             console.log('false1');
-            res.send('false');
+            res.send({success:"false"});
         }
-  });
+    });
+    
+});
+
 
 module.exports = router;
