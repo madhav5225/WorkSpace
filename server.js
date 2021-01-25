@@ -18,8 +18,8 @@ app.use(cookieParser());
 // initialize express-session to allow us track the logged-in user across sessions.
 app.use(
     session({
-      key: "user_sid",
-      secret: "somerandonstuffs",
+      key: process.env.session_key,
+      secret: process.env.session_secret,
       resave: false,
       saveUninitialized: false,
       cookie: {
@@ -27,9 +27,6 @@ app.use(
       },
     })
   );
-
-
-
 
 const route = require('./server/routes/routes.js');
 app.use(route);
