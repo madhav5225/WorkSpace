@@ -10,6 +10,7 @@ function loginRequest()
         rem_login='true';
     }
     //alert(email+password+rem_login);
+//alert(email+password+rem_login);
 
     
     //Making request to server using Ajax
