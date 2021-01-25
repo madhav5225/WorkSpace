@@ -82,7 +82,7 @@
                             <p>Register to ChatApp</p>
                         </div>
                         <div class="card-body">
-                            <form>
+                            <form onsubmit="registerRequest(event.preventDefault())">
                                 <div class="form-group">
                                     <label for="name">Name</label>
                                     <input type="text" class="form-control" id="signup-name"
@@ -127,6 +127,7 @@
         crossorigin="anonymous"></script>
     <script src="./js/cookie.js"></script>
     <script src="./js/login.js"></script>
+    <script src="./js/register.js"></script>
     <script>
 
         function registerToggle() {
