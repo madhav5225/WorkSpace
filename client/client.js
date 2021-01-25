@@ -14,6 +14,7 @@ app.get('/',(req,res)=>{
    res.sendFile('./home.html',{root:__dirname});
 })
 
+
 const route = require('./routes/routes');
 
 app.use(route);
