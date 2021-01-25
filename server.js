@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 var cookieParser = require("cookie-parser");
 var session = require("express-session");
 require('dotenv').config({
-    path: './.env'
+    path: './config.env'
 })
 
 const app = express();
