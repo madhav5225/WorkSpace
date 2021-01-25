@@ -15,15 +15,17 @@ router.post('/login',async (req,res)=>{
         if(user) {
             console.log('true1');
             console.log(user);
-            
-            //res.json({ user: 'tobi' });
-            res.end();
-            
+            req.session.user = user;
+             //res.send('Hello');
+        res.redirect("/dashboard");
         }
         else {
             console.log('false1');
             res.send('false');
         }
   });
+//   router.get('/dashboard',(req,res)=>{
+//       console.log('yep'+req.session.user);
+//   })
 
 module.exports = router;

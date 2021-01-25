@@ -54,15 +54,15 @@
                             <p>Login to ChatApp</p>
                         </div>
                         <div class="card-body">
-                            <form onsubmit="loginRequest()">
+                            <form onsubmit="loginRequest(event.preventDefault())">
                                 <div class="form-group">
                                     <label for="email">Email address</label>
-                                    <input type="email" class="form-control" id="email"
+                                    <input type="email" class="form-control" id="login-email"
                                         aria-describedby="email_field" placeholder="Enter email">
                                 </div>
                                 <div class="form-group">
                                     <label for="password">Password</label>
-                                    <input type="password" class="form-control" id="password"
+                                    <input type="password" class="form-control" id="login-password"
                                         placeholder="Password">
                                 </div>
                                 <input type="checkbox" id="rem_login" value="true"> Remember Me
@@ -86,17 +86,17 @@
                             <form>
                                 <div class="form-group">
                                     <label for="name">Name</label>
-                                    <input type="text" class="form-control" id="name"
+                                    <input type="text" class="form-control" id="signup-name"
                                         aria-describedby="name_field" placeholder="Enter name">
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email address</label>
-                                    <input type="email" class="form-control" id="email"
+                                    <input type="email" class="form-control" id="signup-email"
                                         aria-describedby="emailHelp" placeholder="Enter email">
                                 </div>
                                 <div class="form-group">
                                     <label for="password">Password</label>
-                                    <input type="password" class="form-control" id="password"
+                                    <input type="password" class="form-control" id="signup-password"
                                         placeholder="Password">
                                 </div>
                                 <div> <button type="submit" class="btn text-white float-right"
