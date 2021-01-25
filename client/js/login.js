@@ -11,6 +11,7 @@ function loginRequest()
     }
     //alert(email+password+rem_login);
 
+    
     //Making request to server using Ajax
     const req=new XMLHttpRequest();
     req.open("POST","http://localhost:4000/login",false);
