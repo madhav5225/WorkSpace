@@ -3,29 +3,46 @@ const mongoose=require('mongoose');
 var User = require("../models/user.js");
 const router = express.Router();
 
-router.post('/login',async (req,res)=>{
-    console.log('hello Old USer'+req.body.email);
-    console.log('hello Old USer'+req.body.password);
+router.get('/',(req,res)=>{
+    if(req.session.user)
+    return res.redirect('/dashboard');
     
+    res.sendFile('/home.html',{root:'client'});
+    
+ })
+router.post('/login',async (req,res)=>{ 
+    try{
     const user=await User.findOne(
         { "email": ''+req.body.email,
           "password": ''+req.body.password  
          }
         ).exec();
+    
         if(user) {
-            console.log('true1');
+            console.log('Valid Credentials');
             console.log(user);
             req.session.user = user;
-             //res.send('Hello');
-        res.redirect("/dashboard");
+            res.send({success:'true'});
         }
         else {
-            console.log('false1');
-            res.send('false');
+            console.log('Invalid Credentials');
+            res.send({success:'false'});
         }
+    }
+    catch(error){
+        console.log(error);
+        
+        res.send({success:'false'});
+    }
   });
-//   router.get('/dashboard',(req,res)=>{
-//       console.log('yep'+req.session.user);
-//   })
+  router.get('/dashboard',(req,res)=>{
+    if(!req.session.user)
+     return res.redirect('/');
+     
+     
+    console.log(req.session.user);
+    res.sendFile('/dashboard.html',{root:'client'});
+     
+})
 
 module.exports = router;

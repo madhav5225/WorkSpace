@@ -1,6 +1,7 @@
 {
-  "name": "chatapp",
+  "name": "ChatApp",
   "version": "1.0.0",
+  "description": "",
   "main": "home.js",
   "scripts": {
     "start": "nodemon server"
@@ -26,6 +27,5 @@
     "fs": "0.0.1-security",
     "mongoose": "^5.11.13",
     "socket.io": "^3.1.0"
-  },
-  "description": ""
+  }
 }

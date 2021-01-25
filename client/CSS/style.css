@@ -1,14 +1,32 @@
 
 .primary-background{
-    background-color: #20292e;
+    background-color: #b3d8ec;
 }
+.nav-background{
+    background-color: #293942;
+}
+
+
+.message-box{
+    
+    font-size: medium;
+    background-color: #b3d8ec;
+    padding: 1rem;
+    border-radius: 10px;
+    padding-bottom: 2rem;
+    max-width: 20rem;
+    margin-top: 1rem;
+}
+
 .left
 {
     float: left;
     clear: both;
+    border-top-left-radius: 0px;
 }
 .right
 {
     float: right;
     clear: both;
+    border-top-right-radius: 0px;
 }

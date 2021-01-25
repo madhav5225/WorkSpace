@@ -9,6 +9,7 @@ require('dotenv').config({
 const app = express();
 //Middlewares
 app.use(express.static(__dirname+ '/client'));
+//app.use(bodyParser());
 // initialize body-parser to parse incoming parameters requests to req.body
 app.use(bodyParser.urlencoded({ extended: true }));
 // initialize cookie-parser to allow us access the cookies stored in the browser.
@@ -26,22 +27,19 @@ app.use(
       },
     })
   );
-app.get('/',(req,res)=>{
-   res.sendFile('./client/home.html',{root:__dirname});
+
+
+
+
+const route = require('./server/routes/routes.js');
+app.use(route);
+
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
+io.on('connection',(socket)=>{
 })
-app.get('/dashboard',(req,res)=>{
-          console.log('yep'+req.session.user);
-      })
 
- const route = require('./server/routes/routes');
- app.use(route);
-
-// const http = require('http').Server(app);
-// const io = require('socket.io')(http);
-
-// io.on('connection',(socket)=>{
-// })
-
-app.listen(process.env.PORT,()=>{
+http.listen(process.env.PORT,()=>{
     console.log("listening to port: "+process.env.PORT);
 })

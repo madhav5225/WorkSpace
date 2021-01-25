@@ -9,21 +9,18 @@ function loginRequest()
     {
         rem_login='true';
     }
-    //document.getElementById("myForm").action=
-    //alert(email+password+rem_login);
-//Ajax Function to send a get request
+   // Making Post request 
 $.post("http://localhost:5000/login",
         { email:""+email,
         password:""+password,
         rem_login:""+rem_login 
         },
         function(result){
-        console.log(result);
-        alert('hi');
+            if(result['success']==='true')
+            location.replace("http://localhost:5000/dashboard");
+            else
+           alert('Invalid Data:Try again');
         }
-    ).fail(function(error){
-        console.log(error);
-        alert('error');
-        });
+    );
 
 }
