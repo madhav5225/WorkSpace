@@ -1,6 +1,6 @@
 function sendMsg(event) {
 
-     event.preventDefault();
+    event.preventDefault();
 
     var msg = $('#msg_text').val();
     console.log(msg);
@@ -16,3 +16,13 @@ function sendMsg(event) {
 
 }
 
+$(document).ready(function(){
+    $.get('/profile',function(data){
+        const {success,name,email}=data;
+        if(success){
+            console.log(name+" "+email);
+            sessionStorage.setItem("name", name);
+            sessionStorage.setItem("email",email);   
+        }
+    })
+});

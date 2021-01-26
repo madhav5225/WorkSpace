@@ -2,7 +2,7 @@
 const socket = io();
 console.log('here1');
  var cookieArray = document.cookie;
- console.log(decodeURIComponent(cookieArray));
+ //console.log(decodeURIComponent(cookieArray));
  
 //  for(var i=0; i<cookieArray.length; i++) {
 //     //name = cookieArray[i].split('=')[0];

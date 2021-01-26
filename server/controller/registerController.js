@@ -15,30 +15,27 @@ const registerController = async (req, res) => {
             else if (user) {
                 return res.send({ msg: "Already Registered" });
             }
-            else
-            {
+            else {
                 const user = new User({
                     email: email,
                     fullname: name,
                     password: password
                 });
-        
+
                 user.save((err, user) => {
                     if (err) {
                         console.log('Save error ' + err.message);
                         return res.send('Error connecting Database');
                     } else {
-        
-                        req.session.user = user;
+
+                        res.cookie('user_id', user._id, { httpOnly: false, maxAge: 24 * 60 * 60*1000 });
+                        // req.session.user_id = user._id;
                         res.send({ msg: "success" });
-        
+
                     }
                 });
             }
         });
-
-        
-
     }
     catch (error) {
         console.log(error);
