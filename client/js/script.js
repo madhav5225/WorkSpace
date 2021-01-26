@@ -1,6 +1,6 @@
 function sendMsg(event) {
 
-    // event.preventDefault();
+    event.preventDefault();
 
     var msg = $('#msg_text').val();
     console.log(msg);
