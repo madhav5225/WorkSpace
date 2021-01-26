@@ -10,30 +10,34 @@ const registerController = async (req, res) => {
         await User.findOne({ email }).exec((err, user) => {
             if (err) {
                 console.log("error " + err);
-                return res.status(404).send({ msg: err });
+                return res.send({ msg: err });
             }
-            if (user) {
-                return res.status(404).send({ msg: "Already Registered" });
+            else if (user) {
+                return res.send({ msg: "Already Registered" });
+            }
+            else
+            {
+                const user = new User({
+                    email: email,
+                    fullname: name,
+                    password: password
+                });
+        
+                user.save((err, user) => {
+                    if (err) {
+                        console.log('Save error ' + err.message);
+                        return res.send('Error connecting Database');
+                    } else {
+        
+                        req.session.user = user;
+                        res.send({ msg: "success" });
+        
+                    }
+                });
             }
         });
 
-        const user = new User({
-            email: email,
-            fullname: name,
-            password: password
-        });
-
-        user.save((err, user) => {
-            if (err) {
-                console.log('Save error ' + err.message);
-                return res.status(401).send('Error connecting Database');
-            } else {
-
-                req.session.user = user;
-                res.send({ msg: "success" });
-
-            }
-        });
+        
 
     }
     catch (error) {
