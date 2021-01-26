@@ -13,7 +13,7 @@ app.use(express.static(__dirname+ '/client'));
 // initialize body-parser to parse incoming parameters requests to req.body
 app.use(bodyParser.urlencoded({ extended: true }));
 // initialize cookie-parser to allow us access the cookies stored in the browser.
-app.use(cookieParser());
+app.use(cookieParser('secret'));
 
 // initialize express-session to allow us track the logged-in user across sessions.
 app.use(
