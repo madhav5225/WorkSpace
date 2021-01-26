@@ -4,6 +4,8 @@ const loginController = async (req, res) => {
     try {
         
         const {email,password} = req.body;
+
+        console.log(req.body);
         
         await User.findOne({email}).exec((err,user)=>{
             if (err || !user) {

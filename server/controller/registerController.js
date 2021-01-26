@@ -5,6 +5,8 @@ const registerController = async (req, res) => {
 
         const { email, name, password } = req.body;
 
+        console.log(req.body);
+
         await User.findOne({ email }).exec((err, user) => {
             if (err) {
                 console.log("error " + err);
@@ -17,19 +19,19 @@ const registerController = async (req, res) => {
 
         const user = new User({
             email: email,
-            name: name,
+            fullname: name,
             password: password
         });
 
-        await user.save((err, user) => {
+        user.save((err, user) => {
             if (err) {
-                console.log('Save error' + err.message);
+                console.log('Save error ' + err.message);
                 return res.status(401).send('Error connecting Database');
             } else {
 
                 req.session.user = user;
                 res.send({ msg: "success" });
-                
+
             }
         });
 
