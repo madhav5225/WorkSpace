@@ -19,7 +19,8 @@ const loginController = async (req, res) => {
             else {
                 // set cookies in response header
                 console.log(user._id);
-                res.cookie('user_id', user._id, { httpOnly: false, maxAge: 24 * 60 * 60 * 1000 });
+                res.cookie('user_id', user._id, { signed:true,
+                    httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
                 // res.cookies('token', token, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 });
 
                 // session updating
