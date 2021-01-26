@@ -31,12 +31,8 @@ app.use(
 const route = require('./server/routes/routes.js');
 app.use(route);
 
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const socket = require('./socket')(app);
 
-io.on('connection',(socket)=>{
-})
-
-http.listen(process.env.PORT,()=>{
+socket.listen(process.env.PORT,()=>{
     console.log("listening to port: "+process.env.PORT);
 })

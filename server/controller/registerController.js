@@ -15,7 +15,8 @@ const registerController = async (req, res) => {
             else if (user) {
                 return res.send({ msg: "Already Registered" });
             }
-            else{
+            else
+            {
                 const user = new User({
                     email: email,
                     fullname: name,
@@ -35,6 +36,9 @@ const registerController = async (req, res) => {
                 });
             }
         });
+
+        
+
     }
     catch (error) {
         console.log(error);

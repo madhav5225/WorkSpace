@@ -9,13 +9,13 @@ const loginController = async (req, res) => {
         
         await User.findOne({email}).exec((err,user)=>{
             if (err || !user) {
-                console.log("error " + err);
+                //console.log("error " + err);
                 return res.send({ msg: 'No user found!' });
             }
     
             //authenticating user
             if (!user.authenticate(password)) {
-                console.log(password);
+                //console.log(password);
                 return res.send({ msg: "Invalid Password" });
             }
     
@@ -31,11 +31,11 @@ const loginController = async (req, res) => {
             // );
     
             // set cookies in response header
-            // res.cookies('user_id', user._id, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 });
+            res.cookies('user_id', user._id, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 });
             // res.cookies('token', token, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 });
 
             // session updating
-            req.session.user = user;
+            // req.session.user = user;
 
             res.send({ msg: "success" });
         });

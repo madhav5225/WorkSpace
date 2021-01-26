@@ -1,3 +1,4 @@
+
 const socket = io();
 console.log('here1');
 var username = getCookie("username");
