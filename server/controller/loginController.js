@@ -31,11 +31,12 @@ const loginController = async (req, res) => {
             // );
     
             // set cookies in response header
-            res.cookies('user_id', user._id, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 });
+            console.log(user._id);
+            res.cookie('user_id', user._id, { httpOnly: false, maxAge: 24 * 60 * 60 });
             // res.cookies('token', token, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 });
 
             // session updating
-            // req.session.user = user;
+            // req.session.user_id = user._id;
 
             res.send({ msg: "success" });
         });

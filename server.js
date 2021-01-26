@@ -28,11 +28,9 @@ app.use(
     })
   );
 
+const server = require('./socketing.js')(app);
 const route = require('./server/routes/routes.js');
 app.use(route);
-
-const socket = require('./socket')(app);
-
-socket.listen(process.env.PORT,()=>{
+server.listen(process.env.PORT,()=>{
     console.log("listening to port: "+process.env.PORT);
 })

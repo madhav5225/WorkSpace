@@ -16,3 +16,12 @@ function sendMsg(event) {
 
 }
 
+$(document).ready(function(){
+    $.get('/profile',function(data){
+        const {success,name,email}=data;
+        if(success){
+            console.log(name+" "+email);
+        }
+        
+    })
+});
