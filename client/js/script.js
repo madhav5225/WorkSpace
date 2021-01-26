@@ -21,6 +21,8 @@ $(document).ready(function(){
         const {success,name,email}=data;
         if(success){
             console.log(name+" "+email);
+            $('#profile_name').text(name);
+            $('#profile_email').text(email);
             sessionStorage.setItem("name", name);
             sessionStorage.setItem("email",email);   
         }
