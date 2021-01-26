@@ -1,8 +1,13 @@
 
 const socket = io();
 console.log('here1');
-// var username = getCookie("username");
-// console.log(username);
+ var cookieArray = document.cookie;
+ console.log(decodeURIComponent(cookieArray));
+ 
+//  for(var i=0; i<cookieArray.length; i++) {
+//     //name = cookieArray[i].split('=')[0];
+//     console.log(decodeURIComponent(cookieArray[i]) );
+// }
  socket.emit('user-joined','hello');
 // socket.on('user-list', (users) => {
 //     users.forEach(i => {
