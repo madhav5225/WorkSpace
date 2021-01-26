@@ -20,5 +20,4 @@ function loginRequest() {
     }).fail(function (data) {
         console.log("error: " + data);
     });
-
 }

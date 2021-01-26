@@ -4,8 +4,6 @@ function registerRequest() {
     const email = $('#email_reg').val();
     const password = $('#password_reg').val();
     const name = $('#name_reg').val();
-
-
     $.post("/register", { email, name, password }, function (data) {
         console.log(data + " :" + status);
         if (data['msg'] === "success") {

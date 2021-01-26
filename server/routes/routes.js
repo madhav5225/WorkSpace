@@ -4,17 +4,7 @@ const router = express.Router();
 router.get('/', (req, res) => {
     if (req.session.user)
         return res.redirect('/dashboard');
-
     res.sendFile('/home.html', { root: 'client' });
-
-})
-
-router.get('/dashboard', (req, res) => {
-    if (!req.session.user)
-        return res.redirect('/');
-
-    console.log(req.session.user);
-    res.sendFile('/dashboard.html', { root: 'client' });
 
 })
 
@@ -24,4 +14,6 @@ router.post('/login', require('../controller/loginController'));
 // register route
 router.post('/register',require('../controller/registerController'));
 
+// dashBoard route
+router.get('/dashboard', require('../controller/dashBoardController'));
 module.exports = router;
