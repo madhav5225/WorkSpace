@@ -11,7 +11,7 @@ const profileController = async (req, res) => {
        cursor.forEach(user=> 
         {
             var obj={};
-           if(cursor._id==current_user_id)
+           if(user._id==current_user_id)
            {
              obj={currentUser:1,
                 fname:user.name.first,
@@ -30,11 +30,7 @@ const profileController = async (req, res) => {
             users.push(obj);
         });
         res.send(users);
-    });
-       
-        //print(tojson(myCursor.next()));
-    
-         
+    });       
+        //print(tojson(myCursor.next()));        
 }
-
 module.exports = profileController;

@@ -18,6 +18,7 @@ function sendMsg(event) {
 function  setMessengers(data)
 {
     for(var i=0;i<data.length;i++){
+       // console.log(data[i].currentUser);
         if(data[i].currentUser==1)
         continue;
     var user = document.createElement('li');
