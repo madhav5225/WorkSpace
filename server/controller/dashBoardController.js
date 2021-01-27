@@ -4,6 +4,9 @@ const dashBoardController =  (req, res) => {
        { console.log('NO user id exist');
            return res.redirect('/');
             }
+            console.log('yha pee');
+            console.log(req.session.user);
+            
     res.sendFile('/dashboard.html', { root: 'client' });
 }
 module.exports = dashBoardController;

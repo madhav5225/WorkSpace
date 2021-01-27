@@ -18,11 +18,13 @@ function sendMsg(event) {
 
 $(document).ready(function(){
     $.get('/profile',function(data){
-        const {success,name,email}=data;
-        if(success){
-            console.log(name+" "+email);
-            sessionStorage.setItem("name", name);
-            sessionStorage.setItem("email",email);   
-        }
+        // const {success,name,email}=data;
+        // if(success){
+        //     console.log(name+" "+email);
+        //     sessionStorage.setItem("name", name);
+        //     sessionStorage.setItem("email",email);   
+        // }
+        console.log('here only');
+        console.log(data);
     })
 });

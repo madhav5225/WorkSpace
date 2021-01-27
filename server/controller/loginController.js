@@ -24,7 +24,7 @@ const loginController = async (req, res) => {
                 // res.cookies('token', token, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 });
 
                 // session updating
-                //req.session.user_id = user._id;
+                req.session.user = user;
                 console.log('Upto Here1');
                 res.send({ msg: "success" });
             }
