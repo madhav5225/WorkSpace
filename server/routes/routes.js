@@ -17,8 +17,12 @@ router.post('/register', require('../controller/registerController'));
 // dashBoard route
 router.get('/dashboard',check_login, require('../controller/dashBoardController'));
 
+// get profile details
 router.get('/profile',check_login,require('../controller/profileController'));
 
+// get user list
+router.get('/usersList',check_login,require('../controller/userListController'));
+// logout
 router.get('/logout', (req, res) => {
     req.session.destroy();
     res.redirect('/');

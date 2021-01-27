@@ -1,9 +1,5 @@
-const session = require('express-session');
 const User = require('../models/user');
-const profileController = async (req, res) => {
-
-    const current_user_id = req.session.user._id;
-
+const profileController = (req, res) => {
     //console.log(user_id);
     await User.find({ }).then(cursor=>{
        // console.log(cursor);

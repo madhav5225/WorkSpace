@@ -1,3 +1,5 @@
+const User = require("../models/user");
+
 exports.check_login = (req,res,next)=>{
     if(req.session.user){
         console.log('user exists: '+req.session.user);
@@ -18,4 +20,5 @@ exports.check_not_login = (req,res,next)=>{
         next();
     }
 }
+
 
