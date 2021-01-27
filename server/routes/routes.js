@@ -1,36 +1,11 @@
 const express = require('express');
 const { read } = require('fs');
+const {check_login,check_not_login} = require('../controller/check_login');
 const User = require('../models/user');
 const router = express.Router();
 
-router.get('/', async(req, res) => {
-
-    try {
-        //console.log(req.cookies['user_id']);
-        var user_id = req.signedCookies['user_id'];
-       
-        console.log(user_id);
-        console.log(req.sessionID);
-        await User.findOne({ _id: user_id }).exec((err, user)=>{
-            if(err||!user)
-            {   res.cookie('user_id', '', { maxAge: -1 });
-                res.sendFile('/home.html', { root: 'client' });
-            }
-            else if(user)
-            {console.log('hey4');
-            console.log(req.session.user);
-            return res.redirect('/dashboard');
-            }
-            
-        });
-        
-    }
-    catch (err) {
-        //res.cookie('user_id','',{maxAge:-1});
-        console.log(err);
-    }
-    
- 
+router.get('/',check_not_login,(req, res) => {
+    res.sendFile('/home.html', { root: 'client' });
 })
 
 // login route
@@ -40,12 +15,12 @@ router.post('/login', require('../controller/loginController'));
 router.post('/register', require('../controller/registerController'));
 
 // dashBoard route
-router.get('/dashboard', require('../controller/dashBoardController'));
+router.get('/dashboard',check_login, require('../controller/dashBoardController'));
 
-router.get('/profile',require('../controller/profileController'));
+router.get('/profile',check_login,require('../controller/profileController'));
 
 router.get('/logout', (req, res) => {
-    res.cookie('user_id', '', { maxAge: -1 });
+    req.session.destroy();
     res.redirect('/');
 })
 

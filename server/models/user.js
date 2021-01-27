@@ -1,15 +1,24 @@
 const mongoose = require('mongoose')
 const crypto = require('crypto');
-
-
+try
+{
 mongoose.connect(process.env.dbUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
     useCreateIndex: true
-}).then(() => console.log('Connected With Database'));
-
-
+},{autoReconnect:true}).then(() =>{ console.log('Connected With Database');})
+.catch((err)=>
+{
+    console.log('Not Connected With Database');
+  console.log(err);
+});
+}
+catch(errr)
+{
+    console.log('Not Connected With Database');
+  console.log(err);
+}
 const userSchema = new mongoose.Schema(
     {
         email: {

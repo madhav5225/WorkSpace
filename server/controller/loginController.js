@@ -17,22 +17,14 @@ const loginController = async (req, res) => {
                 return res.send({ msg: "Invalid Password" });
             }
             else {
-                // set cookies in response header
-                console.log(user._id);
-                res.cookie('user_id', user._id, { signed:true,
-                    httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
-                // res.cookies('token', token, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 });
-
                 // session updating
                 req.session.user = user;
-                console.log('Upto Here1');
                 res.send({ msg: "success" });
             }
         });
     }
     catch (error) {
         console.log(error);
-
         res.send({ msg: error });
     }
 }

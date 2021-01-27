@@ -15,16 +15,22 @@ function sendMsg(event) {
     }
 
 }
+function  setMessengers(data)
+{
+    for(var i=0;i<data.length;i++){
+        if(data[i].currentUser==1)
+        continue;
+    var user = document.createElement('li');
+    user.innerHTML = ''+data[i].fname+' '+data[i].lname+'<br>'+data[i].email;
+    user.id=''+i;
+    user.className+='list-group-item d-flex justify-content-between align-items-center';
 
+    document.getElementById('messenagers').appendChild(user);
+    }
+}
 $(document).ready(function(){
     $.get('/profile',function(data){
-        // const {success,name,email}=data;
-        // if(success){
-        //     console.log(name+" "+email);
-        //     sessionStorage.setItem("name", name);
-        //     sessionStorage.setItem("email",email);   
-        // }
-        console.log('here only');
-        console.log(data);
+        // console.log(data);   
+       setMessengers(data);
     })
 });
