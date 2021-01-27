@@ -1,14 +1,12 @@
-
 const socket = io();
-console.log('here1');
- var cookieArray = document.cookie;
- //console.log(decodeURIComponent(cookieArray));
- 
-//  for(var i=0; i<cookieArray.length; i++) {
-//     //name = cookieArray[i].split('=')[0];
-//     console.log(decodeURIComponent(cookieArray[i]) );
-// }
- socket.emit('user-joined','hello');
+console.log(currentUser.email);
+
+ socket.emit('new-user-joined',currentUser.email);
+ socket.on('set-this-active',email=>{
+  //   console.log('UptoHere3');
+//console.log(idOfOnlineLogo[email]);
+document.getElementById('onlineLogo'+idOfOnlineLogo[email]).style.backgroundColor='green';
+ });
 // socket.on('user-list', (users) => {
 //     users.forEach(i => {
 //         $('#user-list').append($('<li>').text(i));
