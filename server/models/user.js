@@ -1,15 +1,6 @@
 const mongoose = require('mongoose')
 const crypto = require('crypto');
 
-
-mongoose.connect(process.env.dbUri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true
-}).then(() => console.log('Connected With Database'));
-
-
 const userSchema = new mongoose.Schema(
     {
         email: {

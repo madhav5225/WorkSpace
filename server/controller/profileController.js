@@ -1,20 +1,13 @@
 const User = require('../models/user');
+const profileController = (req, res) => {
+    //console.log(user_id);
 
-const profileController = async (req, res) => {
-
-    const user_id = req.session.user._id;
-
-    console.log(user_id);
-    await User.findOne({ _id: user_id }).exec((err, user) => {
-        // console.log(user);
-        // console.log(user.email+" "+user.name.last);
-        res.send({
-            success: true,
-            email: user.email,
-            name: user.name.first+' '+user.name.last
-        });
+    res.send({
+        success:true,
+        name:req.session.user.name.first+' '+req.session.user.name.last,
+        email:req.session.user.email
     })
-
+         
 }
 
 module.exports = profileController;
