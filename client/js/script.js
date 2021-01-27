@@ -15,14 +15,22 @@ function sendMsg(event) {
     }
 
 }
-
-$(document).ready(function(){
-    $.get('/profile',function(data){
-        const {success,name,email}=data;
-        if(success){
-            console.log(name+" "+email);
+function getprofile() {
+    $.get('/profile', function (data) {
+        const { success, name, email } = data;
+        if (success) {
+            console.log(name + " " + email);
             $('#profile_name').text(name);
             $('#profile_email').text(email);
         }
-    })
+    });
+}
+
+function getUserList(){
+    $.get('/usersList');
+}
+
+$(document).ready(function () {
+    getprofile();
+    getUserList();
 });
