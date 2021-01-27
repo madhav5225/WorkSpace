@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const connectDb = require('./db');
 var cookieParser = require("cookie-parser");
 var session = require("express-session");
 require('dotenv').config({
@@ -7,6 +8,9 @@ require('dotenv').config({
 })
 
 const app = express();
+
+connectDb();
+
 //Middlewares
 app.use(express.static(__dirname+ '/client'));
 //app.use(bodyParser());

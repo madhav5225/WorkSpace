@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const crypto = require('crypto');
 
 const messageSchema = new mongoose.Schema(
     {
@@ -25,4 +24,4 @@ const messageSchema = new mongoose.Schema(
     }
 );
 
-module.exports = mongoose.model('messages', userSchema);
+module.exports = mongoose.model('messages', messageSchema);
