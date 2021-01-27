@@ -27,12 +27,8 @@ const registerController = async (req, res) => {
                         console.log('Save error ' + err.message);
                         return res.send('Error connecting Database');
                     } else {
-
-                        res.cookie('user_id', user._id, { signed:true,
-                            httpOnly: true, maxAge: 24 * 60 * 60*1000 });
-                        // req.session.user_id = user._id;
+                        req.session.user = user;
                         res.send({ msg: "success" });
-
                     }
                 });
             }

@@ -2,7 +2,7 @@ const User = require('../models/user');
 
 const profileController = async (req, res) => {
 
-    const user_id = req.signedCookies['user_id'];
+    const user_id = req.session.user._id;
 
     console.log(user_id);
     await User.findOne({ _id: user_id }).exec((err, user) => {
