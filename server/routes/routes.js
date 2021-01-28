@@ -22,6 +22,9 @@ router.get('/profile',check_login,require('../controller/profileController'));
 
 // get user list
 router.get('/usersList',check_login,require('../controller/userListController'));
+
+router.post('/sendMsg',require('../controller/messageController'));
+
 // logout
 router.get('/logout', (req, res) => {
     req.session.destroy();
