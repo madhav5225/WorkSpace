@@ -7,6 +7,11 @@ console.log(currentUser.email);
 //console.log(idOfOnlineLogo[email]);
 document.getElementById('onlineLogo'+idOfOnlineLogo[email]).style.backgroundColor='green';
  });
+ socket.on('set-this-inactive',email=>{
+  //   console.log('UptoHere3');
+//console.log(idOfOnlineLogo[email]);
+document.getElementById('onlineLogo'+idOfOnlineLogo[email]).style.backgroundColor='red';
+ });
 // socket.on('user-list', (users) => {
 //     users.forEach(i => {
 //         $('#user-list').append($('<li>').text(i));

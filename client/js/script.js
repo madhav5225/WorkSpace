@@ -58,7 +58,8 @@ function setMessengers(data) {
         OnlineLogo.style.height='15px';
         OnlineLogo.style.width='15px';
         OnlineLogo.style.borderRadius='50%';
-        
+        if(data[i].isOnline==1)
+        OnlineLogo.style.backgroundColor='green';
         idOfOnlineLogo[data[i].email]=i;
         $('#messengers').append(user);
         user.append(OnlineLogo);
