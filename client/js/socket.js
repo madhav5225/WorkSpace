@@ -1,16 +1,11 @@
 const socket = io();
-console.log(currentUser.email);
 
  socket.emit('new-user-joined',currentUser.email);
  socket.on('set-this-active',email=>{
-  //   console.log('UptoHere3');
-//console.log(idOfOnlineLogo[email]);
-document.getElementById('onlineLogo'+idOfOnlineLogo[email]).style.backgroundColor='green';
+document.getElementById('onlineLogo'+emailToUSerId[email]).style.backgroundColor='green';
  });
  socket.on('set-this-inactive',email=>{
-  //   console.log('UptoHere3');
-//console.log(idOfOnlineLogo[email]);
-document.getElementById('onlineLogo'+idOfOnlineLogo[email]).style.backgroundColor='red';
+document.getElementById('onlineLogo'+emailToUSerId[email]).style.backgroundColor='red';
  });
 // socket.on('user-list', (users) => {
 //     users.forEach(i => {
