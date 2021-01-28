@@ -9,10 +9,11 @@ function sendMsg(event) {
             $('#chat_ul').show();
             $('#before_conversation').hide();
         }
-        $('#chat_ul').append($('<li class="left  message-box">').text(msg));
-
-        $('#msg_text').val('');
+        let $last = ($('<li class="left  message-box">').text(msg)).appendTo('#chat_ul');
+        $('#chat_ul').animate({scrollTop: $last.offset().top}, 500);        
     }
+
+    $('#msg_text').val('').focus();
 
 }
 function setprofile() {
@@ -47,6 +48,7 @@ function setMessengers(data) {
 }
 
 $(document).ready(function () {
+    $('#msg_text').focus();
     setprofile();
     getUserList();
 });

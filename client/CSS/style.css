@@ -1,32 +1,197 @@
-
-.primary-background{
-    background-color: #b3d8ec;
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
 }
-.nav-background{
-    background-color: #293942;
-}
-
-
-.message-box{
-    
-    font-size: medium;
-    background-color: #b3d8ec;
-    padding: 1rem;
-    border-radius: 10px;
-    padding-bottom: 2rem;
-    max-width: 20rem;
-    margin-top: 1rem;
+.navbar{  
+    font-family: 'Poppins', sans-serif;
 }
 
-.left
-{
+.card-body{
+    height: 25rem;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.left {
     float: left;
     clear: both;
     border-top-left-radius: 0px;
 }
-.right
-{
+
+.right {
     float: right;
     clear: both;
     border-top-right-radius: 0px;
 }
+
+.form-box {
+    width: 500px;
+    padding: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    transition: 0.25s;
+    margin-top: 70px
+}
+
+.form-box input[type="text"],
+.form-box input[type="password"] {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #ffffff;
+    padding: 10px 10px;
+    width: 250px;
+    outline: none;
+    color: white;
+    border-radius: 10px;
+    transition: 0.25s
+}
+
+.form-box h1 {
+    color: white;
+    text-transform: uppercase;
+    font-weight: 500
+}
+
+.form-box input[type="text"]:focus,
+.form-box input[type="password"]:focus {
+    width: 300px;
+    border-color: #2ecc71
+}
+
+.form-box button[type="submit"] {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #2ecc71;
+    padding: 14px 40px;
+    outline: none;
+    width: 250px;
+    color: white;
+    border-radius: 10px;
+    transition: 0.25s;
+    cursor: pointer
+}
+
+.form-box button[type="submit"]:hover {
+    background: #2ecc71
+}
+
+.forgot {
+    text-decoration: underline
+}
+
+
+/* ---- particles.js container ---- */
+
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #0b0b0c;
+    background-image: url("");
+    background-repeat: no-repeat;
+    background-size: 20%;
+    background-position: 50% 50%;
+}
+
+
+/* ---- stats.js ---- */
+
+.count-particles {
+    background: #000022;
+    position: absolute;
+    top: 48px;
+    left: 0;
+    width: 80px;
+    color: #13e8e9;
+    font-size: 0.8em;
+    text-align: left;
+    text-indent: 4px;
+    line-height: 14px;
+    padding-bottom: 2px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+}
+
+.js-count-particles {
+    font-size: 1.1em;
+}
+
+
+
+/* social login  */
+
+/* 
+ul.social-network {
+    list-style: none;
+    display: inline;
+    margin-left: 0 !important;
+    padding: 0
+}
+
+ul.social-network li {
+    display: inline;
+    margin: 0 5px
+}
+
+.social-network a.icoFacebook:hover {
+    background-color: #3B5998
+}
+
+.social-network a.icoTwitter:hover {
+    background-color: #33ccff
+}
+
+.social-network a.icoGoogle:hover {
+    background-color: #BD3518
+}
+
+.social-network a.icoFacebook:hover i,
+.social-network a.icoTwitter:hover i,
+.social-network a.icoGoogle:hover i {
+    color: #fff
+}
+
+a.socialIcon:hover,
+.socialHoverClass {
+    color: #44BCDD
+}
+
+.social-circle li a {
+    display: inline-block;
+    position: relative;
+    margin: 0 auto 0 auto;
+    border-radius: 50%;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    font-size: 20px
+}
+
+.social-circle li i {
+    margin: 0;
+    line-height: 50px;
+    text-align: center
+}
+
+.social-circle li a:hover i,
+.triggeredHover {
+    transform: rotate(360deg);
+    transition: all 0.2s
+}
+
+.social-circle i {
+    color: #fff;
+    transition: all 0.8s;
+    transition: all 0.8s
+} */

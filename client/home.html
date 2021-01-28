@@ -5,16 +5,19 @@
     <title>ChatApp</title>
     <!--css-->
     <link rel="stylesheet" href="CSS/style.css" type="text/css">
+    <link rel="icon" href="resources/sent-mail.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href='https://use.fontawesome.com/releases/v5.8.1/css/all.css'>
 
 
 </head>
 
-<body class="primary-background">
+<body>
+    <div id="particles-js"></div>
 
-    <nav class="navbar navbar-expand-lg navbar-dark nav-background">
+    <nav class="navbar navbar-expand-lg navbar-dark">
 
         <a class="navbar-brand " href="#"> <span class="fa fa-paper-plane-o"></span> ChatApp</a>
         <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -42,94 +45,68 @@
         </div>
     </nav>
 
-    <main class="d-flex align-items-center primary-background" style="height: 80vh">
+    <main class="d-flex align-items-center">
 
         <div class="container">
-
             <div class="row">
-                <div class="col-md-4 offset-md-4">
-                    <div class="card" id="login_card">
-                        <div class="card-header text-white " style="background: #20292e">
-                            <p>Login to ChatApp</p>
-                        </div>
-                        <div class="card-body">
-                            <form onsubmit="loginRequest(event.preventDefault())">
-                                <div class="form-group">
-                                    <label for="email">Email address</label>
-                                    <input type="email" class="form-control" id="email_login"
-                                        aria-describedby="email_field" placeholder="Enter email">
-                                </div>
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input type="password" class="form-control" id="password_login"
-                                        placeholder="Password">
-                                </div>
-                                <input type="checkbox" id="rem_login" value="true"> Remember Me
-                                <div >
-                                    <button type="submit" class="btn text-white float-right"
-                                        style="background: #20292e">Submit</button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="card-footer ">
-                            <div class="d-flex justify-content-center">
-                                new to ChatApp? <a href="javascript:;" onclick="registerToggle()"> register here</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card" style="display: none;" id="register_card">
-                        <div class="card-header text-white " style="background: #20292e">
-                            <p>Register to ChatApp</p>
-                        </div>
-                        <div class="card-body">
-                            <form onsubmit="registerRequest(event.preventDefault())">
-                                <div class="form-group">
-                                    <label for="name">Name</label>
-                                    <input type="text" class="form-control" id="name_reg"
-                                        aria-describedby="name_field" placeholder="Enter name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">Email address</label>
-                                    <input type="email" class="form-control" id="email_reg"
-                                        aria-describedby="emailHelp" placeholder="Enter email">
-                                </div>
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input type="password" class="form-control" id="password_reg"
-                                        placeholder="Password">
-                                </div>
-                                <div> <button type="submit" class="btn text-white float-right"
-                                        style="background: #20292e">Submit</button>
-                                </div>
-
-                            </form>
-                        </div>
-                        <div class="card-footer ">
-                            <div class="d-flex justify-content-center">
-                                Already a member?<a href="javascript:;" onclick="loginToggle()"> login here</a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-md-6" id="login_card">
+                    <form class="form-box" onsubmit="loginRequest(event.preventDefault())">
+                        <h1>Login</h1>
+                        <p class="text-muted"> Please enter your login and password!</p>
+                        <input type="text" name="email" id="email_login" placeholder="Email">
+                        <input type="password" id="password_login" name="password" placeholder="Password">
+                        <a class="forgot text-muted" href="#">Forgot password?</a>
+                        <button type="submit">Login</button>
+                        <p class="text-muted">or</p>
+                        <p class="text-white">new to chatApp? <a class="forgot text-muted" href="#" onclick="registerToggle(event.preventDefault())">Register</a></p>
+                        <!-- social login -->
+                        <!-- <div class="col-md-12">
+                                <ul class="social-network social-circle">
+                                    <li><a href="#" class="icoFacebook" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#" class="icoTwitter" title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#" class="icoGoogle" title="Google +"><i class="fab fa-google-plus"></i></a></li>
+                                </ul>
+                            </div> -->
+                    </form>
+                </div>
+                <div class="col-md-6" id="register_card" style="display: none;">
+                    <form class="form-box" onsubmit="registerRequest(event.preventDefault())">
+                        <h1>Register</h1>
+                        <p class="text-muted"> Please enter your details!</p>
+                        <input type="text"  id="name_reg" name="name" placeholder="Name">
+                        <input type="text" id="email_reg" name="email" placeholder="Email">
+                        <input type="password" id="password_reg" name="password" placeholder="Password">
+                        <a class="forgot text-muted" href="#">terms and conditions</a>
+                        <button type="submit">Register</button>
+                        <p class="text-muted">or</p>
+                        <p class="text-white">Already a user! <a class="forgot text-muted" href="#" onclick="loginToggle(event.preventDefault())">Login</a></p>
+                        <!-- social login -->
+                        <!-- <div class="col-md-12">
+                                <ul class="social-network social-circle">
+                                    <li><a href="#" class="icoFacebook" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#" class="icoTwitter" title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#" class="icoGoogle" title="Google +"><i class="fab fa-google-plus"></i></a></li>
+                                </ul>
+                            </div> -->
+                    </form>
                 </div>
             </div>
-
         </div>
 
     </main>
 
     <!--script-->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <script src="./js/particles.js"></script>
     <script src="./js/cookie.js"></script>
     <script src="./js/login.js"></script>
     <script src="./js/register.js"></script>
     <script>
-
         function registerToggle() {
             $('#register_card').show();
             $('#login_card').hide();
