@@ -1,8 +1,9 @@
 const User = require("../models/user");
+isOnline=require('./../userInfo');
 
 const userListController = async (req,res)=>{
-
-    const current_user_id = req.session.user._id;
+   console.log(isOnline);
+     const current_user_id = req.session.user._id;
     await User.find({ }).then(cursor=>{
         // console.log(cursor);
          const users=[];
@@ -15,7 +16,8 @@ const userListController = async (req,res)=>{
               obj={currentUser:true,
                  fname:user.name.first,
                  lname:user.name.last,
-                 email:user.email
+                 email:user.email,
+                 isOnline:isOnline[user.email]
                   };
             }
             else
@@ -23,7 +25,8 @@ const userListController = async (req,res)=>{
              obj={currentUser:false,
                  fname:user.name.first,
                  lname:user.name.last,
-                 email:user.email
+                 email:user.email,
+                 isOnline:isOnline[user.email]
                   };
            }
              users.push(obj);

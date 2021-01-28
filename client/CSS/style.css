@@ -13,6 +13,16 @@ body {
     overflow: hidden;
     overflow-y: auto;
 }
+.message-box{
+    
+    font-size: medium;
+    background-color: #b3d8ec;
+    padding: 1rem;
+    border-radius: 10px;
+    padding-bottom: 2rem;
+    max-width: 20rem;
+    margin-top: 1rem;
+}
 
 .left {
     float: left;

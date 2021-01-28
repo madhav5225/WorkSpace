@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const connectDb = require('./db');
 var cookieParser = require("cookie-parser");
-var session = require("express-session");
+
 require('dotenv').config({
     path: './config.env'
 })
@@ -20,20 +20,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser('secret'));
 
 // initialize express-session to allow us track the logged-in user across sessions.
-app.use(
-    session({
-      key: process.env.session_key,
-      secret: process.env.session_secret,
-      resave: false,
-      saveUninitialized: false,
-      cookie: {
-        expires: 24*60*60*1000,
-      },
-    })
-  );
 
-const server = require('./socketing.js')(app);
+require('./session')(app);
+
+const server = require('./server/sockets/socketing.js')(app);
 const route = require('./server/routes/routes.js');
+
 app.use(route);
 server.listen(process.env.PORT,()=>{
     console.log("listening to port: "+process.env.PORT);
