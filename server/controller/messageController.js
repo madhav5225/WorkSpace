@@ -8,19 +8,22 @@ const {conversation_id ,msgId, msg, msg_type,isSeen, sender_id, receiver_id,user
     msg:msg,
     msgType:msg_type,
     isSeen:isSeen,
-    sender:sender_id,
-    receiver:receiver_id
+    sender_id:sender_id,
+    receiver_id:receiver_id
 };
     var consversation;
     consversation = new getConversationModel(conversation_id,userEmail)(consversationObj);
     consversation.save((err,result)=>{
         if(err){
             console.log(err);
+            res.send('msg-Not-send');
         }
         else{
             console.log(result);
+            res.send('msg-send');
         }
     })
+    
 }
 
 module.exports = messageController;

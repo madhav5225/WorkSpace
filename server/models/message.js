@@ -19,8 +19,8 @@ const messageSchema = new mongoose.Schema(
             type: Number,
             required: true
         },
-        sender: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
-        receiver: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
+        sender_id: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
+        receiver_id: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
         sendAt: { type: Date ,default:Date.now, index:true ,require:true },
         receivedAt: { type: Date }
     },

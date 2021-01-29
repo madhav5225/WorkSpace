@@ -20,8 +20,8 @@ const messageListController = async (req, res) => {
                 msg:message.msg,
                 msgType:message.msg_type,
                 isSeen:message.isSeen,
-                sender:message.sender,
-                receiver:message.receiver,
+                sender_id:message.sender_id,
+                receiver_id:message.receiver_id,
                 sendAt:message.sendAt,
                 recievedAt:message.recievedAt,
             };
