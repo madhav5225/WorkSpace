@@ -19,6 +19,8 @@ router.get('/dashboard',check_login, require('../controller/dashBoardController'
 
 // get profile details
 router.get('/profile',check_login,require('../controller/profileController'));
+// get All msg of particular conversation
+router.get('/msgList',check_login,require('../controller/messageListController'));
 
 // get user list
 router.get('/usersList',check_login,require('../controller/userListController'));
