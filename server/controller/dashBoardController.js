@@ -1,6 +1,6 @@
 
-const dashBoardController =  (req, res) => {
-    
+const dashBoardController = (req, res) => {
+
     res.sendFile('/dashboard.html', { root: 'client' });
 
 }
