@@ -31,8 +31,8 @@ function sendMsg(event) {
             $('#chat_ul').show();
             $('#before_conversation').hide();
         }
-        ($('<li class="right  message-box" id="msg'+msgId+'">')
-        .text(msg)).appendTo('#chat_ul').append('<i class="material-icons" id="msgIcon'+msgId+'">autorenew</i>');;
+        ($('<li class="right  message-box" id="msg' + msgId + '">')
+            .text(msg)).appendTo('#chat_ul').append('<i class="material-icons" id="msgIcon' + msgId + '">autorenew</i>');;
         $.post('/sendMsg',
             {
                 conversation_id: conversation_id,
@@ -43,16 +43,16 @@ function sendMsg(event) {
                 sender_id: currentUser._id,
                 receiver_id: friendUser.id,
                 userEmail: friendUser.email
-            },function(data){
+            }, function (data) {
                 console.log(data);
-                $('#msgIcon'+msgId).text('done');
+                $('#msgIcon' + msgId).text('done');
                 var dt = new Date();
-var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+                var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
                 var obj = {
                     msgId: msgId,
                     msg: msg,
                     msgType: 'txt',
-                    isSeen:0,
+                    isSeen: 0,
                     sender_id: currentUser._id,
                     receiver_id: friendUser.id,
                     sendAt: time,
@@ -61,7 +61,7 @@ var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
                 messageList[conversation_id] = messageList[conversation_id] || [];
                 messageList[conversation_id].push(obj);
             })
-            //$('msg'+msgId).text('done');
+        //$('msg'+msgId).text('done');
         //  $('#chat_ul').animate({scrollTop: $last.offset().top}, 500);        
     }
 
@@ -129,19 +129,19 @@ function setChat(x) {
             };
             console.log(obj.sender_id);
             console.log(currentUser._id);
-            
+
             if (obj.sender_id == currentUser._id) {
                 if (obj.isSeen == 0)
                     ($('<li class="right  message-box" id=msg' + obj.msgId + '>').
                         text(obj.msg)).appendTo('#chat_ul').
-                        append('<i class="material-icons" id="msgIcon'+obj.msgId+'">done_all</i>');
+                        append('<i class="material-icons" id="msgIcon' + obj.msgId + '">done_all</i>');
                 else
                     ($('<li class="right  message-box" id=msg' + obj.msgId + '>').
                         text(obj.msg)).appendTo('#chat_ul').
-                        append('<i class="material-icons"style="color:red id="msgIcon'+obj.msgId+'">">done_all</i>');
-                        
-                       // $('#msg'+obj.msgId).append('<i class="material-icons">done_all</i>');
-                    }
+                        append('<i class="material-icons"style="color:red id="msgIcon' + obj.msgId + '">">done_all</i>');
+
+                // $('#msg'+obj.msgId).append('<i class="material-icons">done_all</i>');
+            }
             else
                 ($('<li class="right  message-box" id=msg' + obj.msgId + '>').text(obj.msg)).appendTo('#chat_ul');
             $('#initialMsg').text('');

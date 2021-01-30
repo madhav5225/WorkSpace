@@ -1,12 +1,12 @@
 const socket = io();
 
- socket.emit('new-user-joined',currentUser.email);
- socket.on('set-this-active',email=>{
-document.getElementById('onlineLogo'+emailToUSerId[email]).style.backgroundColor='green';
- });
- socket.on('set-this-inactive',email=>{
-document.getElementById('onlineLogo'+emailToUSerId[email]).style.backgroundColor='red';
- });
+socket.emit('new-user-joined', currentUser.email);
+socket.on('set-this-active', email => {
+    document.getElementById('onlineLogo' + emailToUSerId[email]).style.backgroundColor = 'green';
+});
+socket.on('set-this-inactive', email => {
+    document.getElementById('onlineLogo' + emailToUSerId[email]).style.backgroundColor = 'red';
+});
 // socket.on('user-list', (users) => {
 //     users.forEach(i => {
 //         $('#user-list').append($('<li>').text(i));
