@@ -1,14 +1,18 @@
 //isOnline = require('./../userInfo');
+const {getConversationModel,getConversationModelUndelivered }= require('../models/conversation');
 
 const messageListController = async (req, res) => {
 
     var conversation_id = req.query.conversation_id;
-    console.log(conversation_id);
-
-    console.log('req.body.conversationId');
-
-    //res.send('aagya');
-    const Message = require("../models/conversation.js")(conversation_id,"invalidEmail");
+    var delivered = req.query.delivered;
+    
+    console.log('messages of  Cid '+conversation_id+' is sent back to user');
+    var Message;
+    if(delivered==='delivered')
+    Message = getConversationModel(conversation_id);
+    else
+    Message = getConversationModelUndelivered(conversation_id);
+    
     await Message.find({}).then(cursor => {
         // console.log(cursor);
         var messages = [];
@@ -26,7 +30,7 @@ const messageListController = async (req, res) => {
                 recievedAt:message.recievedAt,
             };
 
-            console.log(obj);
+           // console.log(obj);
             messages.push(obj);
         });
         res.send(messages);

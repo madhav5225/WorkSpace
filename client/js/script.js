@@ -1,7 +1,6 @@
 var currentUser;
 var friendUser;
 var userList;
-var idOfOnlineLogo = [];
 var messageList = {};
 var unDeliveredList = {};
 var deliveredButNotSeen = {};
@@ -72,7 +71,9 @@ function setMessengers(data) {
         emailToUSerId[data[i].email] = i;
         $('#messengers').append(user);
         user.append(OnlineLogo);
-
+        ($('<ul class="chat_ul chat_conatiner w-100"'+
+        'style="list-style-type: none;" id="chat_ul' +i + '"></ul>'))
+       .appendTo('#messageDiv')
     }
 }
 
