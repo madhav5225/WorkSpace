@@ -10,5 +10,6 @@ const setSession=(app)=>{app.use(
       },
     })
   );
+  console.log('Session is set');
 }
 module.exports=setSession;

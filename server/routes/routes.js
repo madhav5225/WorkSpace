@@ -5,6 +5,7 @@ const User = require('../models/user');
 const router = express.Router();
 
 router.get('/',check_not_login,(req, res) => {
+  console.log('request to / is made');
     res.sendFile('/home.html', { root: 'client' });
 })
 

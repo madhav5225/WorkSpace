@@ -9,14 +9,14 @@ const server = (app) => {
         socket.on('new-user-joined', userEmail => {
             isOnline[userEmail]=1;
             socketToEmail[socket.id]=userEmail;
-            console.log('New User joined socket was sent');
+            console.log('New User: '+userEmail+' joined socket was sent from server');
             socket.broadcast.emit('set-this-active',userEmail);
         });
         socket.on('disconnect', () => {
             email=socketToEmail[socket.id];
             delete socketToEmail[socket.id];
             delete isOnline[email];
-            console.log(' User left socket was sent');
+            console.log(' User: '+email+' left socket was sent from server');
             socket.broadcast.emit('set-this-inactive',email);
         });
     });
