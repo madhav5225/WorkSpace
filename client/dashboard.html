@@ -69,18 +69,11 @@
                 <div class="col col-md-4 ">
                     <div class="card d-flex">
                         <div class="card-header">
-                            Messenagers
+                            Chat List
                             <span class="fa fa-plus-square-o float-right"></span>
-
                         </div>
-                        <!-- sample li  -->
-                        <!-- <li class="list-group-item d-flex justify-content-between align-items-center ">
-                                Cras justo odio
-                                <span class="badge badge-primary badge-pill">14</span>
-                            </li> -->
-
                         <div class="card-body">
-                            <ul class="list-group" id="messengers">
+                            <ul class="list-group userList">
 
                             </ul>
                         </div>
@@ -92,21 +85,17 @@
                     <div class="container">
                         <div class="card d-flex" id="chatBox">
                             <div class="card-header">
-                                <div class="card-title" id='chatName'>
+                                <div class="card-title" id='chat-title'>
 
                                 </div>
 
                             </div>
-                            <div class="card-body w-100">
-                                <ul id="chat_ul" class="chat_conatiner w-100" style="list-style-type: none;">
-                                    <!-- <li class="message-box right">Hello world</li> -->
-                                </ul>
-                                <div id="before_conversation">
-                                    <p id='initialMsg'> Start a Conversation with Hi!!! And Let your vibes do the rest
-                                        :p</p>
-
-                                </div>
+                            <div id="messageHolder" class="card-body w-100">
                             </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p id='initialMsg'> Start a Conversation with Hi!!! And Let your vibes do the rest :p</p>
+                            </div>
+
                             <div class="card-footer">
                                 <form class="form" onsubmit="sendMsg(event)">
 

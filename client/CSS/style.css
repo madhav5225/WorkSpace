@@ -24,6 +24,29 @@ body {
     margin-top: 1rem;
 }
 
+.user-list-item{
+    cursor: pointer;
+    background: #ffffff;
+}
+.user-list-item:hover{
+    background: #0b0b0c1e;
+}
+.user-list-item .active{
+    background: #0b0b0c1e;
+}
+
+
+.onlineIcon{
+    background: red;
+    border-radius: 10rem;
+    height: 5px;
+    width: 5px;
+}
+.active{
+    background: rgb(0, 0, 0);
+}
+
+
 .left {
     float: left;
     clear: both;
