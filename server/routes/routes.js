@@ -1,7 +1,7 @@
 const express = require('express');
 const { read } = require('fs');
 const {check_login,check_not_login} = require('../controller/check_login');
-const User = require('../models/user');
+const User = require('../models/userModel');
 const router = express.Router();
 
 router.get('/',check_not_login,(req, res) => {

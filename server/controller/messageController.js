@@ -1,4 +1,4 @@
-const {getConversationModel,getConversationModelUndelivered }= require('../models/conversation');
+const {getConversationModel,getConversationModelUndelivered }= require('../models/roomModel');
 const isOnline = require('../userInfo');
 
 const messageController = (req,res)=>{

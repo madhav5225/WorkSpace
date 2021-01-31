@@ -1,4 +1,4 @@
-const User = require("../models/user");
+const User = require("../models/userModel");
 
 exports.check_login = (req,res,next)=>{
     if(req.session.user){

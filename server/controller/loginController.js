@@ -1,4 +1,4 @@
-var User = require("../models/user.js");
+var User = require("../models/userModel.js");
 
 const loginController = async (req, res) => {
     try {

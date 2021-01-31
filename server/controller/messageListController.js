@@ -1,5 +1,5 @@
 //isOnline = require('./../userInfo');
-const {getConversationModel,getConversationModelUndelivered }= require('../models/conversation');
+const {getConversationModel,getConversationModelUndelivered }= require('../models/roomModel');
 
 const messageListController = async (req, res) => {
 
