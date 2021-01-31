@@ -1,51 +1,37 @@
-var User = require("../models/user.js");
-
-const jwt = require('jsonwebtoken');
-
 const express = require('express');
+const { read } = require('fs');
+const {check_login,check_not_login} = require('../controller/check_login');
+const User = require('../models/user');
 const router = express.Router();
 
+router.get('/',check_not_login,(req, res) => {
+  console.log('request to / is made');
+    res.sendFile('/home.html', { root: 'client' });
+})
 
 // login route
-router.post('/login', (req, res) => {
-    const { email, password } = req.body;
+router.post('/login', require('../controller/loginController'));
 
-    User.findOne({ email }).exec((err, user) => {
+// register route
+router.post('/register', require('../controller/registerController'));
 
-        // check if a user exists or not
-        if (err || !user) {
-            console.log("error " + err);
-            return res.status(404).send({ msg: 'No user found!' });
-        }
+// dashBoard route
+router.get('/dashboard',check_login, require('../controller/dashBoardController'));
 
-        //authenticating user
-        if (!user.authenticate(password)) {
-            console.log(password);
-            return res.status(401).send({ msg: "Invalid Password" });
-        }
+// get profile details
+router.get('/profile',check_login,require('../controller/profileController'));
+// get All msg of particular conversation
+router.get('/msgList',check_login,require('../controller/messageListController'));
 
-        //generating webtoken
-        const token = jwt.sign(
-            {
-                _id: user._id
-            },
-            process.env.JWT_SECRET,
-            {
-                expiresIn: '7d'
-            }
-        );
+// get user list
+router.get('/usersList',check_login,require('../controller/userListController'));
 
-        // set cookies in response header
-        res.cookies('user_id', user._id, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 });
-        res.cookies('token', token, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 });
+router.post('/sendMsg',require('../controller/messageController'));
 
-        res.send({ msg: "success" });
-    })
-});
-
-router.get('/dashboard', (req, res) => {
-
-});
-
+// logout
+router.get('/logout', (req, res) => {
+    req.session.destroy();
+    res.redirect('/');
+})
 
 module.exports = router;
