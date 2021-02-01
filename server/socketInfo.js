@@ -1,2 +1,2 @@
-var socketToEmail=[];
-module.exports=socketToEmail; 
+var socketToEmail = [];
+module.exports = socketToEmail; 

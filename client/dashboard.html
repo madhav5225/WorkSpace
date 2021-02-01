@@ -8,15 +8,14 @@
     <link rel="icon" href="resources/sent-mail.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"      
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 
 <body>
 
     <!-- particles -->
     <div id="particles-js"></div>
-    
+
 
     <nav class="navbar sticky-top navbar-expand-lg navbar-dark ">
 
@@ -70,18 +69,11 @@
                 <div class="col col-md-4 ">
                     <div class="card d-flex">
                         <div class="card-header">
-                            Messenagers
+                            Chat List
                             <span class="fa fa-plus-square-o float-right"></span>
-                            
                         </div>
-                        <!-- sample li  -->
-                        <!-- <li class="list-group-item d-flex justify-content-between align-items-center ">
-                                Cras justo odio
-                                <span class="badge badge-primary badge-pill">14</span>
-                            </li> -->
-
                         <div class="card-body">
-                            <ul class="list-group" id="messengers">
+                            <ul class="list-group userList">
 
                             </ul>
                         </div>
@@ -93,23 +85,17 @@
                     <div class="container">
                         <div class="card d-flex" id="chatBox">
                             <div class="card-header">
-                                <div class="card-title" id='chatName'>
-                                  
+                                <div class="card-title" id='chat-title'>
+
                                 </div>
 
                             </div>
-                            <div id="messageDiv"class="card-body w-100">
-                                <!--
-                                <ul id="chat_ul" class="chat_conatiner w-100" style="list-style-type: none;">
-                                </ul>
-                                 
-                                 <li class="message-box right">Hello world</li> -->
-                                </div>
-                                <div id="before_conversation">
-                                    <p id='initialMsg'> Start a Conversation with Hi!!! And Let your vibes do the rest :p</p>
-                                    
-                                </div>
-                            
+                            <div id="messageHolder" class="card-body w-100">
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p id='initialMsg'> Start a Conversation with Hi!!! And Let your vibes do the rest :p</p>
+                            </div>
+
                             <div class="card-footer">
                                 <form class="form" onsubmit="sendMsg(event)">
 
@@ -144,10 +130,10 @@
     <script src="./js/cookie.js"></script>
     <script src="./js/chat.js"></script>
     <script src="./js/script.js"></script>
-    
-    
-    
-   
+
+
+
+
 </body>
 
 </html>

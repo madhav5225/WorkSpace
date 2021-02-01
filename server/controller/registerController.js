@@ -1,13 +1,13 @@
-var User = require("../models/userModel.js");
+const { userModel } = require("../models/db_model.js");
 
 const registerController = async (req, res) => {
     try {
 
         const { email, name, password } = req.body;
 
-        console.log(req.body);
+        // console.log(req.body);
 
-        await User.findOne({ email }).exec((err, user) => {
+        await userModel.findOne({ email }).exec((err, user) => {
             if (err) {
                 console.log("error " + err);
                 return res.send({ msg: err });
@@ -16,7 +16,7 @@ const registerController = async (req, res) => {
                 return res.send({ msg: "Already Registered" });
             }
             else {
-                const user = new User({
+                const user = new userModel({
                     email: email,
                     fullname: name,
                     password: password

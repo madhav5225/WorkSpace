@@ -12,7 +12,7 @@ const app = express();
 connectDb();
 
 //Middlewares
-app.use(express.static(__dirname+ '/client'));
+app.use(express.static(__dirname + '/client'));
 //app.use(bodyParser());
 // initialize body-parser to parse incoming parameters requests to req.body
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -27,6 +27,6 @@ const server = require('./server/sockets/socketing.js')(app);
 const route = require('./server/routes/routes.js');
 
 app.use(route);
-server.listen(process.env.PORT,()=>{
-    console.log("listening to port: "+process.env.PORT);
+server.listen(process.env.PORT, () => {
+    console.log("listening to port: " + process.env.PORT);
 })

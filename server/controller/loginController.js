@@ -1,19 +1,16 @@
-var User = require("../models/userModel.js");
+
+const { userModel } = require("../models/db_model");
 
 const loginController = async (req, res) => {
     try {
 
         const { email, password } = req.body;
 
-        console.log(req.body);
-
-        var user = await User.findOne({ email }).exec((err, user) => {
+        await userModel.findOne({ email }).exec((err, user) => {
             if (err || !user) {
-                //console.log("error " + err);
                 return res.send({ msg: 'No user found!' });
             }
             else if (!user.authenticate(password)) {
-                console.log(password);
                 return res.send({ msg: "Invalid Password" });
             }
             else {
@@ -24,7 +21,6 @@ const loginController = async (req, res) => {
         });
     }
     catch (error) {
-        console.log(error);
         res.send({ msg: error });
     }
 }

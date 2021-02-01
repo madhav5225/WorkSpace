@@ -1,15 +1,17 @@
-const User = require('../models/db_model');
-// isOnline = require('./../userInfo');
+const {userModel} = require('../models/db_model');
+const isOnline = require('../userInfo');
 
 const userListController = async (req, res) => {
-    
+
     const current_user_id = req.session.user._id;
-    await User.find({}).then(cursor => {
-        // console.log(cursor);
+    await userModel.find({}).then(cursor => {
+
         const users = [];
+
         cursor.forEach(user => {
+
             var obj = {};
-            //  console.log(user._id+" :: "+current_user_id);
+
             if (user._id == current_user_id) {
                 obj = {
                     currentUser: true,
@@ -17,7 +19,7 @@ const userListController = async (req, res) => {
                     fname: user.name.first,
                     lname: user.name.last,
                     email: user.email,
-                    isOnline: user.state.online
+                    isOnline: isOnline[user._id]
                 };
             }
             else {
@@ -27,11 +29,13 @@ const userListController = async (req, res) => {
                     fname: user.name.first,
                     lname: user.name.last,
                     email: user.email,
-                    isOnline: user.state.online
+                    isOnline: isOnline[user._id]
                 };
             }
+
             users.push(obj);
         });
+
         res.send(users);
     });
 }
