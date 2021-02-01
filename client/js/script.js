@@ -55,14 +55,11 @@ function setChatList(data) {
         else
             active = $('<span class="onlineIcon" id="onlineIcon'+i+'">')
 
-
         userItem.append(name_element);
         userItem.append(email_element);
         userItem.append(active);
 
         $('.userList').append(userItem);
-
-        
         
     }
 }

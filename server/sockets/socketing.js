@@ -28,7 +28,7 @@ const server = (app) => {
                 msg_type,
                 sender_id
             } = msgObj;
-
+             console.log('meesage is sent by '+sender_id +'to room_id '+room_id);
             var msgSch = new messageModel({
                 id,
                 room_id,

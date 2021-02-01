@@ -1,5 +1,7 @@
-var messages;
-var currentRoom;
+var messages;//list of message 
+//object{id ,room_id,sender_id,message_body,message_type,is_seen,is_recieved,created_at}
+// of room on which user clicked last time
+var currentRoom;// room on which user clicked last time
 function sendMsg(event) {
     event.preventDefault();
 
@@ -7,16 +9,21 @@ function sendMsg(event) {
     if (msg != '') {
         const room_id = generateRoomID(currentUser._id, friendUser.id);
 
+           var msgObjId=1;
+           if(typeof messages !=undefined)
+             msgObjID=messages.length + 1;
         const msgObj = {
-            id: messages.length + 1,
+            id: msgObjId,
             room_id,
             msg,
             msg_type: "txt",
             sender_id: currentUser._id
         }
+        var listItem = $('<li class="right  message-box" id="msg' + msgObj.id + '">').text(msgObj.msg);
+        var statusItem = $('<span class="material-icons" id="msgIcon' + msgObj.id + '">autorenew</span>');
+        $('.chat_ul').append(listItem.append(statusItem)); 
         socket.emit('send-msg', msgObj);
-
-    }
+        }
 
     $('#msg_text').val('').focus();
 
@@ -24,19 +31,17 @@ function sendMsg(event) {
 function setMessageInList(msg) {
     $('#initialMsg').hide();
     if (msg.sender_id == currentUser._id) {
-        var listItem = $('<li class="right  message-box" id="msg' + msg.id + '">').text(msg.message_body);
         if (!msg.is_recieved) {
-            var statusItem = $('<span class="material-icons " id="msgIcon' + msg.id + '">done</span>');
+           $('#msgIcon'+msg.id).text('done');
         }
         else {
             if (!msg.is_seen) {
-                var statusItem = $('<span class="material-icons" id="msgIcon' + msg.id + '">done_all</span>');
-            }
+                $('#msgIcon'+msg.id).text('done_all');
+             }
             else {
-                var statusItem = $('<span class="material-icons seen" id="msgIcon' + msg.id + '">done_all</span>');
+                $('#msgIcon'+msg.id).addClass('seen').text('done_all');
             }
         }
-        $('.chat_ul').append(listItem.append(statusItem));
     }
     else {
         var listItem = $('<li class="left  message-box" id="msg' + msg.id + '">').text(msg.message_body);
@@ -62,15 +67,15 @@ function setChat(x) {
         messages = currentRoom.messages;
         if (messages.length !== 0) {
             messages.forEach(msg => {
-                if(msg.sender_id!=currentUser._id){
-                    if(!msg.is_recieved){
+                if (msg.sender_id != currentUser._id) {
+                    if (!msg.is_recieved) {
                         socket.emit('successfully-recieve', msg);
                     }
                     if (!msg.is_seen) {
                         socket.emit('successfully-seen', msg);
                     }
                 }
-                
+
                 setMessageInList(msg);
             });
         }
