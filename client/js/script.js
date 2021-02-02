@@ -5,7 +5,7 @@ var messageList = {};
 var unDeliveredList = {};
 var deliveredButNotSeen = {};
 var user_id = [];
-
+const socket = io();
 function generateRoomID(a, b) {
     const k1 = parseInt(a, 16);
     const k2 = parseInt(b, 16);
@@ -54,13 +54,18 @@ function setChatList(data) {
             active = $('<span class="onlineIcon online" id="onlineIcon'+i+'">')
         else
             active = $('<span class="onlineIcon" id="onlineIcon'+i+'">')
-
         userItem.append(name_element);
         userItem.append(email_element);
         userItem.append(active);
-
         $('.userList').append(userItem);
-        
+        const roomObj={
+            room_id:generateRoomID(user.id,currentUser._id),
+            sender_id:user.id,
+            reciever_id:currentUser._id
+            
+         };
+         socket.emit('successfully-recieve-by-reciever',roomObj);
+
     }
 }
 

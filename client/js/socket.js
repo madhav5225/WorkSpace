@@ -1,4 +1,4 @@
-const socket = io();
+
 
 socket.emit('new-user-joined', currentUser._id);
 
@@ -9,28 +9,33 @@ socket.on('set-this-inactive', userId => {
     $('#onlineIcon' + user_id[userId]).removeClass('online')
 });
 
-socket.on('delivered', msg => {
+socket.on('msg-saved', msg => {
+    console.log('message-saved');
     if (currentRoom.room_id === msg.room_id) {
         setMessageInList(msg);
     }
 })
 
-socket.on('successfully-recieve', msg => {
-    msg.is_recieved = true;
-    socket.emit('successfully-recieve', msg);
-    if (currentRoom.room_id === msg.room_id) {
-        msg.is_seen = true;
-        socket.emit('successfully-seen', msg);
-        setMessageInList(msg);
+socket.on('incomming-msg', msg => {
+    if (typeof currentRoom != 'undefined') {
+        if (currentRoom.room_id === msg.room_id) {
+            msg.is_seen = true;
+            socket.emit('successfully-seen-by-reciever', msg);
+            setMessageInList(msg);
+        }
     }
 });
+socket.on('recieved', room => {
+    console.log('message-recieved');
 
-socket.on('recieved', msg => {
-    if (currentRoom.room_id === msg.room_id) {
-        $('#msgIcon' + msg.id).text("done_all");
+    if (currentRoom.room_id === room.room_id) {
+        messages.forEach(msg => {
+            $('#msgIcon' + msg.id).text("done_all");
+        });
+
     }
 });
-socket.on('seen', msg => {
+socket.on('set-msg-seen', msg => {
     if (currentRoom.room_id === msg.room_id) {
         $('#msgIcon' + msg.id).addClass('seen');
     }

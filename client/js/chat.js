@@ -8,11 +8,12 @@ function sendMsg(event) {
     const msg = $('#msg_text').val();
     if (msg != '') {
         const room_id = generateRoomID(currentUser._id, friendUser.id);
-
+           console.log(messages);
            var msgObjId=1;
-           if(typeof messages !=undefined)
-             msgObjID=messages.length + 1;
-        const msgObj = {
+           if(typeof messages !='undefined' )
+             msgObjId=messages.length + 1;
+             
+             const msgObj = {
             id: msgObjId,
             room_id,
             msg,
@@ -21,7 +22,9 @@ function sendMsg(event) {
         }
         var listItem = $('<li class="right  message-box" id="msg' + msgObj.id + '">').text(msgObj.msg);
         var statusItem = $('<span class="material-icons" id="msgIcon' + msgObj.id + '">autorenew</span>');
-        $('.chat_ul').append(listItem.append(statusItem)); 
+        $('.chat_ul').append(listItem.append(statusItem));
+        messages=messages||[];
+        messages.push(msgObj);
         socket.emit('send-msg', msgObj);
         }
 
@@ -30,6 +33,7 @@ function sendMsg(event) {
 }
 function setMessageInList(msg) {
     $('#initialMsg').hide();
+    console.log(msg);
     if (msg.sender_id == currentUser._id) {
         if (!msg.is_recieved) {
            $('#msgIcon'+msg.id).text('done');
@@ -66,17 +70,13 @@ function setChat(x) {
         currentRoom = room;
         messages = currentRoom.messages;
         if (messages.length !== 0) {
-            messages.forEach(msg => {
-                if (msg.sender_id != currentUser._id) {
-                    if (!msg.is_recieved) {
-                        socket.emit('successfully-recieve', msg);
-                    }
-                    if (!msg.is_seen) {
-                        socket.emit('successfully-seen', msg);
-                    }
-                }
-
-                setMessageInList(msg);
+            messages.forEach(msgObj => {
+                if (msgObj.sender_id == currentUser._id) {
+                var listItem = $('<li class="right  message-box" id="msg' + msgObj.id + '">').text(msgObj.message_body);
+                var statusItem = $('<span class="material-icons" id="msgIcon' + msgObj.id + '"></span>');
+                $('.chat_ul').append(listItem.append(statusItem)); 
+                }         
+                 setMessageInList(msgObj);
             });
         }
 
