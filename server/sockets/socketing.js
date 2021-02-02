@@ -1,11 +1,9 @@
 const { roomModel, messageModel } = require('../models/db_model');
-const messageSchema = require('../models/Schema/messageSchema');
 const isOnline = require('../userInfo');
 
-// isOnline = require('./../userInfo');
-// socketToEmail = require('./../socketInfo');
 const socket_id = [];
 const clients = [];
+
 const server = (app) => {
     const server = require('http').createServer(app);
     const io = require('socket.io')(server);
@@ -13,7 +11,7 @@ const server = (app) => {
 
         console.log('Socket Connection Done!!');
         socket.on('new-user-joined', user_id => {
-            console.log('new User active: ' + user_id);
+            // console.log('new User active: ' + user_id);
             isOnline[user_id] = true;
             socket_id[user_id] = socket.id;
             clients[socket.id] = user_id;
@@ -28,7 +26,7 @@ const server = (app) => {
                 msg_type,
                 sender_id
             } = msgObj;
-            console.log('meesage is sent by ' + sender_id + 'to room_id ' + room_id);
+            // console.log('meesage is sent by ' + sender_id + 'to room_id ' + room_id);
             var msgSch = new messageModel({
                 is_recieved: false,
                 id,
@@ -46,7 +44,7 @@ const server = (app) => {
                             msgSch.is_recieved = true;
                     }
                 });
-                room.messages.push(msgSch);
+                // room.messages.push(msgSch);
                 roomModel.findOneAndUpdate({ room_id },
                     {
                         $push:
@@ -90,12 +88,12 @@ const server = (app) => {
                             messages:messages
                         }
                     }).exec((err,result)=>{
-                        console.log(err);
-                        console.log(result);
+                        // console.log(err);
+                        // console.log(result);
                         
                     });  
             })
-            console.log('sending socket to client that message is seen');
+            // console.log('sending socket to client that message is seen');
             socket.to(socket_id[roomObj.sender_id]).emit('set-msg-seen', roomObj);
         })
         socket.on('successfully-recieve-by-reciever',async roomObj => {
@@ -115,13 +113,17 @@ const server = (app) => {
                             messages:messages
                         }
                     }).exec((err,result)=>{
-                        console.log(err);
-                        console.log(result);
+                        // console.log(err);
+                        // console.log(result);
                         
                     });  
             })
-            console.log('sending socket to client that message is recieved');
+            // console.log('sending socket to client that message is recieved');
             socket.to(socket_id[roomObj.sender_id]).emit('recieved', roomObj);
+        })
+
+        socket.on('typing',data=>{
+            socket.to(socket_id[data.reciever_id]).emit('display-typing',data);
         })
 
         socket.on('disconnect', () => {

@@ -11,6 +11,6 @@ const setSession = (app) => {
       },
     })
   );
-  console.log('Session is set');
+  // console.log('Session is set');
 }
 module.exports = setSession;
