@@ -73,23 +73,40 @@ const server = (app) => {
                     })
             });
         });
-        socket.on('successfully-seen-by-reciever', msgObj => {
-            roomModel.updateOne({ "room_id": msgObj.room_id, "messages.id": msgObj.id }, {
-                $set: {
-                    "messages.$.is_seen": true
-                }
-            });
-            socket.to(socket_id[msgObj.sender_id]).emit('set-msg-seen', msgObj);
+        socket.on('successfully-seen-by-reciever',async roomObj => {
+          //  console.log("reciever: " + roomObj.room_id);
+            var rooms=await roomModel.find({room_id:roomObj.room_id});
+            rooms.forEach(room=>{
+                var messages=room.messages;
+                messages.forEach(message=>{
+                  if(message.sender_id!=roomObj.reciever_id)
+                  message.is_seen=true;
+             //     console.log(message);  
+                })
+                roomModel.findOneAndUpdate({ room_id:roomObj.room_id },
+                    {
+                        $set:
+                        {
+                            messages:messages
+                        }
+                    }).exec((err,result)=>{
+                        console.log(err);
+                        console.log(result);
+                        
+                    });  
+            })
+            console.log('sending socket to client that message is seen');
+            socket.to(socket_id[roomObj.sender_id]).emit('set-msg-seen', roomObj);
         })
         socket.on('successfully-recieve-by-reciever',async roomObj => {
-            console.log("reciever: " + roomObj.room_id);
+           // console.log("reciever: " + roomObj.room_id);
             var rooms=await roomModel.find({room_id:roomObj.room_id});
             rooms.forEach(room=>{
                 var messages=room.messages;
                 messages.forEach(message=>{
                   if(message.sender_id!=roomObj.reciever_id)
                   message.is_recieved=true;
-                  console.log(message);  
+              //    console.log(message);  
                 })
                 roomModel.findOneAndUpdate({ room_id:roomObj.room_id },
                     {

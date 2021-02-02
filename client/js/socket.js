@@ -35,9 +35,14 @@ socket.on('recieved', room => {
 
     }
 });
-socket.on('set-msg-seen', msg => {
-    if (currentRoom.room_id === msg.room_id) {
-        $('#msgIcon' + msg.id).addClass('seen');
+socket.on('set-msg-seen', room => {
+    console.log('message-seen-by-reciever');
+
+    if (currentRoom.room_id === room.room_id) {
+        messages.forEach(msg => {
+            $('#msgIcon' + msg.id).addClass('seen');
+        });
+
     }
 });
 

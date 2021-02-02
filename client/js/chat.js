@@ -65,6 +65,7 @@ function setChat(x) {
     $('#chat-title').text(fullName)
 
     const room_id = generateRoomID(currentUser._id, friendUser.id);
+    //var flag=0;
     $.get('/roomInfo', { room_id, user1: currentUser._id, user2: friendUser.id }, function (room) {
         console.log("room info collected : " + room_id);
         currentRoom = room;
@@ -81,4 +82,11 @@ function setChat(x) {
         }
 
     })
+    const roomObj={
+        room_id:generateRoomID(friendUser.id,currentUser._id),
+        sender_id:friendUser.id,
+        reciever_id:currentUser._id
+        
+     };
+     socket.emit('successfully-seen-by-reciever',roomObj);
 }
