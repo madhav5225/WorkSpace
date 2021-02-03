@@ -42,7 +42,8 @@ function sendMsg(event) {
 }
 function setMessageInList(msg) {
     $('#initialMsg').hide();
-    
+      document.getElementById('messageHolder').scrollTop =document.getElementById('messageHolder').scrollHeight
+  
     if (msg.sender_id == currentUser._id) {
         if (!msg.is_recieved) {
             $('#msgIcon' + msg.id).text('done');
