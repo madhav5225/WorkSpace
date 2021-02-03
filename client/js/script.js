@@ -73,13 +73,12 @@ function setChatList(data) {
     }
 }
 
-$(document).ready(function () {
+$(document).ready(async function () {
     $('#msg_text').focus();
-    var flag=setprofile();
+    var flag=await setprofile();
     while(flag==false)
-    flag=setprofile();
-
-    getUserList();
+    flag=await setprofile();
+    await getUserList();
     let myScript = document.createElement("script");
     myScript.setAttribute("src", "./js/socket.js");
     document.body.appendChild(myScript);
