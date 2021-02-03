@@ -131,7 +131,6 @@ const server = (app) => {
             isOnline[clients[socket.id]] = false;
             delete socket_id[clients[socket.id]];
             delete clients[socket.id];
-
         });
     });
     return server;

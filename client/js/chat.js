@@ -10,7 +10,8 @@ function sendMsg(event) {
     event.preventDefault();
 
     const msg = $('#msg_text').val();
-
+    document.getElementById('messageHolder').scrollTop =document.getElementById('messageHolder').scrollHeight
+   
     if (msg != '') {
         const room_id = generateRoomID(currentUser._id, friendUser.id);
         var msgObjId = 1;
@@ -41,7 +42,7 @@ function sendMsg(event) {
 }
 function setMessageInList(msg) {
     $('#initialMsg').hide();
-
+    
     if (msg.sender_id == currentUser._id) {
         if (!msg.is_recieved) {
             $('#msgIcon' + msg.id).text('done');
@@ -58,6 +59,8 @@ function setMessageInList(msg) {
     else {
         var listItem = $('<li class="left  message-box" id="msg' + msg.id + '">').text(msg.message_body);
         $('.chat_ul').append(listItem);
+        document.getElementById('messageHolder').scrollTop =document.getElementById('messageHolder').scrollHeight
+   
     }
 }
 function setChat(x) {
@@ -65,8 +68,7 @@ function setChat(x) {
     var chatList = $('<ul class="chat_ul chat_conatiner w-100" style="list-style-type: none;""></ul>')
 
     $('#messageHolder').html(chatList);
-
-    friendUser = userList[x];
+     friendUser = userList[x];
 
     var fullName = friendUser.fname + ' ' + friendUser.lname;
 
