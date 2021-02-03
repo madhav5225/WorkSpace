@@ -77,15 +77,17 @@ function setChat(x) {
     $.get('/roomInfo', { room_id, user1: currentUser._id, user2: friendUser.id }, function (room) {
         currentRoom = room;
         messages = currentRoom.messages;
-        if (messages.length !== 0) {
-            messages.forEach(msgObj => {
-                if (msgObj.sender_id == currentUser._id) {
-                    var listItem = $('<li class="right  message-box" id="msg' + msgObj.id + '">').text(msgObj.message_body);
-                    var statusItem = $('<span class="material-icons" id="msgIcon' + msgObj.id + '"></span>');
-                    $('.chat_ul').append(listItem.append(statusItem));
-                }
-                setMessageInList(msgObj);
-            });
+        if (typeof messages != 'undefined') {
+            if (messages.length !== 0) {
+                messages.forEach(msgObj => {
+                    if (msgObj.sender_id == currentUser._id) {
+                        var listItem = $('<li class="right  message-box" id="msg' + msgObj.id + '">').text(msgObj.message_body);
+                        var statusItem = $('<span class="material-icons" id="msgIcon' + msgObj.id + '"></span>');
+                        $('.chat_ul').append(listItem.append(statusItem));
+                    }
+                    setMessageInList(msgObj);
+                });
+            }
         }
     });
 
@@ -98,35 +100,35 @@ function setChat(x) {
     socket.emit('successfully-seen-by-reciever', roomObj);
 }
 
-function setTypingOnChat(is_typing){
-    if(is_typing){
+function setTypingOnChat(is_typing) {
+    if (is_typing) {
         $('#chat-status').text('typing...');
     }
-    else{
+    else {
         $('#chat-status').text('');
     }
 }
 
-function setTypingOnList(sender_id,is_typing){
-    console.log(user_id[sender_id]+" "+is_typing);
+function setTypingOnList(sender_id, is_typing) {
+    console.log(user_id[sender_id] + " " + is_typing);
 }
 
-function typingTimeout(){
-    typing=false;
-    socket.emit('typing',{room_id:currentRoom.room_id,sender_id:currentUser._id,reciever_id:friendUser.id,typing:false});
+function typingTimeout() {
+    typing = false;
+    socket.emit('typing', { room_id: currentRoom.room_id, sender_id: currentUser._id, reciever_id: friendUser.id, typing: false });
 }
 
-$(document).ready(function(){
-    $('#msg_text').keypress((e)=>{
-        if(e.which!=13){
+$(document).ready(function () {
+    $('#msg_text').keypress((e) => {
+        if (e.which != 13) {
             typing = true;
-            if(currentRoom!=undefined){
-                socket.emit('typing',{room_id:currentRoom.room_id,sender_id:currentUser._id,reciever_id:friendUser.id,typing:true});
+            if (currentRoom != undefined) {
+                socket.emit('typing', { room_id: currentRoom.room_id, sender_id: currentUser._id, reciever_id: friendUser.id, typing: true });
                 clearTimeout(timeout);
-                timeout = setTimeout(typingTimeout,1000);
+                timeout = setTimeout(typingTimeout, 1000);
             }
         }
-        else{
+        else {
             typing = false;
             clearTimeout(timeout);
             typingTimeout();
