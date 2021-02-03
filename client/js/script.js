@@ -11,8 +11,8 @@ function generateRoomID(a, b) {
     return y.toString(16);
 }
 
-function setprofile() {
-    $.get('/profile', function (data) {
+async function setprofile() {
+    await $.get('/profile', function (data) {
         const { success, name, email } = data;
         currentUser = {
             _id: data._id,
@@ -23,12 +23,15 @@ function setprofile() {
             console.log(name + " " + email);
             $('#profile_name').text(name);
             $('#profile_email').text(email);
+            return true;
         }
+    }).fail(()=>{
+           return false;
     });
 }
 
-function getUserList() {
-    $.get('/usersList', function (data) {
+async function getUserList() {
+    await $.get('/usersList', function (data) {
         userList = data;
         setChatList(data);
     })
@@ -72,7 +75,10 @@ function setChatList(data) {
 
 $(document).ready(function () {
     $('#msg_text').focus();
-    setprofile();
+    var flag=setprofile();
+    while(flag==false)
+    flag=setprofile();
+
     getUserList();
     let myScript = document.createElement("script");
     myScript.setAttribute("src", "./js/socket.js");
