@@ -10,7 +10,6 @@ function sendMsg(event) {
     event.preventDefault();
 
     const msg = $('#msg_text').val();
-    document.getElementById('messageHolder').scrollTop =document.getElementById('messageHolder').scrollHeight
    
     if (msg != '') {
         const room_id = generateRoomID(currentUser._id, friendUser.id);
@@ -33,6 +32,7 @@ function sendMsg(event) {
 
         messages = messages || [];
         messages.push(msgObj);
+        document.getElementById('messageHolder').scrollTop =document.getElementById('messageHolder').scrollHeight
 
         socket.emit('send-msg', msgObj);
     }

@@ -11,6 +11,7 @@ const roomController = async (req, res) => {
         if (err || !result) {
             const newRoom = new room({ room_id, topic: 'privateChat', users: [user1, user2], messages: [] });
             newRoom.save();
+            return res.send(newRoom);
         }
         res.send(result);
 

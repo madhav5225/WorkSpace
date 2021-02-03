@@ -8,7 +8,7 @@ socket.on('set-this-inactive', userId => {
 });
 
 socket.on('msg-saved', msg => {
-   // console.log('message-saved');
+//    console.log('message-saved');
    if (typeof currentRoom != 'undefined') {
     if (currentRoom.room_id === msg.room_id) {
         setMessageInList(msg);
