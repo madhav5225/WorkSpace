@@ -8,10 +8,12 @@ socket.on('set-this-inactive', userId => {
 });
 
 socket.on('msg-saved', msg => {
-    console.log('message-saved');
+   // console.log('message-saved');
+   if (typeof currentRoom != 'undefined') {
     if (currentRoom.room_id === msg.room_id) {
         setMessageInList(msg);
     }
+}
 })
 socket.on('incomming-msg', msg => {
     if (typeof currentRoom != 'undefined') {
@@ -24,29 +26,33 @@ socket.on('incomming-msg', msg => {
 });
 
 socket.on('display-typing', data => {
+    if (typeof currentRoom != 'undefined') {
     if (currentRoom.room_id == data.room_id) {
         setTypingOnChat(data.typing);
     }
     else {
         setTypingOnList(data.sender_id, data.typing);
     }
+}
 })
 socket.on('recieved', room => {
-
+    if (typeof currentRoom != 'undefined') {
     if (currentRoom.room_id === room.room_id) {
         messages.forEach(msg => {
             $('#msgIcon' + msg.id).text("done_all");
         });
 
     }
+}
 });
 socket.on('set-msg-seen', room => {
     // console.log('message-seen-by-reciever');
-
+    if (typeof currentRoom != 'undefined') {
     if (currentRoom.room_id === room.room_id) {
         messages.forEach(msg => {
             $('#msgIcon' + msg.id).addClass('seen');
         });
 
     }
+}
 });
