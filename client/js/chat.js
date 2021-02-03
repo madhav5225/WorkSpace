@@ -10,7 +10,6 @@ function sendMsg(event) {
     event.preventDefault();
 
     const msg = $('#msg_text').val();
-    document.getElementById('messageHolder').scrollTop =document.getElementById('messageHolder').scrollHeight
    
     if (msg != '') {
         const room_id = generateRoomID(currentUser._id, friendUser.id);
@@ -33,7 +32,8 @@ function sendMsg(event) {
 
         messages = messages || [];
         messages.push(msgObj);
-
+        document.getElementById('messageHolder').scrollTop =document.getElementById('messageHolder').scrollHeight
+   
         socket.emit('send-msg', msgObj);
     }
 
@@ -42,8 +42,7 @@ function sendMsg(event) {
 }
 function setMessageInList(msg) {
     $('#initialMsg').hide();
-      document.getElementById('messageHolder').scrollTop =document.getElementById('messageHolder').scrollHeight
-  
+   
     if (msg.sender_id == currentUser._id) {
         if (!msg.is_recieved) {
             $('#msgIcon' + msg.id).text('done');
@@ -87,6 +86,8 @@ function setChat(x) {
                         var listItem = $('<li class="right  message-box" id="msg' + msgObj.id + '">').text(msgObj.message_body);
                         var statusItem = $('<span class="material-icons" id="msgIcon' + msgObj.id + '"></span>');
                         $('.chat_ul').append(listItem.append(statusItem));
+                        document.getElementById('messageHolder').scrollTop =document.getElementById('messageHolder').scrollHeight
+   
                     }
                     setMessageInList(msgObj);
                 });
