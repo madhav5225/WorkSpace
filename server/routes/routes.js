@@ -3,7 +3,7 @@ const { check_login, check_not_login } = require('../controller/check_login');
 const router = express.Router();
 
 router.get('/', check_not_login, (req, res) => {
-  console.log('request to / is made');
+  // console.log('request to / is made');
   res.sendFile('/home.html', { root: 'client' });
 })
 
@@ -24,8 +24,6 @@ router.get('/roomInfo', check_login, require('../controller/roomController'));
 
 // get user list
 router.get('/usersList', check_login, require('../controller/userListController'));
-
-// router.post('/sendMsg', require('../controller/messageController'));
 
 // logout
 router.get('/logout', (req, res) => {

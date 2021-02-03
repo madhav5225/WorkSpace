@@ -1,5 +1,3 @@
-
-
 socket.emit('new-user-joined', currentUser._id);
 
 socket.on('set-this-active', userId => {
@@ -15,7 +13,6 @@ socket.on('msg-saved', msg => {
         setMessageInList(msg);
     }
 })
-
 socket.on('incomming-msg', msg => {
     if (typeof currentRoom != 'undefined') {
         if (currentRoom.room_id === msg.room_id) {
@@ -25,8 +22,16 @@ socket.on('incomming-msg', msg => {
         }
     }
 });
+
+socket.on('display-typing', data => {
+    if (currentRoom.room_id == data.room_id) {
+        setTypingOnChat(data.typing);
+    }
+    else {
+        setTypingOnList(data.sender_id, data.typing);
+    }
+})
 socket.on('recieved', room => {
-    console.log('message-recieved');
 
     if (currentRoom.room_id === room.room_id) {
         messages.forEach(msg => {
@@ -36,7 +41,7 @@ socket.on('recieved', room => {
     }
 });
 socket.on('set-msg-seen', room => {
-    console.log('message-seen-by-reciever');
+    // console.log('message-seen-by-reciever');
 
     if (currentRoom.room_id === room.room_id) {
         messages.forEach(msg => {
@@ -45,23 +50,3 @@ socket.on('set-msg-seen', room => {
 
     }
 });
-
-
-// socket.on('user-list', (users) => {
-//     users.forEach(i => {
-//         $('#user-list').append($('<li>').text(i));
-//     });
-//     // $('#user-list').append($('<li>').text())
-// })
-// socket.on('msg',({username,msg})=>{
-//     $('#msg-list').append($('<li  class ="left">').text(msg));
-// })
-// // function sendMsg(){
-// //     var msg = document.getElementById('textMsg').value;
-// //     if(msg!=''){
-// //         console.log(msg);
-// //         socket.emit('msg',{username,msg});
-// //         $('#msg-list').append($('<li  class ="right">').text(msg));
-// //         document.getElementById('textMsg').value='';
-// //     }
-// // };

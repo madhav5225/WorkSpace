@@ -9,14 +9,12 @@ function loginRequest() {
     console.log(rem_login);
 
     $.post("/login", { email, password }, function (data) {
-        console.log(data + " :" + status);
         if (data['msg'] === "success") {
             window.location.href = '/dashboard';
         }
         else {
             alert(data['msg']);
         }
-
     }).fail(function (data) {
         console.log("error: " + data);
     });
