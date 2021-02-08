@@ -33,12 +33,7 @@ function sendMsg(event) {
         messages = messages || [];
         messages.push(msgObj);
         document.getElementById('messageHolder').scrollTop =document.getElementById('messageHolder').scrollHeight
-<<<<<<< HEAD
-   
-=======
-
->>>>>>> 555f243fd1358fe82b5aaeee12d8aeb986f8114f
-        socket.emit('send-msg', msgObj);
+           socket.emit('send-msg', msgObj);
     }
 
     $('#msg_text').val('').focus();
