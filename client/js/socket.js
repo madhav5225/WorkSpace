@@ -1,5 +1,9 @@
+try{
 socket.emit('new-user-joined', currentUser._id);
-
+}
+catch(err){
+  alert(err);
+}
 socket.on('set-this-active', userId => {
     $('#onlineIcon' + user_id[userId]).addClass('online')
 });
@@ -8,7 +12,6 @@ socket.on('set-this-inactive', userId => {
 });
 
 socket.on('msg-saved', msg => {
-   //console.log('message-saved');
    if (typeof currentRoom != 'undefined') {
     if (currentRoom.room_id=== msg.room_id) {
         setMessageInList(msg);

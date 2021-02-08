@@ -20,7 +20,7 @@ async function setprofile() {
             email: data.email,
         };
         if (success) {
-            console.log(name + " " + email);
+           // console.log(name + " " + email);
             $('#profile_name').text(name);
             $('#profile_email').text(email);
             return true;
@@ -75,10 +75,17 @@ function setChatList(data) {
 
 $(document).ready(async function () {
     $('#msg_text').focus();
+    try{
     var flag=await setprofile();
     while(flag==false)
     flag=await setprofile();
     await getUserList();
+    
+    }
+    catch(err)
+    {
+        alert(err);
+    }
     let myScript = document.createElement("script");
     myScript.setAttribute("src", "./js/socket.js");
     document.body.appendChild(myScript);

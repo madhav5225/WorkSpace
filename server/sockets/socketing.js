@@ -127,10 +127,16 @@ const server = (app) => {
         })
 
         socket.on('disconnect', () => {
+            try{
             socket.broadcast.emit('set-this-inactive', clients[socket.id]);
             isOnline[clients[socket.id]] = false;
             delete socket_id[clients[socket.id]];
             delete clients[socket.id];
+            }
+            catch(err)
+            {
+                console.log(err);
+            }
         });
     });
     return server;
