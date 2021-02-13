@@ -59,3 +59,8 @@ socket.on('set-msg-seen', room => {
     }
 }
 });
+socket.on('set-unseen-msg-count',obj=>{
+    console.log(user_id[obj.sender_id]);
+    console.log(obj.unSeenMessages);
+    
+})

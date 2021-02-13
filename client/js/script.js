@@ -69,7 +69,7 @@ function setChatList(data) {
             
          };
          socket.emit('successfully-recieve-by-reciever',roomObj);
-
+         
     }
 }
 

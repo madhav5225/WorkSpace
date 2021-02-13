@@ -99,6 +99,8 @@ const server = (app) => {
             socket.to(socket_id[roomObj.sender_id]).emit('set-msg-seen', roomObj);
         })
         socket.on('successfully-recieve-by-reciever', async roomObj => {
+            var unSeenMessages=0;
+
             // console.log("reciever: " + roomObj.room_id);
             var rooms = await roomModel.find({ room_id: roomObj.room_id });
             rooms.forEach(room => {
@@ -121,9 +123,19 @@ const server = (app) => {
                         // console.log(result);
 
                     });
+                     //retrieving the count of unseen messages
+            for (var i = messages.length - 1; i >= 0; i--) {
+                if ((roomObj.reciever_id==messages[i].sender_id)
+                ||(messages[i].sender_id==roomObj.sender_id &&messages[i].is_seen == true)) {
+                    break;
+                }
+                unSeenMessages++;
+            }
             })
+           
             // console.log('sending socket to client that message is recieved');
             socket.to(socket_id[roomObj.sender_id]).emit('recieved', roomObj);
+            socket.emit('set-unseen-msg-count',{sender_id:roomObj.sender_id,unSeenMessages});
         })
 
         socket.on('typing', data => {
