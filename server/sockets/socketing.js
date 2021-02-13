@@ -71,70 +71,71 @@ const server = (app) => {
                     })
             });
         });
-        socket.on('successfully-seen-by-reciever',async roomObj => {
-          //  console.log("reciever: " + roomObj.room_id);
-            var rooms=await roomModel.find({room_id:roomObj.room_id});
-            rooms.forEach(room=>{
-                var messages=room.messages;
-                messages.forEach(message=>{
-                  if(message.sender_id!=roomObj.reciever_id)
-                  message.is_seen=true;
-             //     console.log(message);  
+        socket.on('successfully-seen-by-reciever', async roomObj => {
+            //  console.log("reciever: " + roomObj.room_id);
+            var rooms = await roomModel.find({ room_id: roomObj.room_id });
+            rooms.forEach(room => {
+                var messages = room.messages;
+                messages.forEach(message => {
+                    if (message.sender_id != roomObj.reciever_id)
+                        message.is_seen = true;
+                    //     console.log(message);  
                 })
-                roomModel.findOneAndUpdate({ room_id:roomObj.room_id },
+                roomModel.findOneAndUpdate({ room_id: roomObj.room_id },
                     {
                         $set:
                         {
-                            messages:messages
+                            messages: messages
                         }
-                    }).exec((err,result)=>{
+                    }).exec((err, result) => {
                         // console.log(err);
                         // console.log(result);
-                        
-                    });  
+
+                    });
             })
             // console.log('sending socket to client that message is seen');
             socket.to(socket_id[roomObj.sender_id]).emit('set-msg-seen', roomObj);
         })
-        socket.on('successfully-recieve-by-reciever',async roomObj => {
-           // console.log("reciever: " + roomObj.room_id);
-            var rooms=await roomModel.find({room_id:roomObj.room_id});
-            rooms.forEach(room=>{
-                var messages=room.messages;
-                messages.forEach(message=>{
-                  if(message.sender_id!=roomObj.reciever_id)
-                  message.is_recieved=true;
-              //    console.log(message);  
-                })
-                roomModel.findOneAndUpdate({ room_id:roomObj.room_id },
+        socket.on('successfully-recieve-by-reciever', async roomObj => {
+            // console.log("reciever: " + roomObj.room_id);
+            var rooms = await roomModel.find({ room_id: roomObj.room_id });
+            rooms.forEach(room => {
+                var messages = room.messages;
+                for (var i = messages.length - 1; i >= 0; i--) {
+                    if ((roomObj.reciever_id==messages[i].sender_id)
+                    ||(messages[i].sender_id==roomObj.sender_id &&messages[i].is_recieved == true)) {
+                        break;
+                    }
+                    messages[i].is_recieved = true;
+                }
+                roomModel.findOneAndUpdate({ room_id: roomObj.room_id },
                     {
                         $set:
                         {
-                            messages:messages
+                            messages: messages
                         }
-                    }).exec((err,result)=>{
+                    }).exec((err, result) => {
                         // console.log(err);
                         // console.log(result);
-                        
-                    });  
+
+                    });
             })
             // console.log('sending socket to client that message is recieved');
             socket.to(socket_id[roomObj.sender_id]).emit('recieved', roomObj);
         })
 
-        socket.on('typing',data=>{
-            socket.to(socket_id[data.reciever_id]).emit('display-typing',data);
+        socket.on('typing', data => {
+            socket.to(socket_id[data.reciever_id]).emit('display-typing', data);
         })
 
         socket.on('disconnect', () => {
-            try{
-            socket.broadcast.emit('set-this-inactive', clients[socket.id]);
-            isOnline[clients[socket.id]] = false;
-            delete socket_id[clients[socket.id]];
-            delete clients[socket.id];
+            try {
+                socket.broadcast.emit('set-this-inactive', clients[socket.id]);
+                isOnline[clients[socket.id]] = false;
+                delete socket_id[clients[socket.id]];
+                delete clients[socket.id];
             }
-            catch(err)
-            {
+            catch (err) {
                 console.log(err);
             }
         });
