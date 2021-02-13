@@ -76,11 +76,13 @@ const server = (app) => {
             var rooms = await roomModel.find({ room_id: roomObj.room_id });
             rooms.forEach(room => {
                 var messages = room.messages;
-                messages.forEach(message => {
-                    if (message.sender_id != roomObj.reciever_id)
-                        message.is_seen = true;
-                    //     console.log(message);  
-                })
+                for (var i = messages.length - 1; i >= 0; i--) {
+                    if ((roomObj.reciever_id==messages[i].sender_id)
+                    ||(messages[i].sender_id==roomObj.sender_id &&messages[i].is_seen == true)) {
+                        break;
+                    }
+                    messages[i].is_seen = true;
+                }
                 roomModel.findOneAndUpdate({ room_id: roomObj.room_id },
                     {
                         $set:
