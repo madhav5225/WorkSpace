@@ -1,4 +1,4 @@
-var messages;//list of message 
+var messages;//list of message that user is sending 
 //object{id ,room_id,sender_id,message_body,message_type,is_seen,is_recieved,created_at}
 // of room on which user clicked last time
 
@@ -25,7 +25,7 @@ function sendMsg(event) {
             sender_id: currentUser._id
         }
 
-        var listItem = $('<li class="right  message-box" id="msg' + msgObj.id + '">').text(msgObj.msg);
+        var listItem = $('<li class="right  message-box" id="SenderMsg' + msgObj.id + '">').text(msgObj.msg);
         var statusItem = $('<span class="material-icons" id="msgIcon' + msgObj.id + '">autorenew</span>');
 
         $('.chat_ul').append(listItem.append(statusItem));
@@ -56,7 +56,7 @@ function setMessageInList(msg) {
         }
     }
     else {
-        var listItem = $('<li class="left  message-box" id="msg' + msg.id + '">').text(msg.message_body);
+        var listItem = $('<li class="left  message-box" id="RecieverMsg' + msg.id + '">').text(msg.message_body);
         $('.chat_ul').append(listItem);
         document.getElementById('messageHolder').scrollTop =document.getElementById('messageHolder').scrollHeight
    
@@ -77,16 +77,17 @@ function setChat(x) {
 
     $.get('/roomInfo', { room_id, user1: currentUser._id, user2: friendUser.id }, function (room) {
         currentRoom = room;
-        messages = currentRoom.messages;
-        if (typeof messages != 'undefined') {
-            if (messages.length !== 0) {
-                messages.forEach(msgObj => {
+        var tempMessages = currentRoom.messages;
+        if (typeof tempMessages != 'undefined') {
+            if (tempMessages.length !== 0) {
+                tempMessages.forEach(msgObj => {
                     if (msgObj.sender_id == currentUser._id) {
-                        var listItem = $('<li class="right  message-box" id="msg' + msgObj.id + '">').text(msgObj.message_body);
+                        var listItem = $('<li class="right  message-box" id="SenderMsg' + msgObj.id + '">').text(msgObj.message_body);
                         var statusItem = $('<span class="material-icons" id="msgIcon' + msgObj.id + '"></span>');
                         $('.chat_ul').append(listItem.append(statusItem));
                         document.getElementById('messageHolder').scrollTop =document.getElementById('messageHolder').scrollHeight
-   
+                        messages = messages || [];
+                        messages.push(msgObj);
                     }
                     setMessageInList(msgObj);
                 });
