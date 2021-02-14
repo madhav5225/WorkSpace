@@ -1,7 +1,10 @@
 var currentUser;
 var typing =false;
 var timeout = undefined;
-var user_id = [];
+var user_id = [];//maps user._id to id
+var messageObj=[];//maps user._id to {unseen_msg_count,sender_msg_count,msg_obj} where msg_obj is list of message that user is sending 
+//object{id ,room_id,sender_id,message_body,message_type,is_seen,is_recieved,created_at}
+
 const socket = io();
 
 function generateRoomID(a, b) {
@@ -37,7 +40,7 @@ async function getUserList() {
     })
 }
 
-function setChatList(data) {
+async function setChatList(data) {
     for (var i = 0; i < data.length; i++) {
         var user = data[i];
         user_id[user.id] = i;
@@ -66,9 +69,16 @@ function setChatList(data) {
             room_id:generateRoomID(user.id,currentUser._id),
             sender_id:user.id,
             reciever_id:currentUser._id
-            
          };
-         socket.emit('successfully-recieve-by-reciever',roomObj);
+        await $.post("/messenger", roomObj, function (data) {
+            if((data.messages.length- data.senderMessagesCount)!=0)
+            socket.emit('successfully-recieve-by-reciever',roomObj);
+            messageObj[user.id]=
+            {room_id:data.room_id,senderMessagesCount:data.senderMessagesCount,messages:data.messages};
+            console.log(data);
+        }).fail(function (err) {
+            console.log("error: " + err);
+        });
          
     }
 }

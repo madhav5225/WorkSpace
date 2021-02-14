@@ -22,17 +22,18 @@ const server = (app) => {
             const {
                 id,
                 room_id,
-                msg,
+                message_body,
                 msg_type,
                 sender_id
             } = msgObj;
             // console.log('meesage is sent by ' + sender_id + 'to room_id ' + room_id);
             var msgSch = new messageModel({
                 is_recieved: false,
+                is_seen: false,
                 id,
                 room_id,
                 sender_id,
-                message_body: msg,
+                message_body,
                 message_type: msg_type,
             })
             var roomObj = await roomModel.find({ room_id })
@@ -40,8 +41,10 @@ const server = (app) => {
                 var users = room.users;
                 users.forEach(user => {
                     if (user != sender_id) {
-                        if (isOnline[user])
+                        if (isOnline[user]) {
                             msgSch.is_recieved = true;
+                            msgObj.is_recieved = true;
+                        }
                     }
                 });
                 // room.messages.push(msgSch);
@@ -58,10 +61,10 @@ const server = (app) => {
                         }
                         else {
                             console.log('msg Saved');
-                            socket.emit('msg-saved', msgSch);
+                            socket.emit('msg-saved', msgObj);
                             users.forEach(user => {
                                 if (user != sender_id) {
-                                    socket.to(socket_id[user]).emit('incomming-msg', msgSch);
+                                    socket.to(socket_id[user]).emit('incomming-msg', msgObj);
                                     //console.log(user);
                                 }
                             });
@@ -77,8 +80,8 @@ const server = (app) => {
             rooms.forEach(room => {
                 var messages = room.messages;
                 for (var i = messages.length - 1; i >= 0; i--) {
-                    if ((roomObj.reciever_id==messages[i].sender_id)
-                    ||(messages[i].sender_id==roomObj.sender_id &&messages[i].is_seen == true)) {
+                    if ((roomObj.reciever_id == messages[i].sender_id)
+                        || (messages[i].sender_id == roomObj.sender_id && messages[i].is_seen == true)) {
                         break;
                     }
                     messages[i].is_seen = true;
@@ -98,44 +101,10 @@ const server = (app) => {
             // console.log('sending socket to client that message is seen');
             socket.to(socket_id[roomObj.sender_id]).emit('set-msg-seen', roomObj);
         })
+
         socket.on('successfully-recieve-by-reciever', async roomObj => {
-            var unSeenMessages=0;
-
-            // console.log("reciever: " + roomObj.room_id);
-            var rooms = await roomModel.find({ room_id: roomObj.room_id });
-            rooms.forEach(room => {
-                var messages = room.messages;
-                for (var i = messages.length - 1; i >= 0; i--) {
-                    if ((roomObj.reciever_id==messages[i].sender_id)
-                    ||(messages[i].sender_id==roomObj.sender_id &&messages[i].is_recieved == true)) {
-                        break;
-                    }
-                    messages[i].is_recieved = true;
-                }
-                roomModel.findOneAndUpdate({ room_id: roomObj.room_id },
-                    {
-                        $set:
-                        {
-                            messages: messages
-                        }
-                    }).exec((err, result) => {
-                        // console.log(err);
-                        // console.log(result);
-
-                    });
-                     //retrieving the count of unseen messages
-            for (var i = messages.length - 1; i >= 0; i--) {
-                if ((roomObj.reciever_id==messages[i].sender_id)
-                ||(messages[i].sender_id==roomObj.sender_id &&messages[i].is_seen == true)) {
-                    break;
-                }
-                unSeenMessages++;
-            }
-            })
-           
             // console.log('sending socket to client that message is recieved');
             socket.to(socket_id[roomObj.sender_id]).emit('recieved', roomObj);
-            socket.emit('set-unseen-msg-count',{sender_id:roomObj.sender_id,unSeenMessages});
         })
 
         socket.on('typing', data => {

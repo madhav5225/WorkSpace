@@ -1,6 +1,3 @@
-var messages;//list of message that user is sending 
-//object{id ,room_id,sender_id,message_body,message_type,is_seen,is_recieved,created_at}
-// of room on which user clicked last time
 
 var friendUser;
 var userList;
@@ -14,24 +11,37 @@ function sendMsg(event) {
     if (msg != '') {
         const room_id = generateRoomID(currentUser._id, friendUser.id);
         var msgObjId = 1;
-        if (typeof messages != 'undefined')
-            msgObjId = messages.length + 1;
-
+        if (typeof messageObj[friendUser.id] != 'undefined')
+            msgObjId = messageObj[friendUser.id].senderMessagesCount + 1;
+            messageObj[friendUser.id].senderMessagesCount += 1;
         const msgObj = {
             id: msgObjId,
             room_id,
-            msg,
+            message_body:msg,
             msg_type: "txt",
-            sender_id: currentUser._id
+            sender_id: currentUser._id,
+            reciever_id:friendUser.id,
+            is_seen:false,
+            is_recieved:false,
+        }
+        const msgSch = {
+            id: msgObjId,
+            room_id,
+            sender_id:currentUser._id,
+            message_body:msg,
+            message_type: "txt",
+            is_seen:false,
+            is_recieved:false,
+            created_at:0,
         }
 
-        var listItem = $('<li class="right  message-box" id="SenderMsg' + msgObj.id + '">').text(msgObj.msg);
+        var listItem = $('<li class="right  message-box" id="SenderMsg' + msgObj.id + '">').text(msgObj.message_body);
         var statusItem = $('<span class="material-icons" id="msgIcon' + msgObj.id + '">autorenew</span>');
 
         $('.chat_ul').append(listItem.append(statusItem));
 
-        messages = messages || [];
-        messages.push(msgObj);
+        messageObj[friendUser.id].messages = messageObj[friendUser.id].messages || [];
+        messageObj[friendUser.id].messages.push(msgSch);
         document.getElementById('messageHolder').scrollTop =document.getElementById('messageHolder').scrollHeight
            socket.emit('send-msg', msgObj);
     }
@@ -75,25 +85,24 @@ function setChat(x) {
 
     const room_id = generateRoomID(currentUser._id, friendUser.id);
 
-    $.get('/roomInfo', { room_id, user1: currentUser._id, user2: friendUser.id }, function (room) {
-        currentRoom = room;
+        currentRoom = {room_id:messageObj[friendUser.id].room_id,messages:messageObj[friendUser.id].messages};
         var tempMessages = currentRoom.messages;
         if (typeof tempMessages != 'undefined') {
             if (tempMessages.length !== 0) {
                 tempMessages.forEach(msgObj => {
                     if (msgObj.sender_id == currentUser._id) {
+                        console.log(msgObj);
                         var listItem = $('<li class="right  message-box" id="SenderMsg' + msgObj.id + '">').text(msgObj.message_body);
                         var statusItem = $('<span class="material-icons" id="msgIcon' + msgObj.id + '"></span>');
                         $('.chat_ul').append(listItem.append(statusItem));
                         document.getElementById('messageHolder').scrollTop =document.getElementById('messageHolder').scrollHeight
-                        messages = messages || [];
-                        messages.push(msgObj);
+                        
                     }
                     setMessageInList(msgObj);
                 });
             }
         }
-    });
+    
 
     const roomObj = {
         room_id: generateRoomID(friendUser.id, currentUser._id),

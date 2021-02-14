@@ -24,6 +24,8 @@ router.get('/roomInfo', check_login, require('../controller/roomController'));
 
 // get user list
 router.get('/usersList', check_login, require('../controller/userListController'));
+// get messengers data
+router.post('/messenger', check_login, require('../controller/messengerController'));
 
 // logout
 router.get('/logout', (req, res) => {
