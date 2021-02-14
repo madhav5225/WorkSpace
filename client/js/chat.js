@@ -10,9 +10,9 @@ function sendMsg(event) {
     event.preventDefault();
 
     const msg = $('#msg_text').val();
-   
+
     if (msg != '') {
-        $('#messenger'+user_id[friendUser.id]).parent().prepend($('#messenger'+user_id[friendUser.id]));
+        $('#messenger' + user_id[friendUser.id]).parent().prepend($('#messenger' + user_id[friendUser.id]));
         const room_id = generateRoomID(currentUser._id, friendUser.id);
         var msgObjId = 1;
         if (typeof messages != 'undefined')
@@ -33,8 +33,8 @@ function sendMsg(event) {
 
         messages = messages || [];
         messages.push(msgObj);
-        document.getElementById('messageHolder').scrollTop =document.getElementById('messageHolder').scrollHeight
-           socket.emit('send-msg', msgObj);
+        document.getElementById('messageHolder').scrollTop = document.getElementById('messageHolder').scrollHeight
+        socket.emit('send-msg', msgObj);
     }
 
     $('#msg_text').val('').focus();
@@ -42,7 +42,7 @@ function sendMsg(event) {
 }
 function setMessageInList(msg) {
     $('#initialMsg').hide();
-   
+
     if (msg.sender_id == currentUser._id) {
         if (!msg.is_recieved) {
             $('#msgIcon' + msg.id).text('done');
@@ -59,8 +59,8 @@ function setMessageInList(msg) {
     else {
         var listItem = $('<li class="left  message-box" id="RecieverMsg' + msg.id + '">').text(msg.message_body);
         $('.chat_ul').append(listItem);
-        document.getElementById('messageHolder').scrollTop =document.getElementById('messageHolder').scrollHeight
-   
+        document.getElementById('messageHolder').scrollTop = document.getElementById('messageHolder').scrollHeight
+
     }
 }
 function setChat(x) {
@@ -68,7 +68,7 @@ function setChat(x) {
     var chatList = $('<ul class="chat_ul chat_conatiner w-100" style="list-style-type: none;""></ul>')
 
     $('#messageHolder').html(chatList);
-     friendUser = userList[x];
+    friendUser = userList[x];
 
     var fullName = friendUser.fname + ' ' + friendUser.lname;
 
@@ -76,22 +76,28 @@ function setChat(x) {
 
     const room_id = generateRoomID(currentUser._id, friendUser.id);
 
-    $.get('/roomInfo', { room_id, user1: currentUser._id, user2: friendUser.id }, function (room) {
-        currentRoom = room;
-        var tempMessages = currentRoom.messages;
-        if (typeof tempMessages != 'undefined') {
-            if (tempMessages.length !== 0) {
-                tempMessages.forEach(msgObj => {
-                    if (msgObj.sender_id == currentUser._id) {
-                        var listItem = $('<li class="right  message-box" id="SenderMsg' + msgObj.id + '">').text(msgObj.message_body);
-                        var statusItem = $('<span class="material-icons" id="msgIcon' + msgObj.id + '"></span>');
-                        $('.chat_ul').append(listItem.append(statusItem));
-                        document.getElementById('messageHolder').scrollTop =document.getElementById('messageHolder').scrollHeight
-                        messages = messages || [];
-                        messages.push(msgObj);
-                    }
-                    setMessageInList(msgObj);
-                });
+    $.get('/roomInfo', { room_id, user1: currentUser._id, user2: friendUser.id }, function ({ msg, room }) {
+        if (msg != 'success') {
+            alert(msg);
+            location.reload();
+        }
+        else {
+            currentRoom = room;
+            var tempMessages = currentRoom.messages;
+            if (typeof tempMessages != 'undefined') {
+                if (tempMessages.length !== 0) {
+                    tempMessages.forEach(msgObj => {
+                        if (msgObj.sender_id == currentUser._id) {
+                            var listItem = $('<li class="right  message-box" id="SenderMsg' + msgObj.id + '">').text(msgObj.message_body);
+                            var statusItem = $('<span class="material-icons" id="msgIcon' + msgObj.id + '"></span>');
+                            $('.chat_ul').append(listItem.append(statusItem));
+                            document.getElementById('messageHolder').scrollTop = document.getElementById('messageHolder').scrollHeight
+                            messages = messages || [];
+                            messages.push(msgObj);
+                        }
+                        setMessageInList(msgObj);
+                    });
+                }
             }
         }
     });

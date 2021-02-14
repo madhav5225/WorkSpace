@@ -8,12 +8,16 @@ const roomController = async (req, res) => {
     var room = roomModel;
 
     await room.findOne({ room_id }).exec((err, result) => {
-        if (err || !result) {
+        if (!result) {
             const newRoom = new room({ room_id, topic: 'privateChat', users: [user1, user2], messages: [] });
             newRoom.save();
-            return res.send(newRoom);
+            return res.send({room:newRoom,msg:'success'});
         }
-        res.send(result);
+        else if(err)
+        {
+            return res.send({room:undefined,msg:'error while creating room'});
+        }
+        res.send({room:result,msg:'success'});
 
     });
 
