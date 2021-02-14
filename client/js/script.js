@@ -48,7 +48,7 @@ async function setChatList(data) {
         if (user.currentUser == true)
             continue;
  
-        var userItem = $('<li class="list-group-item user-list-item d-flex justify-content-between align-items-center"  onclick=setChat(' + i + ')>');
+        var userItem = $('<li class="list-group-item user-list-item d-flex justify-content-between align-items-center"  onclick=setChat(' + i + ') id="messenger'+i+'">');
 
         var name_element = $('<div>').text(user.fname + ' ' + user.lname);
         var email_element = $('<div class="text-muted" style="font-size:smaller">').text(user.email);

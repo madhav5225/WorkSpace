@@ -50,8 +50,8 @@ socket.on('incomming-msg', msg => {
             setMessageInList(msg);
         }
     }
-    messageObj[msg.sender_id].messages = messageObj[msg.sender_id].messages || [];
-    messageObj[msg.sender_id].messages.push(msg);
+    $('#messenger'+user_id[msg.sender_id]).parent().prepend($('#messenger'+user_id[msg.sender_id]));
+      
     ToneForMessages();
     // setUnseenMsgCount({sender_id:msg.sender_id});
 });
