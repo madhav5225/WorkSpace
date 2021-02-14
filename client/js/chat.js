@@ -12,6 +12,7 @@ function sendMsg(event) {
     const msg = $('#msg_text').val();
    
     if (msg != '') {
+        $('#messenger'+user_id[friendUser.id]).parent().prepend($('#messenger'+user_id[friendUser.id]));
         const room_id = generateRoomID(currentUser._id, friendUser.id);
         var msgObjId = 1;
         if (typeof messages != 'undefined')

@@ -38,6 +38,8 @@ socket.on('incomming-msg', msg => {
             setMessageInList(msg);
         }
     }
+    $('#messenger'+user_id[msg.sender_id]).parent().prepend($('#messenger'+user_id[msg.sender_id]));
+      
     ToneForMessages();
    // setUnseenMsgCount({sender_id:msg.sender_id});
 });
