@@ -1,0 +1,310 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+/* *,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+} */
+input,
+button {
+  border: none;
+  outline: none;
+  background: none;
+}
+
+.flex{
+  position: absolute;
+  top: 20%;
+  left: 30%;
+}
+
+.flex .intro{
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+}
+
+.cont {
+  overflow: hidden;
+  position: relative;
+  width: 680px;
+  height: 400px;
+  background-image: url(../resources/bg.svg);
+  background: #fff;
+  border-radius: 10px;
+}
+
+.form {
+  position: relative;
+  width: 400px;
+  height: 100%;
+  text-align: center;
+  padding: 50px 30px;
+  -webkit-transition: -webkit-transform 1.2s ease-in-out;
+  transition: -webkit-transform 1.2s ease-in-out;
+  transition: transform 1.2s ease-in-out;
+  transition: transform 1.2s ease-in-out, -webkit-transform 1.2s ease-in-out;
+}
+
+h2 {
+  width: 100%;
+  font-size: 23px;
+  text-align: center;
+}
+
+label {
+  display: block;
+  width: 260px;
+  margin: 0 auto 0;
+  text-align: start;
+}
+
+label span {
+  font-size: 14px;
+  font-weight: bold;
+  color: #000000;
+}
+
+input {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+  font-size: 14px;
+  padding: 5px;
+  padding-left: 10px;
+  border: 2px solid #000000;
+  box-sizing: border-box;
+  border-radius: 10px;
+  font-family: "Poppins", sans-serif;
+}
+
+button[type="submit"] {
+  display: block;
+  margin: 0 auto;
+  margin-top: 10%;
+  width: 200px;
+  height: 36px;
+  border-radius: 10px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.submit {
+  margin-top: 40px;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(45deg, #65ffd1 0%, #63f5dd 100%);
+}
+
+.submit:hover {
+  border: none;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.26);
+}
+
+.forgot-pass {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 600;
+  color: #0c0101;
+  cursor: pointer;
+}
+
+.forgot-pass:hover {
+  color: red;
+}
+.sub-cont {
+  overflow: hidden;
+  position: absolute;
+  left: 400px;
+  top: 0;
+  width: 680px;
+  height: 100%;
+  padding-left: 280px;
+  background: #fff;
+  -webkit-transition: -webkit-transform 1.2s ease-in-out;
+  transition: -webkit-transform 1.2s ease-in-out;
+  transition: transform 1.2s ease-in-out;
+}
+
+.cont.s-signup .sub-cont {
+  -webkit-transform: translate3d(-400px, 0, 0);
+  transform: translate3d(-400px, 0, 0);
+}
+
+.dark-bg {
+  overflow: hidden;
+  z-index: 2;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 280px;
+  height: 100%;
+  padding-top: 320px;
+}
+
+.dark-bg:before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 680px;
+  height: 100%;
+  background-size: cover;
+  transition: -webkit-transform 1.2s ease-in-out;
+  transition: transform 1.2s ease-in-out, -webkit-transform 1.2s ease-in-out;
+}
+.dark-bg:after{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background:linear-gradient(45deg, #65ffd1 0%, #63f5dd 100%);
+    filter: blur(2px);
+  }
+  
+.cont .s-signup .dark-bg:before {
+  -webkit-transform: translate3d(400px, 0, 0);
+  transform: translate3d(400px, 0, 0);
+}
+
+.dark-bg-text {
+  z-index: 2;
+  position: absolute;
+  left: 0;
+  top: 50px;
+  width: 100%;
+  padding: 0 30px;
+  text-align: center;
+  color: #fff;
+  -webkit-transition: -webkit-transform 1.2s ease-in-out;
+  transition: -webkit-transform 1.2s ease-in-out;
+  transition: transform 1.2s ease-in-out, -webkit-transform 1.2s ease-in-out;
+}
+
+.dark-bg-text h2 {
+  margin-bottom: 10px;
+  font-weight: normal;
+}
+
+.dark-bg-text p {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.cont.s-signup .dark-bg-text.m-up {
+  -webkit-transform: translateX(370px);
+  transform: translateX(370px);
+}
+
+.dark-bg-text.m-in {
+  -webkit-transform: translateX(-370px);
+  transform: translateX(-370px);
+}
+
+.cont.s-signup .dark-bg-text.m-in {
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+
+.sign-in {
+  padding-top: 40px;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+
+.cont.s-signup .sign-in {
+  -webkit-transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-out;
+  -webkit-transition-duration: 1.2s;
+  transition-duration: 1.2s;
+  -webkit-transform: translate3d(400px, 0, 0);
+  transform: translate3d(400px, 0, 0);
+}
+
+.dark-bg-btn {
+  overflow: hidden;
+  z-index: 2;
+  position: relative;
+  width: 100px;
+  height: 36px;
+  margin: auto;
+  background: transparent;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.dark-bg-btn:after {
+  content: "";
+  z-index: 2;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #fff;
+  border-radius: 30px;
+}
+
+.dark-bg-btn span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  -webkit-transition: -webkit-transform 1.2s;
+  transition: -webkit-transform 1.2s;
+  transition: transform 1.2s;
+  transition: transform 1.2s, -webkit-transform 1.2s;
+}
+
+.dark-bg-btn span.m-in {
+  -webkit-transform: translateY(-72px);
+  transform: translateY(-72px);
+}
+
+.cont.s-signup .dark-bg-btn span.m-in {
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
+}
+
+.cont.s-signup .dark-bg-btn span.m-up {
+  -webkit-transform: translateY(72px);
+  transform: translateY(72px);
+}
+
+.sign-up {
+  padding-top: 40px;
+  -webkit-transform: translate3d(-680px, 0, 0);
+  transform: translate3d(-680px, 0, 0);
+}
+
+.cont.s-signup .sign-up {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+#particles-js {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  background-image: url("");
+  background-repeat: no-repeat;
+  background-size: 20%;
+  background-position: 50% 50%;
+}
