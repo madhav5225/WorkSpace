@@ -61,7 +61,6 @@ function setChatList(data) {
         userItem.append(active);
 
         $('.userList').append(userItem);
-
         const roomObj={
             room_id:generateRoomID(user.id,currentUser._id),
             sender_id:user.id,
