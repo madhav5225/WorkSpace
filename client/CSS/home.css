@@ -1,12 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
-*,
-*:before,
-*:after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
+
 nav {
   position: relative;
   width: 100%;
@@ -20,7 +13,8 @@ nav {
 
 .logo {
   display: flex;
-
+  justify-content: center;
+  column-gap: 10px;
   position: absolute;
   left: 100px;
   font-family: "Poppins";

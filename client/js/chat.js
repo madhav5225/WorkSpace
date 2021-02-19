@@ -9,7 +9,7 @@ var currentRoom;// room on which user clicked last time
 function sendMsg(event) {
     event.preventDefault();
 
-    const msg = $('#msg_text').val();
+    const msg = $('#msgField').val();
 
     if (msg != '') {
         $('#messenger' + user_id[friendUser.id]).parent().prepend($('#messenger' + user_id[friendUser.id]));
@@ -25,23 +25,25 @@ function sendMsg(event) {
             msg_type: "txt",
             sender_id: currentUser._id
         }
+        var msg_container = $('<li class="msg me"  id="SenderMsg' + msgObj.id + '">');
 
-        var listItem = $('<li class="right  message-box" id="SenderMsg' + msgObj.id + '">').text(msgObj.msg);
+        var listItem = $('<div class="text">').text(msgObj.msg);
         var statusItem = $('<span class="material-icons" id="msgIcon' + msgObj.id + '">autorenew</span>');
 
-        $('.chat_ul').append(listItem.append(statusItem));
+        $('.msglist').append(msg_container.append(listItem.append($('<div class ="msg-status">').append(statusItem))));
 
         messages = messages || [];
         messages.push(msgObj);
-        document.getElementById('messageHolder').scrollTop = document.getElementById('messageHolder').scrollHeight
+        $('.msglist').scrollTop = $('.msglist').scrollHeight;
+        // document.getElementById('messageHolder').scrollTop = document.getElementById('messageHolder').scrollHeight;
         socket.emit('send-msg', msgObj);
     }
 
-    $('#msg_text').val('').focus();
+    $('#msgField').val('').focus();
 
 }
 function setMessageInList(msg) {
-    $('#initialMsg').hide();
+    // $('#initialMsg').hide();
 
     if (msg.sender_id == currentUser._id) {
         if (!msg.is_recieved) {
@@ -57,22 +59,38 @@ function setMessageInList(msg) {
         }
     }
     else {
-        var listItem = $('<li class="left  message-box" id="RecieverMsg' + msg.id + '">').text(msg.message_body);
-        $('.chat_ul').append(listItem);
-        document.getElementById('messageHolder').scrollTop = document.getElementById('messageHolder').scrollHeight
+        var msg_container = $('<li class="msg"  id="RecieverMsg' + msg.id + '">');
+        var listItem = $('<div class="text">').text(msg.message_body);
+        // var listItem = $('<li class="left  message-box" id="RecieverMsg' + msg.id + '">').text(msg.message_body);
+        $('.msglist').append(msg_container.append(listItem));
+        // $('.chat_ul').append(listItem);
+        // document.getElementById('messageHolder').scrollTop = document.getElementById('messageHolder').scrollHeight
+        $('.msglist').scrollTop = $('.msglist').scrollHeight;
 
     }
 }
 function setChat(x) {
-    $('#initialMsg').show();
-    var chatList = $('<ul class="chat_ul chat_conatiner w-100" style="list-style-type: none;""></ul>')
+    // $('#initialMsg').show();
+    $('.chat-section').removeClass('display');
+    $('.chat-section').addClass('display');
+    $('li').removeClass('on-screen');
+    $('#messenger' + x).addClass('on-screen');
 
-    $('#messageHolder').html(chatList);
+    var chatList = $('<ul class="msglist"></ul>')
+
+    $('.message-container').html(chatList);
     friendUser = userList[x];
-
+    // var img_element = $('<img src="../resources/defaultProfile.jpg">');
     var fullName = friendUser.fname + ' ' + friendUser.lname;
 
-    $('#chat-title').text(fullName)
+    $('#onScreen-name').text(fullName)
+
+    if (friendUser.isOnline) {
+        $('#onScreen-status').text("online");
+    }
+    else {
+        $('#onScreen-status').text("offline");
+    }
 
     const room_id = generateRoomID(currentUser._id, friendUser.id);
 
@@ -88,10 +106,16 @@ function setChat(x) {
                 if (tempMessages.length !== 0) {
                     tempMessages.forEach(msgObj => {
                         if (msgObj.sender_id == currentUser._id) {
-                            var listItem = $('<li class="right  message-box" id="SenderMsg' + msgObj.id + '">').text(msgObj.message_body);
-                            var statusItem = $('<span class="material-icons" id="msgIcon' + msgObj.id + '"></span>');
-                            $('.chat_ul').append(listItem.append(statusItem));
-                            document.getElementById('messageHolder').scrollTop = document.getElementById('messageHolder').scrollHeight
+                            var msg_container = $('<li class="msg me"  id="SenderMsg' + msgObj.id + '">');
+                            var listItem = $('<div class="text">').text(msgObj.message_body);
+                            var statusItem = $('<span class="material-icons" id="msgIcon' + msgObj.id + '">autorenew</span>');
+                            $('.msglist').append(msg_container.append(listItem.append($('<div class ="msg-status">').append(statusItem))));
+                            $('.msglist').scrollTop = $('.msglist').scrollHeight;
+
+                            // var listItem = $('<li class="right  message-box" id="SenderMsg' + msgObj.id + '">').text(msgObj.message_body);
+                            // var statusItem = $('<span class="material-icons" id="msgIcon' + msgObj.id + '"></span>');
+                            // $('.chat_ul').append(listItem.append(statusItem));
+                            // document.getElementById('messageHolder').scrollTop = document.getElementById('messageHolder').scrollHeight
                             messages = messages || [];
                             messages.push(msgObj);
                         }
@@ -113,16 +137,16 @@ function setChat(x) {
 
 function setTypingOnChat(is_typing) {
     if (is_typing) {
-        $('#chat-status').text('typing...');
+        $('#onScreen-status').text('typing...');
     }
     else {
-        $('#chat-status').text('');
+        $('#onScreen-status').text('online');
     }
 }
 
-function setTypingOnList(sender_id, is_typing) {
-    console.log(user_id[sender_id] + " " + is_typing);
-}
+// function setTypingOnList(sender_id, is_typing) {
+//     console.log(user_id[sender_id] + " " + is_typing);
+// }
 
 function typingTimeout() {
     typing = false;
@@ -130,7 +154,7 @@ function typingTimeout() {
 }
 
 $(document).ready(function () {
-    $('#msg_text').keypress((e) => {
+    $('#msgField').keypress((e) => {
         if (e.which != 13) {
             typing = true;
             if (currentRoom != undefined) {

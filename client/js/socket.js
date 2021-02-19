@@ -17,10 +17,16 @@ catch(err){
   alert(err);
 }
 socket.on('set-this-active', userId => {
-    $('#onlineIcon' + user_id[userId]).addClass('online')
+    $('#messenger' + user_id[userId]).addClass('user-active')
+    if(friendUser!=undefined && friendUser.id == userId){
+        $('#onScreen-status').text("online");
+    }
 });
 socket.on('set-this-inactive', userId => {
-    $('#onlineIcon' + user_id[userId]).removeClass('online')
+    $('#messenger' + user_id[userId]).removeClass('user-active')
+    if(friendUser!=undefined && friendUser.id == userId){
+        $('#onScreen-status').text("offline");
+    }
 });
 
 socket.on('msg-saved', msg => {
