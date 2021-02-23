@@ -153,6 +153,15 @@ const server = (app) => {
                 console.log(err);
             }
         });
+        socket.on('Collabrative-Insert-from-Client',(data)=>{
+            socket.to(socket_id[data.friendUserId]).emit('Collabrative-Insert-to-Client',{character:data.character,th:data.th});
+      
+        })
+        socket.on('Collabrative-Set-Pointer-from-Client',(data)=>{
+            socket.to(socket_id[data.friendUserId]).emit('Collabrative-Set-Pointer-to-Client'
+            ,{NewFriendUserCursor:data.currentUserCursor,th:data.th});
+      
+        })
     });
     return server;
 }
