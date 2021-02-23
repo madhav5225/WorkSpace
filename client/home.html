@@ -4,121 +4,114 @@
 <head>
     <title>ChatApp</title>
     <!--css-->
-    <link rel="stylesheet" href="CSS/style.css" type="text/css">
+    <link rel="stylesheet" href="CSS/home.css" type="text/css">
     <link rel="icon" href="resources/sent-mail.svg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link href='https://use.fontawesome.com/releases/v5.8.1/css/all.css'>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+    integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+    crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
 
 <body>
+
     <div id="particles-js"></div>
-
-    <nav class="navbar navbar-expand-lg navbar-dark">
-
-        <a class="navbar-brand " href="#"> <span class="fa fa-paper-plane-o"></span> ChatApp</a>
-        <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button> -->
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-            <ul class="navbar-nav mr-auto">
-
-                <li class="nav-item">
-                    <a class="nav-link " href="#">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="#">Developers</a>
-                </li>
-
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-
+    <nav>
+        <div class="logo">
+            <i class="fas fa-paper-plane"></i> <h4>ChatApp</h4>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="#">About</a>
+            </li>
+            <li>
+                <a href="#">Developers</a>
+            </li>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
         </div>
     </nav>
+    <div class="flex">
+        <div class="intro">
+            <h3>Welcome to Open Chat Application</h3>
+        </div>
+        <div class="cont">
+            <div class="backdrop"></div>
+            <form class="form sign-in" onsubmit="loginRequest(event.preventDefault())">
+                <h2>Sign In</h2>
+                <label>
+                    <span>Email Address</span>
+                    <input type="email" name="email" id="email_login" placeholder="Enter email">
+                </label>
+                <label>
+                    <span>Password</span>
+                    <input type="password" name="password" id="password_login" placeholder="Enter password">
+                </label>
+                <button class="submit" type="submit">Sign In</button>
+                <p class="forgot-pass">Forgot Password ?</p>
+            </form>
 
-    <main class="d-flex align-items-center">
-
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6" id="login_card">
-                    <form class="form-box" onsubmit="loginRequest(event.preventDefault())">
-                        <h1>Login</h1>
-                        <p class="text-muted"> Please enter your login and password!</p>
-                        <input type="text" name="email" id="email_login" placeholder="Email">
-                        <input type="password" id="password_login" name="password" placeholder="Password">
-                        <a class="forgot text-muted" href="#">Forgot password?</a>
-                        <button type="submit">Login</button>
-                        <p class="text-muted">or</p>
-                        <p class="text-white">new to chatApp? <a class="forgot text-muted" href="#"
-                                onclick="registerToggle(event.preventDefault())">Register</a></p>
-                        <!-- social login -->
-                        <!-- <div class="col-md-12">
-                                <ul class="social-network social-circle">
-                                    <li><a href="#" class="icoFacebook" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#" class="icoTwitter" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="#" class="icoGoogle" title="Google +"><i class="fab fa-google-plus"></i></a></li>
-                                </ul>
-                            </div> -->
-                    </form>
+            <div class="sub-cont">
+                <div class="backdrop"></div>
+                <div class="dark-bg">
+                    <div class="dark-bg-text m-up">
+                        <h2>New here?</h2>
+                        <p>Sign up to our platform, where you can explore and make new friends.</p>
+                    </div>
+                    <div class="dark-bg-text m-in">
+                        <h2>Already Registered?</h2>
+                        <p>If you already has an account, just sign in!</p>
+                    </div>
+                    <div class="dark-bg-btn">
+                        <span class="m-up">Register</span>
+                        <span class="m-in">Sign In</span>
+                    </div>
                 </div>
-                <div class="col-md-6" id="register_card" style="display: none;">
-                    <form class="form-box" onsubmit="registerRequest(event.preventDefault())">
-                        <h1>Register</h1>
-                        <p class="text-muted"> Please enter your details!</p>
+                <form class="form sign-up" onsubmit="registerRequest(event.preventDefault())">
+                    <h2>Sign Up</h2>
+                    <label>
+                        <span>Name</span>
                         <input type="text" id="name_reg" name="name" placeholder="Name">
-                        <input type="text" id="email_reg" name="email" placeholder="Email">
+                    </label>
+                    <label>
+                        <span>Email</span>
+                        <input type="email" id="email_reg" name="email" placeholder="Email">
+                    </label>
+                    <label>
+                        <span>Password</span>
                         <input type="password" id="password_reg" name="password" placeholder="Password">
-                        <a class="forgot text-muted" href="#">terms and conditions</a>
-                        <button type="submit">Register</button>
-                        <p class="text-muted">or</p>
-                        <p class="text-white">Already a user! <a class="forgot text-muted" href="#"
-                                onclick="loginToggle(event.preventDefault())">Login</a></p>
-                        <!-- social login -->
-                        <!-- <div class="col-md-12">
-                                <ul class="social-network social-circle">
-                                    <li><a href="#" class="icoFacebook" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#" class="icoTwitter" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="#" class="icoGoogle" title="Google +"><i class="fab fa-google-plus"></i></a></li>
-                                </ul>
-                            </div> -->
-                    </form>
-                </div>
+                    </label>
+                    <button type="submit" class="submit">Register</button>
+                </form>
             </div>
         </div>
-
-    </main>
+    </div>
 
     <!--script-->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        document.querySelector('.dark-bg-btn').addEventListener('click', function () {
+            document.querySelector('.cont').classList.toggle('s-signup')
+        });
+        const burger = document.querySelector('.burger');
+        const nav = document.querySelector('.nav-links');
+        burger.addEventListener('click', () => {
+            nav.classList.toggle('nav-active');
+            burger.classList.toggle('burger-active');
+        })
 
-    <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-
+    </script>
     <script src="./js/particles.js"></script>
     <script src="./js/cookie.js"></script>
     <script src="./js/login.js"></script>
     <script src="./js/register.js"></script>
-    <script>
-        function registerToggle() {
-            $('#register_card').show();
-            $('#login_card').hide();
-        }
-
-        function loginToggle() {
-            $('#register_card').hide();
-            $('#login_card').show();
-        }
-    </script>
 </body>
 
 </html>

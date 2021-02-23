@@ -1,5 +1,5 @@
 var currentUser;
-var typing =false;
+var typing = false;
 var timeout = undefined;
 var user_id = [];
 const socket = io();
@@ -11,8 +11,8 @@ function generateRoomID(a, b) {
     return y.toString(16);
 }
 
-function setprofile() {
-    $.get('/profile', function (data) {
+async function setprofile() {
+    await $.get('/profile', function (data) {
         const { success, name, email } = data;
         currentUser = {
             _id: data._id,
@@ -21,14 +21,17 @@ function setprofile() {
         };
         if (success) {
             console.log(name + " " + email);
-            $('#profile_name').text(name);
-            $('#profile_email').text(email);
+            // $('#profile_name').text(name);
+            // $('#profile_email').text(email);
+            return true;
         }
+    }).fail(() => {
+        return false;
     });
 }
 
-function getUserList() {
-    $.get('/usersList', function (data) {
+async function getUserList() {
+    await $.get('/usersList', function (data) {
         userList = data;
         setChatList(data);
     })
@@ -41,39 +44,58 @@ function setChatList(data) {
 
         if (user.currentUser == true)
             continue;
- 
-        var userItem = $('<li class="list-group-item user-list-item d-flex justify-content-between align-items-center"  onclick=setChat(' + i + ')>');
+        let userItem;
+        if (user.isOnline == true) {
+            userItem = $('<li class="user-active" onclick=setChat(' + i + ') id="messenger' + i + '">');
+        }
+        else {
+            userItem = $('<li onclick=setChat(' + i + ') id="messenger' + i + '">');
+        }
+        var img_element = $('<img src="../resources/defaultProfile.jpg">');
+        // var userItem = $('<li class="list-group-item user-list-item d-flex justify-content-between align-items-center"  onclick=setChat(' + i + ') id="messenger'+i+'">');
 
-        var name_element = $('<div>').text(user.fname + ' ' + user.lname);
-        var email_element = $('<div class="text-muted" style="font-size:smaller">').text(user.email);
+        var detail_element = $('<div class="userdetails">');
+        var name_element = $('<div class="name">').text(user.fname + ' ' + user.lname);
+        var email_element = $('<div class="email">').text(user.email);
 
-        var active;
-        if (user.isOnline == true)
-            active = $('<span class="onlineIcon online" id="onlineIcon'+i+'">');
-        else
-            active = $('<span class="onlineIcon" id="onlineIcon'+i+'">');
+        detail_element.append(name_element);
+        detail_element.append(email_element);
 
-        userItem.append(name_element);
-        userItem.append(email_element);
-        userItem.append(active);
+        var stared_element;
+        // if(user.is_starred)
+        stared_element = $('<div class="starred">').html('<i class="far fa-star"></i>');
+        var notify_element = $('<div class="notifycount">');
 
-        $('.userList').append(userItem);
 
-        const roomObj={
-            room_id:generateRoomID(user.id,currentUser._id),
-            sender_id:user.id,
-            reciever_id:currentUser._id
-            
-         };
-         socket.emit('successfully-recieve-by-reciever',roomObj);
+        userItem.append(img_element);
+        userItem.append(detail_element);
+        userItem.append(stared_element);
+        userItem.append(notify_element);
+
+        $('.userlist-ul').append(userItem);
+        const roomObj = {
+            room_id: generateRoomID(user.id, currentUser._id),
+            sender_id: user.id,
+            reciever_id: currentUser._id
+
+        };
+        socket.emit('successfully-recieve-by-reciever', roomObj);
 
     }
 }
 
-$(document).ready(function () {
-    $('#msg_text').focus();
-    setprofile();
-    getUserList();
+$(document).ready(async function () {
+    $('#msgField').focus();
+    try {
+        var flag = await setprofile();
+        while (flag == false)
+            flag = await setprofile();
+        await getUserList();
+
+    }
+    catch (err) {
+        alert(err);
+    }
     let myScript = document.createElement("script");
     myScript.setAttribute("src", "./js/socket.js");
     document.body.appendChild(myScript);

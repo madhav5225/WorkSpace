@@ -8,9 +8,13 @@ require('dotenv').config({
 })
 
 const app = express();
-
+try{
 connectDb();
-
+}
+catch(err)
+{
+    console.log(err);
+}
 //Middlewares
 app.use(express.static(__dirname + '/client'));
 //app.use(bodyParser());
