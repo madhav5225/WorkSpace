@@ -144,6 +144,8 @@ const server = (app) => {
 
         // -------------------------------------COLLAB--------------------------------
 
+        // link = "https://medium.com/coinmonks/operational-transformations-as-an-algorithm-for-automatic-conflict-resolution-3bf8920ea447";
+
         socket.join('global');
         console.log(socket.id + ' joined');
         io.to('global').emit('msg', 'Welcome to global collab editor');
