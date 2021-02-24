@@ -16,7 +16,6 @@
 
 <body>
 
-    <div id="particles-js"></div>
     <nav>
         <div class="logo">
             <i class="fas fa-paper-plane"></i> <h4>ChatApp</h4>
@@ -35,7 +34,13 @@
             <div class="line3"></div>
         </div>
     </nav>
-    <div class="flex">
+
+    <div class="collab">
+        <textarea id="collab_space" rows="10" cols="40"></textarea>
+        <button onclick="socket.emit('collab','Hello')"> submit</button>
+    </div>
+
+    <!-- <div class="flex">
         <div class="intro">
             <h3>Welcome to Open Chat Application</h3>
         </div>
@@ -89,14 +94,13 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!--script-->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
+    <!-- <script>
         document.querySelector('.dark-bg-btn').addEventListener('click', function () {
             document.querySelector('.cont').classList.toggle('s-signup')
         });
@@ -107,8 +111,10 @@
             burger.classList.toggle('burger-active');
         })
 
-    </script>
-    <script src="./js/particles.js"></script>
+    </script> -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script src="./js/collab.js"></script>
     <script src="./js/cookie.js"></script>
     <script src="./js/login.js"></script>
     <script src="./js/register.js"></script>

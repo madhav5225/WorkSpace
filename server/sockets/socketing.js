@@ -9,7 +9,7 @@ const server = (app) => {
     const io = require('socket.io')(server);
     io.on('connection', socket => {
 
-        console.log('Socket Connection Done!!');
+        // console.log('Socket Connection Done!!');
         socket.on('new-user-joined', user_id => {
             // console.log('new User active: ' + user_id);
             isOnline[user_id] = true;
@@ -77,8 +77,8 @@ const server = (app) => {
             rooms.forEach(room => {
                 var messages = room.messages;
                 for (var i = messages.length - 1; i >= 0; i--) {
-                    if ((roomObj.reciever_id==messages[i].sender_id)
-                    ||(messages[i].sender_id==roomObj.sender_id &&messages[i].is_seen == true)) {
+                    if ((roomObj.reciever_id == messages[i].sender_id)
+                        || (messages[i].sender_id == roomObj.sender_id && messages[i].is_seen == true)) {
                         break;
                     }
                     messages[i].is_seen = true;
@@ -99,15 +99,15 @@ const server = (app) => {
             socket.to(socket_id[roomObj.sender_id]).emit('set-msg-seen', roomObj);
         })
         socket.on('successfully-recieve-by-reciever', async roomObj => {
-            var unSeenMessages=0;
+            var unSeenMessages = 0;
 
             // console.log("reciever: " + roomObj.room_id);
             var rooms = await roomModel.find({ room_id: roomObj.room_id });
             rooms.forEach(room => {
                 var messages = room.messages;
                 for (var i = messages.length - 1; i >= 0; i--) {
-                    if ((roomObj.reciever_id==messages[i].sender_id)
-                    ||(messages[i].sender_id==roomObj.sender_id &&messages[i].is_recieved == true)) {
+                    if ((roomObj.reciever_id == messages[i].sender_id)
+                        || (messages[i].sender_id == roomObj.sender_id && messages[i].is_recieved == true)) {
                         break;
                     }
                     messages[i].is_recieved = true;
@@ -123,25 +123,61 @@ const server = (app) => {
                         // console.log(result);
 
                     });
-                     //retrieving the count of unseen messages
-            for (var i = messages.length - 1; i >= 0; i--) {
-                if ((roomObj.reciever_id==messages[i].sender_id)
-                ||(messages[i].sender_id==roomObj.sender_id &&messages[i].is_seen == true)) {
-                    break;
+                //retrieving the count of unseen messages
+                for (var i = messages.length - 1; i >= 0; i--) {
+                    if ((roomObj.reciever_id == messages[i].sender_id)
+                        || (messages[i].sender_id == roomObj.sender_id && messages[i].is_seen == true)) {
+                        break;
+                    }
+                    unSeenMessages++;
                 }
-                unSeenMessages++;
-            }
             })
-           
+
             // console.log('sending socket to client that message is recieved');
             socket.to(socket_id[roomObj.sender_id]).emit('recieved', roomObj);
-            socket.emit('set-unseen-msg-count',{sender_id:roomObj.sender_id,unSeenMessages});
+            socket.emit('set-unseen-msg-count', { sender_id: roomObj.sender_id, unSeenMessages });
         })
 
         socket.on('typing', data => {
             socket.to(socket_id[data.reciever_id]).emit('display-typing', data);
         })
 
+        // -------------------------------------COLLAB--------------------------------
+
+        socket.join('global');
+        console.log(socket.id + ' joined');
+        io.to('global').emit('msg', 'Welcome to global collab editor');
+
+        // pending changes
+        var pending_changes = [];
+        // revision log
+        var revision_log = [];
+        //state of doc
+        var last_sync_version=0;
+        var doc = "";
+        socket.on('operation', function (data, callback) {
+            console.log(data);
+            pending_changes.push(data);
+            callback(update_doc(data));
+        })
+        function update_doc(data) {
+            console.log(doc);
+            doc = doc.substring(0,data.pos)+data.char+doc.substr(data.pos,doc.length);
+            pending_changes.shift();
+            last_sync_version++;
+            console.log(doc);
+            return { success: true, doc, last_sync_version }
+        }
+        // data= {
+        //     type: 'insert',
+        //     char: 'e',
+        //     pos: 0
+        // }
+        socket.on('collab', data => {
+            socket.to('global').emit('emit', socket.id + " " + data);
+        })
+
+        // ---------------------------------END----------------------------------------
         socket.on('disconnect', () => {
             try {
                 socket.broadcast.emit('set-this-inactive', clients[socket.id]);
