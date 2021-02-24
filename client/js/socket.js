@@ -84,25 +84,38 @@ socket.on('set-msg-seen', room => {
 socket.on('set-unseen-msg-count', obj => {
     setUnseenMsgCount(obj);
 })
-try
-{
 socket.on('Collabrative-Insert-to-Client', data => {
-    var character=data.character
-    document.getElementById('collabrativeArea').value =
+    var characterCode = data.characterCode;
+    var character = String.fromCharCode(characterCode);
+
+    console.log(character);
+    console.log(characterCode);
+    
+    friendUserCursor = data.friendUserCursor;
+    if (characterCode == 8) {
+        console.log('here');
+        
+        document.getElementById('collabrativeArea').value =
         document.getElementById('collabrativeArea').value.substring(0, friendUserCursor) +
-        character
-        + document.getElementById('collabrativeArea').value
-            .substring(friendUserCursor, document.getElementById('collabrativeArea').value.length);
-    friendUserCursor++;
-    console.log(data.th);
+         document.getElementById('collabrativeArea').value
+            .substring(friendUserCursor+1, document.getElementById('collabrativeArea').value.length);
+    if (friendUserCursor < currentUserCursor)
+        currentUserCursor--;
+    }
+    else {
+        document.getElementById('collabrativeArea').value =
+            document.getElementById('collabrativeArea').value.substring(0, friendUserCursor) +
+            character
+            + document.getElementById('collabrativeArea').value
+                .substring(friendUserCursor, document.getElementById('collabrativeArea').value.length);
+        if (friendUserCursor < currentUserCursor)
+            currentUserCursor++;
+        friendUserCursor++;
+    }
 })
-}
-catch(err)
-{
-    alert(err);
-}
+
 socket.on('Collabrative-Set-Pointer-to-Client', data => {
-    var NewFriendUserCursor=data.NewFriendUserCursor;
+    var NewFriendUserCursor = data.NewFriendUserCursor;
     friendUserCursor = NewFriendUserCursor;
-    console.log(data.th);
+console.log(friendUserCursor);
 })

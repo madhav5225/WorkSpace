@@ -4,7 +4,6 @@ var timeout = undefined;
 var user_id = [];
 const socket = io();
 var currentUserCursor = 0, friendUserCursor=0;
-var th=0,ca=0;
 
 function generateRoomID(a, b) {
     const k1 = parseInt(a, 16);
