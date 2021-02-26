@@ -84,13 +84,15 @@
                     <input type="email" id="email_reg" name="email" placeholder="Email">
                     <label>Password</label>
                     <input type="password" id="password_reg" name="password" placeholder="Password">
-                    <div><button class="submit" onclick="registerRequest(event.preventDefault())" type="submit">Sign
-                            Up</button> <button onclick="toggleAuth(event.preventDefault())">Sign In</button> </div>
+                    <div><button class="submit" onclick="send_verification(event.preventDefault())" type="submit">Continue</button> <button onclick="toggleAuth(event.preventDefault())">Sign In</button> </div>
                     <div class="social-login">
                         <span class="g-login"><i class="fab fa-google"></i> Google SignUp</span>
                         <span class="fb-login"><i class="fab fa-facebook-f"></i> Facebook SignUp</span>
                     </div>
                 </form>
+                <div class="form verification inactive">
+                    Hello
+                </div>
             </div>
             <!-- 
             
@@ -186,7 +188,7 @@
     </script>
     <script src="./js/cookie.js"></script>
     <script src="./js/login.js"></script>
-    <script src="./js/register.js"></script>
+    <script src="./js/send_verification.js"></script>
 </body>
 
 </html>

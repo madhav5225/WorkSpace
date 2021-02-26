@@ -17,7 +17,8 @@ catch(err)
 }
 //Middlewares
 app.use(express.static(__dirname + '/client'));
-//app.use(bodyParser());
+
+app.use(bodyParser.json());
 // initialize body-parser to parse incoming parameters requests to req.body
 app.use(bodyParser.urlencoded({ extended: true }));
 // initialize cookie-parser to allow us access the cookies stored in the browser.
