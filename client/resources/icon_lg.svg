@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="3719" height="838" viewBox="0 0 3719 838">
+  <g id="icon_lg" transform="translate(13716 1310)">
+    <g id="Group_9" data-name="Group 9">
+      <path id="Polygon_2" data-name="Polygon 2" d="M391.153,46.5a31,31,0,0,1,53.694,0l364.307,631A31,31,0,0,1,782.307,724H53.693a31,31,0,0,1-26.847-46.5Z" transform="translate(-12880 -586) rotate(180)" fill="#fff"/>
+      <path id="Polygon_3" data-name="Polygon 3" d="M391.153,46.5a31,31,0,0,1,53.694,0l364.307,631A31,31,0,0,1,782.307,724H53.693a31,31,0,0,1-26.847-46.5Z" transform="translate(-13262 -1196)" fill="#fff"/>
+    </g>
+    <text id="Workspace" transform="translate(-12386 -720)" fill="#fff" font-size="487" font-family="Roboto-BlackItalic, Roboto" font-weight="800" font-style="italic"><tspan x="0" y="0">Workspace</tspan></text>
+  </g>
+</svg>

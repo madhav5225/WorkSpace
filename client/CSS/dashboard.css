@@ -1,104 +1,43 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins&display=swap");
+
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  line-height: 150%;
 }
-/* body{
-    background-color: #000;
-    height: 100vh;
-} */
+*::selection {
+  background: rgb(255, 123, 61);
+  color: #ffffff;
+}
+body {
+  position: relative;
+  background-color: #161616;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+nav {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  height: 70px;
+}
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+  width: 8px;
+  height: 8px;
 }
 /* Track */
 ::-webkit-scrollbar-track {
-    /* -webkit-box-shadow: inset 0 0 6px rgba(245, 245, 245, 0.3);  */
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
+  /* -webkit-box-shadow: inset 0 0 6px rgba(245, 245, 245, 0.3);  */
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb {
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    background: rgb(48, 48, 48); 
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: rgb(48, 48, 48);
 }
 ::-webkit-scrollbar-thumb:window-inactive {
-	background: rgba(0, 0, 0, 0.4); 
-}
-.particles {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: #000;
-  background-repeat: no-repeat;
-  background-size: 20%;
-  background-position: center;
-}
-nav {
-  position: relative;
-  width: 100%;
-  top: 10px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  min-height: 8vh;
-}
-.logo {
-  position: absolute;
-  left: 100px;
-  font-family: "Poppins";
-  font-size: 20px;
-  letter-spacing: 0.02em;
-  color: #fff;
-}
-.nav-links {
-  position: absolute;
-  right: 7vh;
-  display: flex;
-  list-style-type: none;
-  justify-content: space-evenly;
-  width: 20%;
-}
-.nav-links a {
-  color: #fff;
-  text-decoration: none;
-  font-family: "Poppins";
-  font-size: 16px;
-  padding: 4px;
-}
-.burger {
-  position: absolute;
-  left: 2%;
-  display: none;
-  cursor: pointer;
-  color: #fff;
-}
-.burger div {
-  width: 22px;
-  height: 2px;
-  background-color: #fff;
-  margin: 5px;
-  transition: transform 0.3s ease-in;
-}
-.profile {
-  position: absolute;
-  right: 20px;
-  height: 6vh;
-  width: 6vh;
-  padding: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  border: 2px solid rgb(255, 255, 255);
-  cursor: pointer;
-}
-.profile img {
-  width: 5vh;
-  height: 5vh;
-  border-radius: 50%;
-  object-fit: cover;
+  background: rgba(0, 0, 0, 0.4);
 }
 main {
   position: relative;
@@ -125,7 +64,7 @@ main {
   width: 292px;
   height: 62px;
   margin: 4px;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0);
   border-radius: 4px;
   position: relative;
   display: flex;
@@ -207,7 +146,7 @@ main {
   width: 292px;
   height: 100%;
   margin: 4px;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0);
   border-radius: 4px;
   position: relative;
   display: flex;
@@ -243,12 +182,12 @@ main {
   transition: border-left 0.3s ease;
   transition: background 0.3s ease;
 }
-.userHolder ul .on-screen{
-    z-index: 3;
-    width: calc(292px - 12px);
-    margin: 4px 0;
-    box-shadow: 0 0 8px #000;
-    background: rgb(68, 68, 68);
+.userHolder ul .on-screen {
+  z-index: 3;
+  width: calc(292px - 12px);
+  margin: 4px 0;
+  box-shadow: 0 0 8px #000;
+  background: rgb(68, 68, 68);
 }
 .userHolder ul li:hover {
   z-index: 3;
@@ -315,19 +254,33 @@ main {
   letter-spacing: 0.01em;
   padding: 0 0.5em;
 }
+
+.chat-section {
+  visibility: none;
+  transition: opacity 0.2s linear;
+  opacity: 0;
+}
+.chat-section.display {
+  visibility: visible;
+  opacity: 1;
+}
 .chat-section {
   grid-area: chat;
-  background:rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.5);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
-.chat-section .backdrop{
-    background: rgba(0, 0, 0, 0.5);
-    width: 100%;
-    height: 100%;
-    filter: blur(50px);
+.backdrop {
+  grid-area: chat;
+  width: 100%;
+  height: 100%;
+}
+.backdrop img{
+  padding: 100px;
+  width: 100%;
+  height: 100%;
 }
 .messenger-contact {
   z-index: 1;
@@ -388,7 +341,7 @@ main {
   height: 28px;
   margin: 0;
   padding: 10px;
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
   border-radius: 6px;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
   transition: width 0.3s ease-in;
@@ -405,148 +358,144 @@ main {
   color: #000;
 }
 
-.chat-section{
-    visibility: hidden;
-    transition: opacity 0.2s linear;
-    opacity: 0;
-}
-.chat-section.display{
-    visibility: visible;
-    opacity: 1;
-}
-
 .chat-section .chatbox {
-    position: absolute;
-    top: 40px;
-    width: 764px;
-    height:calc(100% - 40px);
-    padding: 8px;
-    border-radius: 10px;
-    background: rgb(24, 24, 24);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  position: absolute;
+  top: 40px;
+  width: 764px;
+  height: calc(100% - 40px);
+  padding: 8px;
+  border-radius: 10px;
+  background: rgb(24, 24, 24);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-.chat-section .chatbox .message-container{
-    width: 100%;
-    height: 90%;
-    padding: 2px;
-    margin: 0px;
-    overflow-x:hidden;
-    overflow-y: hidden;
-    /* border: 1px solid #000; */
+.chat-section .chatbox .message-container {
+  width: 100%;
+  height: 90%;
+  padding: 2px;
+  margin: 0px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  /* border: 1px solid #000; */
 }
-
-.chat-section .chatbox .message-container .msglist{
-    width: 100%;
-    height: 100%;
-    /* border: 1px solid #fff; */
-    list-style-type: none;
-    overflow-y: scroll;
+.chat-section .chatbox .message-container .msglist {
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid #fff; */
+  list-style-type: none;
+  overflow-y: scroll;
 }
 .chat-section .chatbox .message-container .msglist .msg {
-    float: left;
-    clear: both;
-    max-width: 65%;
-    margin: 0 0 8px 0;
+  float: left;
+  clear: both;
+  max-width: 65%;
+  margin: 0 0 8px 0;
 }
-.chat-section .chatbox .message-container .msglist .msg.me{
-    float: right;
-    clear: both;
-    max-width: 65%;
+.chat-section .chatbox .message-container .msglist .msg.me {
+  float: right;
+  clear: both;
+  max-width: 65%;
 }
-.msglist .msg .text{
-    max-width: 100%;
-    min-width: 100px;
-    background: rgb(40, 40, 41);
-    padding: 10px 10px 5px 10px;
-    font-family: 'Open Sans';
-    font-size: 1em;
-    color: rgb(255, 255, 255);
-    margin: 5px 4px;
-    word-wrap: break-word;
-    border-radius: 0px 10px 10px 10px;
+.msglist .msg .text {
+  max-width: 100%;
+  min-width: 100px;
+  background: rgb(40, 40, 41);
+  padding: 10px 10px 5px 10px;
+  font-family: "Open Sans";
+  font-size: 1em;
+  color: rgb(255, 255, 255);
+  margin: 5px 4px;
+  word-wrap: break-word;
+  border-radius: 0px 10px 10px 10px;
 }
-.msglist .msg.me .text{
-    max-width: 100%;
-    border-radius: 10px 0px 10px 10px;
+.msglist .msg.me .text {
+  max-width: 100%;
+  border-radius: 10px 0px 10px 10px;
 }
-
-.msglist .msg.me .text .msg-status{
-    text-align: end;
+.msglist .msg.me .text .msg-status {
+  text-align: end;
 }
-.msglist .msg.me .text .msg-status span{
-    font-size: 1em;
+.msglist .msg.me .text .msg-status span {
+  font-size: 1em;
 }
-.seen{
-    color:rgb(79, 255, 117);
+.seen {
+  color: rgb(79, 255, 117);
 }
-.msglist .msg .msg-time{
-    display: flex;
-    column-gap: 10px;
-    font-family: 'Open Sans';
-    font-size: 0.6em;
-    color: rgba(255, 255, 255, 0.486);
-    margin: 0 5px;
+.msglist .msg .msg-time {
+  display: flex;
+  column-gap: 10px;
+  font-family: "Open Sans";
+  font-size: 0.6em;
+  color: rgba(255, 255, 255, 0.486);
+  margin: 0 5px;
 }
-.chat-section .chatbox .msg-writer{
-    width: 100%;
-    height: 10%;
-    padding: 5px;
+.chat-section .chatbox .msg-writer {
+  width: 100%;
+  height: 10%;
+  padding: 5px;
 }
-.msg-writer .field{
-    z-index: 1;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    border: 2px solid rgb(255, 255, 255);
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.9);
+.msg-writer .field {
+  z-index: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  border: 2px solid rgb(255, 255, 255);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.9);
 }
-.field input{
-    outline: none;
-    width: 100%;
-    height: 100%;
-    border:none;
-    background-image:none;
-    background-color:transparent;
-    box-shadow: none;
-    font-family: 'Open Sans';
-    color: rgb(255, 255, 255);
-    font-size: 1em;
+.field input {
+  outline: none;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-image: none;
+  background-color: transparent;
+  box-shadow: none;
+  font-family: "Open Sans";
+  color: rgb(255, 255, 255);
+  font-size: 1em;
 }
-input::placeholder{
-    color: rgba(255, 255, 255, 0.685);
+input::placeholder {
+  color: rgba(255, 255, 255, 0.685);
 }
-input::selection{
-    color: rgb(0, 0, 0);
-    background: rgb(255, 255, 255);
-    margin: 10px;
-    padding: 10px;
+input::selection {
+  color: rgb(0, 0, 0);
+  background: rgb(255, 255, 255);
+  margin: 10px;
+  padding: 10px;
 }
-.field button{
-    border:2px solid rgb(255, 255, 255);
-    color: #fff;
-    background-image:none;
-    background-color:transparent;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-    font-size: 24px;
-    border-radius: 8px;
-    padding: 2px;
-    margin: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.field button {
+  border: 2px solid rgb(255, 255, 255);
+  color: #fff;
+  background-image: none;
+  background-color: transparent;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  font-size: 24px;
+  border-radius: 8px;
+  padding: 2px;
+  margin: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.field button:focus{
-    outline: none;
+.field button:focus {
+  outline: none;
 }
-
+@media screen and (max-width: 768px) {
+  body {
+    background: #161616;
+  }
+  .backdrop{
+    display: none;
+  }
+}
+/* 
 @media screen and (max-width: 1024px) {
   main {
     left: 10px;
@@ -556,14 +505,13 @@ input::selection{
   }
 }
 @media screen and (max-width: 768px) {
-  
-    .particles {
-        display: none;
-      }
-    body {
-        /* overflow-x: hidden; */
-        background: #000;
-      }
+  .particles {
+    display: none;
+  }
+  body {
+    overflow-x: hidden;
+    background: #000;
+  }
   nav {
     z-index: 10;
     background: #000;
@@ -579,7 +527,7 @@ input::selection{
   }
   .nav-links {
     position: absolute;
-    left: 0%; /* <<<----------------------------------Change this after testing to 0%----------------------------  */
+    left: 0%;  <<<----------------------------------Change this after testing to 0%---------------------------- 
     top: 8vh;
     width: 40%;
     display: flex;
@@ -607,4 +555,4 @@ input::selection{
 }
 .burger-active .line3 {
   transform: rotate(45deg) translateY(-10px);
-}
+} */

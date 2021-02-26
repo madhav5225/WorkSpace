@@ -5,8 +5,8 @@ function loginRequest() {
     const password = $('#password_login').val();
 
     // true if checkbox is checked
-    var rem_login = ($('#rem_login').is(':checked') == "true") ? true : false;
-    console.log(rem_login);
+    // var rem_login = ($('#rem_login').is(':checked') == "true") ? true : false;
+    // console.log(rem_login);
 
     $.post("/login", { email, password }, function (data) {
         if (data['msg'] === "success") {

@@ -3,7 +3,7 @@ const { userModel } = require("../models/db_model.js");
 const registerController = async (req, res) => {
     try {
 
-        const { email, name, password } = req.body;
+        const { email, name, gender, password } = req.body;
 
         // console.log(req.body);
 
@@ -19,6 +19,7 @@ const registerController = async (req, res) => {
                 const user = new userModel({
                     email: email,
                     fullname: name,
+                    gender: gender,
                     password: password
                 });
 

@@ -19,6 +19,7 @@ const userListController = async (req, res) => {
                     fname: user.name.first,
                     lname: user.name.last,
                     email: user.email,
+                    gender:user.gender,
                     isOnline: isOnline[user._id]
                 };
             }
@@ -29,6 +30,7 @@ const userListController = async (req, res) => {
                     fname: user.name.first,
                     lname: user.name.last,
                     email: user.email,
+                    gender:user.gender,
                     isOnline: isOnline[user._id]
                 };
             }

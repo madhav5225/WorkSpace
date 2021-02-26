@@ -4,7 +4,7 @@
 <head>
     <title>ChatApp</title>
     <!--css-->
-    <link rel="stylesheet" href="./CSS/style.css" type="text/css">
+    <link rel="stylesheet" href="./CSS/nav.css" type="text/css">
     <link rel="icon" href="resources/sent-mail.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
         integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
@@ -18,12 +18,9 @@
 
 <body>
 
-    <!-- particles -->
-    <div id="particles-js"></div>
-
     <nav>
         <div class="logo">
-            <h4>The ChatApp</h4>
+            <img src="./resources/icon_lg.svg">
         </div>
         <ul class="nav-links">
             <li>
@@ -38,8 +35,8 @@
             <div class="line2"></div>
             <div class="line3"></div>
         </div>
-        <div class="profile">
-            <img src="./resources/defaultProfile.jpg">
+        <div class="profile" ondblclick="window.location='/logout'">
+            <img src="./resources/undraw_profile_pic_ic5t.svg">
         </div>
     </nav>
 
@@ -69,14 +66,14 @@
             </div>
         </div>
 
+        <div class="backdrop"><img src="./resources/undraw_online_message_xq4c.svg"></div>
         <div class="chat-section">
-            <div class="backdrop"></div>
             <div class="messenger-contact">
                 <img id="onScreen-profile"
-                    src="./resources/defaultProfile.jpg">
+                    src="./resources/undraw_profile_pic_ic5t.svg">
                 <!-- Profile picture of the chatting user -->
-                <div class="name" id="onScreen-name">Margot</div> <!-- Name of the user with whom I am chatting -->
-                <div class="status" id="onScreen-status">online</div> <!-- Online offline typeing status-->
+                <div class="name" id="onScreen-name"></div> <!-- Name of the user with whom I am chatting -->
+                <div class="status" id="onScreen-status"></div> <!-- Online offline typeing status-->
                 <div class="option">
                     <div class="search-chat">
                         <i class="fas fa-search"></i>
@@ -204,6 +201,12 @@
     <!--script-->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>
+        // if($('.chat-section').css("visibility")=="visible"){
+        //     $('.backdrop').hide();
+        // }
+        // else{
+        //     $('.backdrop').show();
+        // }
         const burger = document.querySelector('.burger');
         const nav = document.querySelector('.nav-links');
         burger.addEventListener('click', () => {
@@ -213,9 +216,7 @@
         // $('.chat-section').hide();
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script src="./js/particles.js"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="./js/cookie.js"></script>
     <script src="./js/chat.js"></script>
