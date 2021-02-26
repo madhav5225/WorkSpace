@@ -51,7 +51,16 @@ function setChatList(data) {
         else {
             userItem = $('<li onclick=setChat(' + i + ') id="messenger' + i + '">');
         }
-        var img_element = $('<img src="../resources/defaultProfile.jpg">');
+        let img_element;
+        if(user.gender=="male"){
+            img_element = $('<img src="../resources/male_avatar.svg">');
+        }
+        else if(user.gender == "female"){
+            img_element = $('<img src="../resources/female_avatar.svg">');
+        }
+        else{
+            img_element = $('<img src="../resources/undraw_profile_pic_ic5t.svg">');
+        }
         // var userItem = $('<li class="list-group-item user-list-item d-flex justify-content-between align-items-center"  onclick=setChat(' + i + ') id="messenger'+i+'">');
 
         var detail_element = $('<div class="userdetails">');

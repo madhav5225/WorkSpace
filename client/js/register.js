@@ -4,7 +4,8 @@ function registerRequest() {
     const email = $('#email_reg').val();
     const password = $('#password_reg').val();
     const name = $('#name_reg').val();
-    $.post("/register", { email, name, password }, function (data) {
+    const gender = $('.male').hasClass('active')?"male":"female";
+    $.post("/register", { email, name, gender, password }, function (data) {
         if (data['msg'] === "success") {
             window.location.href = '/dashboard';
         }
