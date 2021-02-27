@@ -28,7 +28,7 @@ app.use(cookieParser('secret'));
 require('./session')(app);
 //redirects to https when hosted on heroku server
 var forceSsl = function (req, res, next) {
-    console.log(req);
+   // console.log(req);
     if (req.headers['x-forwarded-proto'] !== 'https'&& "production" === process.env.NODE_ENV) {
         return res.redirect(['https://', req.get('Host'), req.url].join(''));
     }
