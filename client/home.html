@@ -4,22 +4,22 @@
 <head>
     <title>ChatApp</title>
     <!--css-->
+    <script src='./js/checkHttpProtocol.js'></script>
     <link rel="stylesheet" href="CSS/home.css" type="text/css">
+    <link rel="stylesheet" href="CSS/nav.css" type="text/css">
     <link rel="icon" href="resources/sent-mail.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
-    integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
-    crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+        crossorigin="anonymous" />
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
 
 <body>
-
-    <div id="particles-js"></div>
     <nav>
         <div class="logo">
-            <i class="fas fa-paper-plane"></i> <h4>ChatApp</h4>
+            <img src="./resources/icon_lg.svg">
         </div>
         <ul class="nav-links">
             <li>
@@ -37,81 +37,159 @@
     </nav>
     <div class="flex">
         <div class="intro">
-            <h3>Welcome to Open Chat Application</h3>
-        </div>
-        <div class="cont">
-            <div class="backdrop"></div>
-            <form class="form sign-in" onsubmit="loginRequest(event.preventDefault())">
-                <h2>Sign In</h2>
-                <label>
-                    <span>Email Address</span>
-                    <input type="email" name="email" id="email_login" placeholder="Enter email">
-                </label>
-                <label>
-                    <span>Password</span>
-                    <input type="password" name="password" id="password_login" placeholder="Enter password">
-                </label>
-                <button class="submit" type="submit">Sign In</button>
-                <p class="forgot-pass">Forgot Password ?</p>
-            </form>
+            <h2>Welcome to our <span class="highlight"><mark class="text-mark"></mark><span
+                        class="blinker"></span></span><br>Workspace Application</h2>
 
-            <div class="sub-cont">
-                <div class="backdrop"></div>
-                <div class="dark-bg">
-                    <div class="dark-bg-text m-up">
-                        <h2>New here?</h2>
-                        <p>Sign up to our platform, where you can explore and make new friends.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce porttitor lobortis urna. Vivamus semper
+                interdum pellentesque. Maecenas pellentesque id justo a iaculis. Mauris a suscipit est, eget eleifend
+                ex. Aliquam erat volutpat. Fusce sapien nibh, scelerisque id diam nec, condimentum rutrum dolor. .</p>
+
+            <p>Sed ut massa vel diam tincidunt dignissim sit amet cursus justo. Quisque eget interdum justo, in
+                elementum metus.</p>
+            <img src="./resources/icon_sm.svg">
+
+        </div>
+
+        <a class="auth" href="#auth-section">Sign In</a>
+
+        <div class="container" id="auth-section">
+            <div class="backdrop"> <img src="./resources/undraw_online_message_xq4c.svg"></div>
+            <div class="auth-form">
+                <form class="form sign-in">
+                    <h2>Login</h2>
+
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email_login" placeholder="Email">
+
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password_login" placeholder="Password">
+
+                    <div><button class="submit" onclick="loginRequest(event.preventDefault())" type="submit">Sign
+                            In</button> <button onclick="toggleAuth(event.preventDefault())">Sign Up</button> </div>
+
+                    <span class="forgot-pass">Forgot Password?</span>
+                    <div class="social-login">
+                        <span class="g-login"><i class="fab fa-google"></i> Google Login</span>
+                        <span class="fb-login"><i class="fab fa-facebook-f"></i> Facebook Login</span>
                     </div>
-                    <div class="dark-bg-text m-in">
-                        <h2>Already Registered?</h2>
-                        <p>If you already has an account, just sign in!</p>
-                    </div>
-                    <div class="dark-bg-btn">
-                        <span class="m-up">Register</span>
-                        <span class="m-in">Sign In</span>
-                    </div>
-                </div>
-                <form class="form sign-up" onsubmit="registerRequest(event.preventDefault())">
-                    <h2>Sign Up</h2>
-                    <label>
-                        <span>Name</span>
-                        <input type="text" id="name_reg" name="name" placeholder="Name">
-                    </label>
-                    <label>
-                        <span>Email</span>
-                        <input type="email" id="email_reg" name="email" placeholder="Email">
-                    </label>
-                    <label>
-                        <span>Password</span>
-                        <input type="password" id="password_reg" name="password" placeholder="Password">
-                    </label>
-                    <button type="submit" class="submit">Register</button>
                 </form>
+                <form class="form sign-up inactive">
+                    <h2>Sign Up</h2>
+                    <div class="gender">
+                        <span class="gen male active"><img src="./resources/male_avatar.svg"></span>
+                        <span class="gen female"><img src="./resources/female_avatar.svg"></span>
+                    </div>
+                    <label>Name</label>
+                    <input type="text" id="name_reg" name="name" placeholder="Name">
+                    <label>Email</label>
+                    <input type="email" id="email_reg" name="email" placeholder="Email">
+                    <label>Password</label>
+                    <input type="password" id="password_reg" name="password" placeholder="Password">
+                    <div><button class="submit" onclick="send_verification(event.preventDefault())" type="submit">Continue</button> <button onclick="toggleAuth(event.preventDefault())">Sign In</button> </div>
+                    <div class="social-login">
+                        <span class="g-login"><i class="fab fa-google"></i> Google SignUp</span>
+                        <span class="fb-login"><i class="fab fa-facebook-f"></i> Facebook SignUp</span>
+                    </div>
+                </form>
+                <div class="form verification inactive">
+                    Hello
+                </div>
             </div>
+            <!-- 
+            
+            <h2>New here?</h2>
+            <p>Sign up to our platform, where you can explore and make new friends.</p>
+            <h2>Already Registered?</h2>
+            <p>If you already has an account, just sign in!</p>
+            <span class="m-up">Register</span>
+            <span class="m-in">Sign In</span> -->
+
         </div>
     </div>
 
+    <footer>
+        Developed By: Geeks
+    </footer>
     <!--script-->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        document.querySelector('.dark-bg-btn').addEventListener('click', function () {
-            document.querySelector('.cont').classList.toggle('s-signup')
-        });
         const burger = document.querySelector('.burger');
         const nav = document.querySelector('.nav-links');
         burger.addEventListener('click', () => {
             nav.classList.toggle('nav-active');
             burger.classList.toggle('burger-active');
         })
+        // const textElement = document.querySelector('.text-mark');
+        // const text = ["ChatBox", "WhiteBoard", "Text Collab"];
+        // let index = 0;
+        // function writeText(i) {
+        //     if (index < text[i].length) {
+        //         setTimeout(() => {
+        //             textElement.innerText += text[i].charAt(index);
+        //             index++;
+        //             writeText(i);
+        //         }, 200)
+        //     } else {
+        //         setTimeout(() => {
+        //             backspaceText(i);
+        //         }, 500);
+        //     }
+        // };
+        // function backspaceText(i) {
+        //     if (index > 0) {
+        //         setTimeout(() => {
+        //             index--;
+        //             textElement.innerText = text[i].substring(0, index);
+        //             backspaceText(i);
+        //         }, 200)
+        //     } else {
+        //         writeText((i + 1) % (text.length));
+        //     }
+        // };
+        // writeText(0);
+        // $(".auth").click(function () {
+        //     $('html,body').animate({
+        //         scrollTop: $(".container").offset().top
+        //     }, 'slow');
+        //     $(this).innerText = "^";
+        // }
+        // );
 
+        window.onscroll = function () {
+            if (window.pageYOffset > 440) {
+                $('.auth').hide();
+            }
+            else {
+                $('.auth').show();
+            }
+        }
+
+        function toggleAuth() {
+            document.querySelector('.sign-in').classList.toggle('inactive');
+            document.querySelector('.sign-up').classList.toggle('inactive');
+        }
+
+        $('.male').click(function () {
+            if (!$('.male').hasClass('active')) {
+                $('.male').addClass('active');
+                $('.female').removeClass('active');
+            }
+        })
+        $('.female').click(function () {
+            if (!$('.female').hasClass('active')) {
+                $('.female').addClass('active');
+                $('.male').removeClass('active');
+            }
+        })
+
+
+        
     </script>
-    <script src="./js/particles.js"></script>
     <script src="./js/cookie.js"></script>
     <script src="./js/login.js"></script>
-    <script src="./js/register.js"></script>
+    <script src="./js/send_verification.js"></script>
 </body>
 
 </html>

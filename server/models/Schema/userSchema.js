@@ -19,6 +19,10 @@ const userSchema = new Schema(
             maxlength: 10,
             minlength: 10
         },
+        gender:{
+            type:String,
+            enum:["male","female"]
+        },
         hashed_password: { type: String, required: true },
         salt: String,
         state:{

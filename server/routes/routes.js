@@ -3,7 +3,7 @@ const { check_login, check_not_login } = require('../controller/check_login');
 const router = express.Router();
 
 router.get('/', check_not_login, (req, res) => {
-  // console.log('request to / is made');
+   console.log('request to / is made');
   res.sendFile('/home.html', { root: 'client' });
 })
 
@@ -12,6 +12,11 @@ router.post('/login', require('../controller/loginController'));
 
 // register route
 router.post('/register', require('../controller/registerController'));
+
+// send-mail route
+router.post('/send_verification', require('../controller/mailVerificationController'));
+
+router.get('/user_activation',require('../controller/activationController'))
 
 // dashBoard route
 router.get('/dashboard', check_login, require('../controller/dashBoardController'));

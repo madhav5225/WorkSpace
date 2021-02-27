@@ -3,9 +3,7 @@ const { userModel } = require("../models/db_model.js");
 const registerController = async (req, res) => {
     try {
 
-        const { email, name, password } = req.body;
-
-        // console.log(req.body);
+        const { email, name, gender, password } = req.body;
 
         await userModel.findOne({ email }).exec((err, user) => {
             if (err) {
@@ -19,23 +17,28 @@ const registerController = async (req, res) => {
                 const user = new userModel({
                     email: email,
                     fullname: name,
+                    gender: gender,
                     password: password
                 });
 
                 user.save((err, user) => {
                     if (err) {
                         console.log('Save error ' + err.message);
-                        return res.send('Error connecting Database');
+                        return res.send({msg:"Error connecting Database"});
                     } else {
-                        req.session.user = user;
-                        res.send({ msg: "success" });
+                        console.log('success-register');
+                        // req.session.user = user;
+                        res.send({msg:"success",user:user});
+                        console.log('here1');
                     }
                 });
             }
         });
+
+        console.log('here2');
     }
     catch (error) {
-        // console.log(error);
+        console.log(error);
         res.send({ msg: error });
     }
 }
