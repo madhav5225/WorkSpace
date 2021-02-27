@@ -36,13 +36,14 @@ var forceSsl = function (req, res, next) {
     return next();
  };
 
- app.configure(function () {      
-    if (env === 'production') {
-        app.use(forceSsl);
-    }
-
+//  app.configure(function () {      
+//     if (env === 'production') {
+        
+//     }
     // other configurations etc for express go here...
- });
+ //});
+ app.use(forceSsl);
+   
 require('./session')(app);
 
 const server = require('./server/sockets/socketing.js')(app);
