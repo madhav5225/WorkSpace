@@ -29,6 +29,20 @@ app.use(cookieParser('secret'));
     
 //     res.redirect("http://" + req.headers.host + req.url);
 // });
+var forceSsl = function (req, res, next) {
+    if (req.headers['x-forwarded-proto'] !== 'https') {
+        return res.redirect(['https://', req.get('Host'), req.url].join(''));
+    }
+    return next();
+ };
+
+ app.configure(function () {      
+    if (env === 'production') {
+        app.use(forceSsl);
+    }
+
+    // other configurations etc for express go here...
+ });
 require('./session')(app);
 
 const server = require('./server/sockets/socketing.js')(app);
