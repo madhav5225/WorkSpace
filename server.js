@@ -27,7 +27,7 @@ app.use(cookieParser('secret'));
 // initialize express-session to allow us track the logged-in user across sessions.
 app.use(function(req, res) {
     
-    res.redirect("https://" + req.headers.host + req.url);
+    res.redirect("http://" + req.headers.host + req.url);
 });
 require('./session')(app);
 
