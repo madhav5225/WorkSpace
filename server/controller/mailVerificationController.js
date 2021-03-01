@@ -1,15 +1,15 @@
 const jwt = require('jsonwebtoken');
 const { userModel } = require("../models/db_model.js");
-const sgMail = require('@sendgrid/mail')
+const sgMail = require('@sendgrid/mail');
+const { generateKey } = require('../Encryption.js/encryption.js');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 const mailVerificationController = async (req, res) => {
     try {
 
-        const { email, name, gender, password } = req.body;
-
-        // console.log(req.body);
-
+        const { email, name, gender } = req.body;
+const password=req.body.password;
+         
         await userModel.findOne({ email }).exec((err, user) => {
             if (err) {
                 console.log("error " + err);

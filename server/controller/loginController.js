@@ -1,10 +1,12 @@
 
+const { generateKey } = require("../Encryption.js/encryption");
 const { userModel } = require("../models/db_model");
 
 const loginController = async (req, res) => {
     try {
 
-        const { email, password } = req.body;
+        const { email} = req.body;
+        const password=req.body.password;
 
         await userModel.findOne({ email }).exec((err, user) => {
             if (err || !user) {

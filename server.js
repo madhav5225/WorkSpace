@@ -8,11 +8,10 @@ require('dotenv').config({
 })
 
 const app = express();
-try{
-connectDb();
+try {
+    connectDb();
 }
-catch(err)
-{
+catch (err) {
     console.log(err);
 }
 //Middlewares
@@ -28,14 +27,14 @@ app.use(cookieParser('secret'));
 require('./session')(app);
 //redirects to https when hosted on heroku server
 var forceSsl = function (req, res, next) {
-   // console.log(req);
-    if (req.headers['x-forwarded-proto'] !== 'https'&& "production" === process.env.NODE_ENV) {
+    // console.log(req);
+    if (req.headers['x-forwarded-proto'] !== 'https' && "production" === process.env.NODE_ENV) {
         return res.redirect(['https://', req.get('Host'), req.url].join(''));
     }
     return next();
- };
- app.use(forceSsl);
- 
+};
+app.use(forceSsl);
+
 const server = require('./server/sockets/socketing.js')(app);
 const route = require('./server/routes/routes.js');
 

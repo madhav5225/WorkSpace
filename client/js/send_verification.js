@@ -1,6 +1,7 @@
-function send_verification(){
+async function send_verification(){
     const email = $('#email_reg').val();
-    const password = $('#password_reg').val();
+    var password = $('#password_reg').val();
+    
     const name = $('#name_reg').val();
     const gender = $('.male').hasClass('active')?"male":"female";
     $.post("/send_verification", { email, name, gender, password }, function (data) {

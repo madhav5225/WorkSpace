@@ -19,18 +19,20 @@ const userSchema = new Schema(
             maxlength: 10,
             minlength: 10
         },
-        gender:{
-            type:String,
-            enum:["male","female"]
+        gender: {
+            type: String,
+            enum: ["male", "female"]
         },
         hashed_password: { type: String, required: true },
         salt: String,
-        state:{
-            online: {type:Boolean,default:false},
-            available: {type:Boolean,default:false}
+        encrypted_private_key: {type:String},
+        public_key:{type:String},
+        state: {
+            online: { type: Boolean, default: false },
+            available: { type: Boolean, default: false }
         },
-        log:{
-            last_active: {type:Date,default:Date.now}
+        log: {
+            last_active: { type: Date, default: Date.now }
         },
         joinedAt: {
             type: Date,
