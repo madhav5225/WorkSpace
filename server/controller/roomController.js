@@ -53,28 +53,37 @@ const roomController = async (req, res) => {
         // console.log(await getEncryptedPrivateKey(user2));
 
         const encryptedsymmetricKeyData = await getSymmetricKey(result.room_id);
-        console.log(encryptedsymmetricKeyData);
         try {
             if (encryptedsymmetricKeyData[0].user == user1) {
                 const EncryptedsymmetricKey = encryptedsymmetricKeyData[0].encryptedsymmetricKey;
-                const EncryptedPrivateKey = await getEncryptedPrivateKey(user1);
-                console.log(req.session.passPhrase);
-
+                const EncryptedPrivateKey = req.session.user.encrypted_private_key;
+                //console.log(req.session.passPhrase);
+                console.log(req.session);
                 const PrivateKey = deCipherUsingAes(EncryptedPrivateKey, req.session.passPhrase);
-                console.log('PrivateKey: ' + PrivateKey);
-
+                //console.log('PrivateKey: ' + PrivateKey);
                 const SymmetricKey = await deCipherRSA(PrivateKey, EncryptedsymmetricKey);
                 console.log('SymmetricKey: ' + SymmetricKey);
+                req.session['' + room_id] = SymmetricKey;
             }
             else {
-                console.log('symmetricKey: ' + encryptedsymmetricKeyData[1].encryptedsymmetricKey);
+                const EncryptedsymmetricKey = encryptedsymmetricKeyData[1].encryptedsymmetricKey;
+                const EncryptedPrivateKey = req.session.user.encrypted_private_key;
+                //console.log(req.session.passPhrase);
+                console.log(req.session);
+                const PrivateKey = deCipherUsingAes(EncryptedPrivateKey, req.session.passPhrase);
+                //console.log('PrivateKey: ' + PrivateKey);
+                const SymmetricKey = await deCipherRSA(PrivateKey, EncryptedsymmetricKey);
+                console.log('SymmetricKey: ' + SymmetricKey);
+                req.session['' + room_id] = SymmetricKey;
             }
+           return  res.send({ room: result, msg: 'success' });
         }
         catch (err) {
             console.log(err);
+            res.send({ room: result, msg: 'Fail' });
         }
 
-        res.send({ room: result, msg: 'success' });
+      
     });
 
 }
