@@ -1,6 +1,6 @@
 
 const dashBoardController = (req, res) => {
-//console.log(req);
+//console.log(req.session);
 console.log(req.session.passPhrase);
 
 

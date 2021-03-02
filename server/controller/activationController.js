@@ -1,6 +1,6 @@
 const axios = require('axios');
 const jwt = require('jsonwebtoken');
-const { sha256, generateKeyPair } = require('../Encryption.js/encryption');
+const { sha256, generateKeyPair, createCipherAes } = require('../Encryption.js/encryption');
 
 const activationController = async (req, res) => {
     const token = req.query.token;
@@ -14,8 +14,12 @@ const activationController = async (req, res) => {
             else {
                 const { email, name, gender, password } = decodedData;
                 const passPhrase = await sha256(email + password);
-                const { public_key, encrypted_private_key } = await generateKeyPair(passPhrase);
+                const { public_key,private_key } = await generateKeyPair();
                 console.log(passPhrase);
+                console.log(public_key);
+                console.log(private_key);
+                
+                const encrypted_private_key=createCipherAes(passPhrase,private_key,'hex')
                 console.log(encrypted_private_key);
                 console.log(public_key);
 
@@ -38,8 +42,9 @@ const activationController = async (req, res) => {
                         if (response.data.msg === "success") {
 
                             req.session.user = response.data.user;
+                          
                             req.session.passPhrase=passPhrase;
-
+                            console.log(req.session.passPhrase);
                             return res.redirect('/dashboard');
                         }
                         else {
