@@ -15,13 +15,12 @@ const activationController = async (req, res) => {
                 const { email, name, gender, password } = decodedData;
                 const passPhrase = await sha256(email + password);
                 const { public_key,private_key } = await generateKeyPair();
-                console.log(passPhrase);
-                console.log(public_key);
-                console.log(private_key);
+                console.log("passPhrase: "+passPhrase);
+                console.log("public: "+ public_key);
+                console.log("private: "+ private_key);
                 
-                const encrypted_private_key=createCipherAes(passPhrase,private_key,'hex')
-                console.log(encrypted_private_key);
-                console.log(public_key);
+                const encrypted_private_key=createCipherAes(passPhrase,private_key,'hex');
+                console.log("encrypted private key: " + encrypted_private_key);
 
                 axios({
                     method:'post',
@@ -44,7 +43,6 @@ const activationController = async (req, res) => {
                             req.session.user = response.data.user;
                           
                             req.session.passPhrase=passPhrase;
-                            console.log(req.session.passPhrase);
                             return res.redirect('/dashboard');
                         }
                         else {

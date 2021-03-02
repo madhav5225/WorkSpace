@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 
-exports.createCipherAes = function (password, text,type) {
+exports.createCipherAes = function (password, text, type) {
   // const algorithm = "aes-192-cbc"; //algorithm to use
   // var key = crypto.scryptSync(password, 'salt', 24);
   // //console.log('key'+key.toString('base64'));
@@ -12,10 +12,10 @@ exports.createCipherAes = function (password, text,type) {
 
   // return encrypted;
   const cipher = crypto.createCipher('aes192', password);
-var encrypted = cipher.update(text,type,'hex');
-encrypted += cipher.final('hex');
-console.log(encrypted);
-return encrypted;
+  var encrypted = cipher.update(text, 'utf8', 'hex');
+  encrypted += cipher.final('hex');
+  // console.log(encrypted);
+  return encrypted;
 }
 exports.deCipherUsingAes = function (encrypted, password) {
 
@@ -32,10 +32,10 @@ exports.deCipherUsingAes = function (encrypted, password) {
   // var decrypted = decipher.update(decipherEncrypted, 'hex', 'utf8') + decipher.final('utf8'); //deciphered text
   // //console.log(decrypted);
   // return decrypted;
-  const decipher = crypto.createDecipher('aes192', password) 
-  var decrypted = decipher.update(encrypted,'hex','hex') 
-  decrypted += decipher.final('hex'); 
-  console.log(decrypted);
+  const decipher = crypto.createDecipher('aes192', password)
+  var decrypted = decipher.update(encrypted, 'hex', 'utf8')
+  decrypted += decipher.final('utf8');
+  // console.log(decrypted);
   return decrypted;
 }
 exports.createCipherRSA = function (publicKey, data) {
@@ -44,41 +44,40 @@ exports.createCipherRSA = function (publicKey, data) {
       key: publicKey,
       padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
       oaepHash: "sha256",
-      
+
     },
     // We convert the data string to a buffer using `Buffer.from`
-    Buffer.from(data,'hex')
+    Buffer.from(data, 'hex')
   )
-  
+
   // The encrypted data is in the form of bytes, so we print it in base64 format
   // so that it's displayed in a more readable form
-  console.log("encypted data: ", encryptedData.toString("base64"))
+  // console.log("encypted data: ", encryptedData.toString("base64"))
 
   return encryptedData.toString('hex');
 }
-exports.deCipherRSA = function (privateKey,encryptedData) {
+exports.deCipherRSA = function (privateKey, encryptedData) {
   var decryptedData;
-  try{
-  decryptedData =  crypto.privateDecrypt(
-    {
-      key: privateKey,
-      // In order to decrypt the data, we need to specify the
-      // same hashing function and padding scheme that we used to
-      // encrypt the data in the previous step
-      padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
-      oaepHash: "sha256",
-    },
-    encryptedData
-  )
+  try {
+    decryptedData = crypto.privateDecrypt(
+      {
+        key: privateKey,
+        // In order to decrypt the data, we need to specify the
+        // same hashing function and padding scheme that we used to
+        // encrypt the data in the previous step
+        padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
+        oaepHash: "sha256",
+      },
+      Buffer.from(encryptedData, 'hex')
+    )
   }
-  catch(err)
-  {
+  catch (err) {
     console.log(err);
   }
   // The decrypted data is of the Buffer type, which we can convert to a
   // string to reveal the original data
-  console.log("decrypted data: ", decryptedData.toString())
-  return decryptedData; 
+  // console.log("decrypted data: ", decryptedData.toString())
+  return decryptedData.toString('hex');
 }
 // exports.generateKey = async function (password) {
 
@@ -92,20 +91,20 @@ exports.deCipherRSA = function (privateKey,encryptedData) {
 
 // }
 exports.sha256 = async function (text) {
-console.log(text);
-const hashed=await crypto.createHash('sha256').update(text).digest('hex');
-console.log(hashed);
+  // console.log(text);
+  const hashed = await crypto.createHash('sha256').update(text).digest('hex');
+  // console.log(hashed);
   return hashed;
 }
 exports.generateKey = function () {
   const key = crypto.randomBytes(16).toString('hex'); // generate different ciphertext everytime
-  console.log(key);
+  // console.log(key);
   return key;
 }
 exports.generateKeyPair = async function () {
-  
-  const { publicKey, privateKey }=await crypto.generateKeyPairSync('rsa', {
-    modulusLength: 4096,
+
+  const { publicKey, privateKey } = await crypto.generateKeyPairSync('rsa', {
+    modulusLength: 4096, 
     publicKeyEncoding: {
       type: 'spki',
       format: 'pem'
@@ -117,6 +116,6 @@ exports.generateKeyPair = async function () {
   });
   //console.log(publicKey);
   //console.log(privateKey);
-  return {public_key:publicKey,private_key:privateKey};
-  
+  return { public_key: publicKey.toString('hex'), private_key: privateKey.toString('hex') };
+
 }
