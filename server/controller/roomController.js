@@ -1,7 +1,7 @@
-const { generateKey, createCipher, createCipherRSA, deCipherUsingAes, deCipherRSA } = require('../Encryption.js/encryption');
+const { generateKey, createCipherRSA, deCipherUsingAes, deCipherRSA } = require('../Encryption.js/encryption');
 const { roomModel } = require('../models/db_model');
-const { getEncryptedPrivateKey, getPublicKey, getSymmetricKey } = require('./getKey');
-
+const { getPublicKey, getSymmetricKey } = require('./getKey');
+const { symmetricKeyFromRoomId } = require('../userInfo');
 const roomController = async (req, res) => {
 
     var room_id = req.query.room_id;
@@ -27,7 +27,6 @@ const roomController = async (req, res) => {
 
                 const EncryptedsymmetricKeyUser2 = createCipherRSA(public_keyUSer2, symmetricKey);
                 console.log('EncryptedsymmetricKeyUser2: ' + EncryptedsymmetricKeyUser2);
-
                 newRoom = new room({
                     room_id, topic: 'privateChat',
                     encryptedsymmetricKeyData: [
@@ -37,6 +36,8 @@ const roomController = async (req, res) => {
                     , users: [user1, user2], messages: []
                 });
 
+                req.session['' + room_id] = symmetricKey;
+                symmetricKeyFromRoomId[room_id] = symmetricKey;
                 newRoom.save();
 
             }
@@ -54,36 +55,50 @@ const roomController = async (req, res) => {
 
         const encryptedsymmetricKeyData = await getSymmetricKey(result.room_id);
         try {
-            if (encryptedsymmetricKeyData[0].user == user1) {
-                const EncryptedsymmetricKey = encryptedsymmetricKeyData[0].encryptedsymmetricKey;
-                const EncryptedPrivateKey = req.session.user.encrypted_private_key;
-                //console.log(req.session.passPhrase);
-                console.log(req.session);
-                const PrivateKey = deCipherUsingAes(EncryptedPrivateKey, req.session.passPhrase);
-                //console.log('PrivateKey: ' + PrivateKey);
-                const SymmetricKey = await deCipherRSA(PrivateKey, EncryptedsymmetricKey);
-                console.log('SymmetricKey: ' + SymmetricKey);
-                req.session['' + room_id] = SymmetricKey;
+            // console.log( req.session['' + room_id] )
+            if (req.session['' + room_id] == undefined) {
+             
+                if (encryptedsymmetricKeyData[0].user == user1) {
+                    const EncryptedsymmetricKey = encryptedsymmetricKeyData[0].encryptedsymmetricKey;
+                    const EncryptedPrivateKey = req.session.user.encrypted_private_key;
+                    const PrivateKey = deCipherUsingAes(EncryptedPrivateKey, req.session.passPhrase);
+                    const SymmetricKey = await deCipherRSA(PrivateKey, EncryptedsymmetricKey);
+                    console.log('SymmetricKey: ' + SymmetricKey);
+                    req.session['' + room_id] = SymmetricKey;
+                    symmetricKeyFromRoomId[room_id] = SymmetricKey;
+                }
+                else {
+                    const EncryptedsymmetricKey = encryptedsymmetricKeyData[1].encryptedsymmetricKey;
+                    const EncryptedPrivateKey = req.session.user.encrypted_private_key;
+                    const PrivateKey = deCipherUsingAes(EncryptedPrivateKey, req.session.passPhrase);
+                    const SymmetricKey = await deCipherRSA(PrivateKey, EncryptedsymmetricKey);
+                    console.log('SymmetricKey: ' + SymmetricKey);
+                    req.session['' + room_id] = SymmetricKey;
+                    symmetricKeyFromRoomId[room_id] = SymmetricKey;
+                }
+                var messages=result.messages;
+                messages.forEach(msgObj => {
+                    const msg = deCipherUsingAes(msgObj.message_body, req.session[''+room_id]);
+                    msgObj.message_body=msg;
+                });
             }
-            else {
-                const EncryptedsymmetricKey = encryptedsymmetricKeyData[1].encryptedsymmetricKey;
-                const EncryptedPrivateKey = req.session.user.encrypted_private_key;
-                //console.log(req.session.passPhrase);
-                console.log(req.session);
-                const PrivateKey = deCipherUsingAes(EncryptedPrivateKey, req.session.passPhrase);
-                //console.log('PrivateKey: ' + PrivateKey);
-                const SymmetricKey = await deCipherRSA(PrivateKey, EncryptedsymmetricKey);
-                console.log('SymmetricKey: ' + SymmetricKey);
-                req.session['' + room_id] = SymmetricKey;
+            else
+            {
+                //IF symmetric key of room is present
+                var messages=result.messages;
+                messages.forEach(msgObj => {
+                    const msg = deCipherUsingAes(msgObj.message_body, req.session[''+room_id]);
+                    msgObj.message_body=msg;
+                });
             }
-           return  res.send({ room: result, msg: 'success' });
+            return res.send({ room: result, msg: 'success' });
         }
         catch (err) {
             console.log(err);
             res.send({ room: result, msg: 'Fail' });
         }
 
-      
+
     });
 
 }

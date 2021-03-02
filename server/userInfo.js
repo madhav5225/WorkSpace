@@ -1,2 +1,3 @@
 var isOnline = [];
-module.exports = isOnline; 
+var symmetricKeyFromRoomId=[];
+module.exports = {isOnline,symmetricKeyFromRoomId}; 

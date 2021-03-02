@@ -1,10 +1,11 @@
+const { createCipherAes } = require('../Encryption.js/encryption');
 const { roomModel, messageModel } = require('../models/db_model');
-const isOnline = require('../userInfo');
+const { isOnline, symmetricKeyFromRoomId } = require('../userInfo');
 
 const socket_id = [];
 const clients = [];
 
-const server = (app) => {
+const server = (app) => {   
     const server = require('http').createServer(app);
     const io = require('socket.io')(server);
     io.on('connection', socket => {
@@ -27,6 +28,17 @@ const server = (app) => {
                 sender_id
             } = msgObj;
             // console.log('meesage is sent by ' + sender_id + 'to room_id ' + room_id);
+            console.log(msg);
+            var Encrypted_msg=createCipherAes(symmetricKeyFromRoomId[room_id],msg);
+            console.log(Encrypted_msg);
+            var EncrtptedmsgSch = new messageModel({
+                is_recieved: false,
+                id,
+                room_id,
+                sender_id,
+                message_body: Encrypted_msg,
+                message_type: msg_type,
+            })
             var msgSch = new messageModel({
                 is_recieved: false,
                 id,
@@ -42,6 +54,8 @@ const server = (app) => {
                     if (user != sender_id) {
                         if (isOnline[user])
                             msgSch.is_recieved = true;
+                            EncrtptedmsgSch.is_recieved = true;
+                            
                     }
                 });
                 // room.messages.push(msgSch);
@@ -49,7 +63,7 @@ const server = (app) => {
                     {
                         $push:
                         {
-                            messages: msgSch
+                            messages: EncrtptedmsgSch
                         }
                     }).exec((err, result) => {
                         if (err || !result) {

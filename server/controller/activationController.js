@@ -19,7 +19,7 @@ const activationController = async (req, res) => {
                 console.log("public: "+ public_key);
                 console.log("private: "+ private_key);
                 
-                const encrypted_private_key=createCipherAes(passPhrase,private_key,'hex');
+                const encrypted_private_key=createCipherAes(passPhrase,private_key);
                 console.log("encrypted private key: " + encrypted_private_key);
 
                 axios({
