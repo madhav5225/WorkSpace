@@ -1,31 +1,41 @@
 const crypto = require('crypto');
 
 exports.createCipherAes = function (password, text,type) {
-  const algorithm = "aes-192-cbc"; //algorithm to use
-  var key = crypto.scryptSync(password, 'salt', 24);
-  //console.log('key'+key.toString('base64'));
-  const iv = crypto.randomBytes(16); // generate different ciphertext everytime
-  const cipher = crypto.createCipheriv(algorithm, key, iv);
-  //for characters string type='utf8';
-  const encrypted = cipher.update(text, type, 'hex') + cipher.final('hex') + iv.toString('hex'); // encrypted text
-  //console.log(encrypted);
+  // const algorithm = "aes-192-cbc"; //algorithm to use
+  // var key = crypto.scryptSync(password, 'salt', 24);
+  // //console.log('key'+key.toString('base64'));
+  // const iv = crypto.randomBytes(16); // generate different ciphertext everytime
+  // const cipher = crypto.createCipheriv(algorithm, key, iv);
+  // //for characters string type='utf8';
+  // const encrypted = cipher.update(text, type, 'hex') + cipher.final('hex') + iv.toString('hex'); // encrypted text
+  // //console.log(encrypted);
 
-  return encrypted;
+  // return encrypted;
+  const cipher = crypto.createCipher('aes192', password);
+var encrypted = cipher.update(text,type,'hex');
+encrypted += cipher.final('hex');
+console.log(encrypted);
+return encrypted;
 }
 exports.deCipherUsingAes = function (encrypted, password) {
 
-  var algorithm = "aes-192-cbc"; //algorithm to use
-  var key = crypto.scryptSync(password, 'salt', 24);
-  //console.log('key'+key.toString('base64'));
-  const decipherEncrypted = encrypted.substring(0, 32);
-  const decipherIV = encrypted.substring(32);
-  //console.log(decipherIV);
-  //console.log(decipherEncrypted);
-  const decipher = crypto.createDecipheriv(algorithm, key, Buffer.from(decipherIV, 'hex'));
-  //decipher.setAutoPadding(false);
-  //console.log('decipher'+decipher);
-  var decrypted = decipher.update(decipherEncrypted, 'hex', 'utf8') + decipher.final('utf8'); //deciphered text
-  //console.log(decrypted);
+  // var algorithm = "aes-192-cbc"; //algorithm to use
+  // var key = crypto.scryptSync(password, 'salt', 24);
+  // //console.log('key'+key.toString('base64'));
+  // const decipherEncrypted = encrypted.substring(0, 32);
+  // const decipherIV = encrypted.substring(32);
+  // //console.log(decipherIV);
+  // //console.log(decipherEncrypted);
+  // const decipher = crypto.createDecipheriv(algorithm, key, Buffer.from(decipherIV, 'hex'));
+  // //decipher.setAutoPadding(false);
+  // //console.log('decipher'+decipher);
+  // var decrypted = decipher.update(decipherEncrypted, 'hex', 'utf8') + decipher.final('utf8'); //deciphered text
+  // //console.log(decrypted);
+  // return decrypted;
+  const decipher = crypto.createDecipher('aes192', password) 
+  var decrypted = decipher.update(encrypted,'hex','hex') 
+  decrypted += decipher.final('hex'); 
+  console.log(decrypted);
   return decrypted;
 }
 exports.createCipherRSA = function (publicKey, data) {
