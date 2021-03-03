@@ -1,5 +1,6 @@
 const { userModel } = require('../models/db_model');
-const isOnline = require('../userInfo');
+const { isOnline } = require('../userInfo');
+
 
 const userListController = async (req, res) => {
 

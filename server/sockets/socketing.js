@@ -14,6 +14,8 @@ const server = (app) => {
         socket.on('new-user-joined', user_id => {
             // console.log('new User active: ' + user_id);
             isOnline[user_id] = true;
+           // console.log(isOnline);
+            //console.log(user_id);
             socket_id[user_id] = socket.id;
             clients[socket.id] = user_id;
             socket.broadcast.emit('set-this-active', user_id);
