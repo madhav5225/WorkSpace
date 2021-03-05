@@ -18,13 +18,18 @@ socket.on('set-this-active', userId => {
     $('#messenger' + user_id[userId]).addClass('user-active')
     if (friendUser != undefined && friendUser.id == userId) {
         $('#onScreen-status').text("online");
+        friendUser.isOnline = true;
+        
     }
+    userList[user_id[userId]].isOnline=true;
 });
 socket.on('set-this-inactive', userId => {
     $('#messenger' + user_id[userId]).removeClass('user-active')
     if (friendUser != undefined && friendUser.id == userId) {
+        friendUser.isOnline = false;
         $('#onScreen-status').text("offline");
     }
+    userList[user_id[userId]].isOnline=false;
 });
 
 socket.on('msg-saved', msg => {
@@ -61,7 +66,7 @@ socket.on('display-typing', data => {
 socket.on('recieved', room => {
     if (typeof currentRoom != 'undefined') {
         if (currentRoom.room_id === room.room_id) {
-            if (typeof messages != 'undefined') {
+            if (typeof messages[friendUser.id] != 'undefined') {
                 messages.forEach(msg => {
                     $('#msgIcon' + msg.id).text("done_all");
                 });
@@ -73,8 +78,8 @@ socket.on('set-msg-seen', room => {
     // console.log('message-seen-by-reciever');
     if (typeof currentRoom != 'undefined') {
         if (currentRoom.room_id === room.room_id) {
-            if (typeof messages != 'undefined') {
-                messages.forEach(msg => {
+            if (typeof messages[friendUser.id] != 'undefined') {
+                messages[friendUser.id].forEach(msg => {
                     $('#msgIcon' + msg.id).addClass('seen');
                 });
             }

@@ -31,6 +31,12 @@ const userSchema = new Schema(
             online: { type: Boolean, default: false },
             available: { type: Boolean, default: false }
         },
+        bio:{
+            type: String,
+            maxlength: 3000,
+            required:false,
+            trim:true
+        },
         log: {
             last_active: { type: Date, default: Date.now }
         },

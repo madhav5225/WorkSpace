@@ -53,8 +53,9 @@ const server = (app) => {
                 users.forEach(user => {
                     if (user != sender_id) {
                         if (isOnline[user])
-                            msgSch.is_recieved = true;
+                           { msgSch.is_recieved = true;
                             EncrtptedmsgSch.is_recieved = true;
+                           }
                             
                     }
                 });
