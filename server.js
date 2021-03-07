@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const connectDb = require('./db');
 var cookieParser = require("cookie-parser");
+// const path = require('path');
 
 require('dotenv').config({
     path: './config.env'

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ChatApp</title>
+    <!--css-->
+    <link rel="stylesheet" href="../CSS/profile.css" type="text/css">
+    <link rel="stylesheet" href="../CSS/nav.css" type="text/css">
+    <link rel="icon" href="../resources/sent-mail.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+        integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+        crossorigin="anonymous" />
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<body>
+    <nav>
+        <div class="logo">
+            <img src="../resources/icon_lg.svg">
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="#">About</a>
+            </li>
+            <li>
+                <a href="#">Developers</a>
+            </li>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+    
+    <main>
+        
+    </main>
+ 
+    <footer>
+        Developed By: Geeks
+    </footer>
+    <!--script-->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+        const burger = document.querySelector('.burger');
+        const nav = document.querySelector('.nav-links');
+        burger.addEventListener('click', () => {
+            nav.classList.toggle('nav-active');
+            burger.classList.toggle('burger-active');
+        })
+        
+    </script>
+    <!-- for encryption -->
+    <!-- <script type="text/javascript" src="path-to/bower_components/crypto-js/crypto-js.js"></script> -->
+    <script src="../js/cookie.js"></script>
+    <script src="../js/login.js"></script>
+    <script src="../js/send_verification.js"></script>
+</body>
+
+</html>

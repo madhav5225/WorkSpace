@@ -1,7 +1,7 @@
 
 const dashBoardController = (req, res) => {
 //console.log(req.session);
-console.log(req.session.passPhrase);
+// console.log(req.session.passPhrase);
 
 
     res.sendFile('/dashboard.html', { root: 'client' });

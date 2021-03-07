@@ -19,5 +19,3 @@ exports.check_not_login = (req, res, next) => {
         next();
     }
 }
-
-

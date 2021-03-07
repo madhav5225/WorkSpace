@@ -1,4 +1,4 @@
-var messages;//list of message that user is sending 
+var messages = [];//list of message that user is sending 
 //object{id ,room_id,sender_id,message_body,message_type,is_seen,is_recieved,created_at}
 // of room on which user clicked last time
 
@@ -15,8 +15,8 @@ function sendMsg(event) {
         $('#messenger' + user_id[friendUser.id]).parent().prepend($('#messenger' + user_id[friendUser.id]));
         const room_id = generateRoomID(currentUser._id, friendUser.id);
         var msgObjId = 1;
-        if (typeof messages != 'undefined')
-            msgObjId = messages.length + 1;
+        if (typeof messages[friendUser.id] != 'undefined')
+            msgObjId = messages[friendUser.id].length + 1;
 
         const msgObj = {
             id: msgObjId,
@@ -25,6 +25,8 @@ function sendMsg(event) {
             msg_type: "txt",
             sender_id: currentUser._id
         }
+        messages[friendUser.id] = messages[friendUser.id] || [];
+        messages[friendUser.id].push(msgObj);
         var msg_container = $('<li class="msg me"  id="SenderMsg' + msgObj.id + '">');
 
         var listItem = $('<div class="text">').text(msgObj.msg);
@@ -32,8 +34,7 @@ function sendMsg(event) {
 
         $('.msglist').append(msg_container.append(listItem.append($('<div class ="msg-status">').append(statusItem))));
 
-        messages = messages || [];
-        messages.push(msgObj);
+        
         $('.msglist')[0].scrollTop = $('.msglist')[0].scrollHeight;
         // document.getElementById('messageHolder').scrollTop = document.getElementById('messageHolder').scrollHeight;
         socket.emit('send-msg', msgObj);
@@ -116,8 +117,8 @@ function setChat(x) {
                             // var statusItem = $('<span class="material-icons" id="msgIcon' + msgObj.id + '"></span>');
                             // $('.chat_ul').append(listItem.append(statusItem));
                             // document.getElementById('messageHolder').scrollTop = document.getElementById('messageHolder').scrollHeight
-                            messages = messages || [];
-                            messages.push(msgObj);
+                            messages[friendUser.id] = messages[friendUser.id] || [];
+                            messages[friendUser.id].push(msgObj);
                         }
                         setMessageInList(msgObj);
                     });
