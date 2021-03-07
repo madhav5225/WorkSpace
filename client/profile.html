@@ -4,9 +4,9 @@
 <head>
     <title>ChatApp</title>
     <!--css-->
-    <link rel="stylesheet" href="CSS/profile.css" type="text/css">
-    <link rel="stylesheet" href="CSS/nav.css" type="text/css">
-    <link rel="icon" href="resources/sent-mail.svg">
+    <link rel="stylesheet" href="../CSS/profile.css" type="text/css">
+    <link rel="stylesheet" href="../CSS/nav.css" type="text/css">
+    <link rel="icon" href="../resources/sent-mail.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
         integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
         crossorigin="anonymous" />
@@ -18,7 +18,7 @@
 <body>
     <nav>
         <div class="logo">
-            <img src="./resources/icon_lg.svg">
+            <img src="../resources/icon_lg.svg">
         </div>
         <ul class="nav-links">
             <li>
@@ -53,77 +53,13 @@
             nav.classList.toggle('nav-active');
             burger.classList.toggle('burger-active');
         })
-        const textElement = document.querySelector('.text-mark');
-        const text = ["ChatBox", "WhiteBoard", "Text Collab"];
-        let index = 0;
-        function writeText(i) {
-            if (index < text[i].length) {
-                setTimeout(() => {
-                    textElement.innerText += text[i].charAt(index);
-                    index++;
-                    writeText(i);
-                }, 200)
-            } else {
-                setTimeout(() => {
-                    backspaceText(i);
-                }, 500);
-            }
-        };
-        function backspaceText(i) {
-            if (index > 0) {
-                setTimeout(() => {
-                    index--;
-                    textElement.innerText = text[i].substring(0, index);
-                    backspaceText(i);
-                }, 200)
-            } else {
-                writeText((i + 1) % (text.length));
-            }
-        };
-        writeText(0);
-        $(".auth").click(function () {
-            $('html,body').animate({
-                scrollTop: $(".container").offset().top
-            }, 'slow');
-            $(this).innerText = "^";
-        }
-        );
-
-        window.onscroll = function () {
-            if (window.pageYOffset > 440) {
-                $('.auth').hide();
-            }
-            else {
-                $('.auth').show();
-            }
-        }
-
-        function toggleAuth() {
-            document.querySelector('.sign-in').classList.toggle('inactive');
-            document.querySelector('.sign-up').classList.toggle('inactive');
-        }
-
-        $('.male').click(function () {
-            if (!$('.male').hasClass('active')) {
-                $('.male').addClass('active');
-                $('.female').removeClass('active');
-            }
-        })
-        $('.female').click(function () {
-            if (!$('.female').hasClass('active')) {
-                $('.female').addClass('active');
-                $('.male').removeClass('active');
-            }
-        })
-
-
         
     </script>
     <!-- for encryption -->
     <!-- <script type="text/javascript" src="path-to/bower_components/crypto-js/crypto-js.js"></script> -->
-    <script src="./js/cookie.js"></script>
-    <script src="./js/login.js"></script>
-    <script src="./js/send_verification.js"></script>
+    <script src="../js/cookie.js"></script>
+    <script src="../js/login.js"></script>
+    <script src="../js/send_verification.js"></script>
 </body>
 
 </html>

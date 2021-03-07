@@ -1,5 +1,5 @@
 const express = require('express');
-const { check_login, check_not_login } = require('../controller/check_login');
+const { check_login, check_not_login } = require('../controller/middleware');
 const router = express.Router();
 
 router.get('/', check_not_login, (req, res) => {
@@ -22,7 +22,9 @@ router.get('/user_activation',require('../controller/activationController'))
 router.get('/dashboard', check_login, require('../controller/dashBoardController'));
 
 // get profile details
-router.get('/profile', check_login, require('../controller/profileController'));
+router.get('/profile', require('../controller/profileController'));
+
+router.get('/profile/:id',require('../controller/profileController'));
 
 // get All msg of particular conversation
 router.get('/roomInfo', check_login, require('../controller/roomController'));
