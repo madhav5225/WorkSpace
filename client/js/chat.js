@@ -72,6 +72,7 @@ function setMessageInList(msg) {
 }
 function setChat(x) {
     // $('#initialMsg').show();
+    currentRoom='undefined';
     $('.chat-section').removeClass('display');
     $('.chat-section').addClass('display');
     $('li').removeClass('on-screen');
