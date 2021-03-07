@@ -34,7 +34,7 @@ function sendMsg(event) {
 
         messages = messages || [];
         messages.push(msgObj);
-        $('.msglist').scrollTop = $('.msglist').scrollHeight;
+        $('.msglist')[0].scrollTop = $('.msglist')[0].scrollHeight;
         // document.getElementById('messageHolder').scrollTop = document.getElementById('messageHolder').scrollHeight;
         socket.emit('send-msg', msgObj);
     }
@@ -65,7 +65,7 @@ function setMessageInList(msg) {
         $('.msglist').append(msg_container.append(listItem));
         // $('.chat_ul').append(listItem);
         // document.getElementById('messageHolder').scrollTop = document.getElementById('messageHolder').scrollHeight
-        $('.msglist').scrollTop = $('.msglist').scrollHeight;
+        $('.msglist')[0].scrollTop = $('.msglist')[0].scrollHeight;
 
     }
 }
@@ -110,7 +110,7 @@ function setChat(x) {
                             var listItem = $('<div class="text">').text(msgObj.message_body);
                             var statusItem = $('<span class="material-icons" id="msgIcon' + msgObj.id + '">autorenew</span>');
                             $('.msglist').append(msg_container.append(listItem.append($('<div class ="msg-status">').append(statusItem))));
-                            $('.msglist').scrollTop = $('.msglist').scrollHeight;
+                            $('.msglist')[0].scrollTop = $('.msglist')[0].scrollHeight;
 
                             // var listItem = $('<li class="right  message-box" id="SenderMsg' + msgObj.id + '">').text(msgObj.message_body);
                             // var statusItem = $('<span class="material-icons" id="msgIcon' + msgObj.id + '"></span>');
