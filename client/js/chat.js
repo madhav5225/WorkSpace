@@ -1,4 +1,4 @@
-var messages = [];//list of message that user is sending 
+var messages;//list of message that user is sending 
 //object{id ,room_id,sender_id,message_body,message_type,is_seen,is_recieved,created_at}
 // of room on which user clicked last time
 
@@ -15,8 +15,8 @@ function sendMsg(event) {
         $('#messenger' + user_id[friendUser.id]).parent().prepend($('#messenger' + user_id[friendUser.id]));
         const room_id = generateRoomID(currentUser._id, friendUser.id);
         var msgObjId = 1;
-        if (typeof messages[friendUser.id] != 'undefined')
-            msgObjId = messages[friendUser.id].length + 1;
+        if (typeof messages!= 'undefined')
+            msgObjId = messages.length + 1;
 
         const msgObj = {
             id: msgObjId,
@@ -25,8 +25,8 @@ function sendMsg(event) {
             msg_type: "txt",
             sender_id: currentUser._id
         }
-        messages[friendUser.id] = messages[friendUser.id] || [];
-        messages[friendUser.id].push(msgObj);
+        messages= messages || [];
+        messages.push(msgObj);
         var msg_container = $('<li class="msg me"  id="SenderMsg' + msgObj.id + '">');
 
         var listItem = $('<div class="text">').text(msgObj.msg);
@@ -77,9 +77,7 @@ function setChat(x) {
     $('.chat-section').addClass('display');
     $('li').removeClass('on-screen');
     $('#messenger' + x).addClass('on-screen');
-
     var chatList = $('<ul class="msglist"></ul>')
-
     $('.message-container').html(chatList);
     friendUser = userList[x];
     // var img_element = $('<img src="../resources/defaultProfile.jpg">');
@@ -95,7 +93,7 @@ function setChat(x) {
     }
 
     const room_id = generateRoomID(currentUser._id, friendUser.id);
-
+    messages = [];
     $.get('/roomInfo', { room_id, user1: currentUser._id, user2: friendUser.id }, function ({ msg, room }) {
         if (msg != 'success') {
             alert(msg);
@@ -118,8 +116,8 @@ function setChat(x) {
                             // var statusItem = $('<span class="material-icons" id="msgIcon' + msgObj.id + '"></span>');
                             // $('.chat_ul').append(listItem.append(statusItem));
                             // document.getElementById('messageHolder').scrollTop = document.getElementById('messageHolder').scrollHeight
-                            messages[friendUser.id] = messages[friendUser.id] || [];
-                            messages[friendUser.id].push(msgObj);
+                           
+                            messages.push(msgObj);
                         }
                         setMessageInList(msgObj);
                     });
