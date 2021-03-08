@@ -144,9 +144,9 @@ function setTypingOnChat(is_typing) {
     }
 }
 
-// function setTypingOnList(sender_id, is_typing) {
-//     console.log(user_id[sender_id] + " " + is_typing);
-// }
+function setTypingOnList(sender_id, is_typing) {
+    console.log(user_id[sender_id] + " " + is_typing);
+}
 
 function typingTimeout() {
     typing = false;
