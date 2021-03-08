@@ -15,7 +15,7 @@ function sendMsg(event) {
         $('#messenger' + user_id[friendUser.id]).parent().prepend($('#messenger' + user_id[friendUser.id]));
         const room_id = generateRoomID(currentUser._id, friendUser.id);
         var msgObjId = 1;
-        if (typeof messages!= 'undefined')
+        if (typeof messages != 'undefined')
             msgObjId = messages.length + 1;
 
         const msgObj = {
@@ -25,7 +25,7 @@ function sendMsg(event) {
             msg_type: "txt",
             sender_id: currentUser._id
         }
-        messages= messages || [];
+        messages = messages || [];
         messages.push(msgObj);
         var msg_container = $('<li class="msg me"  id="SenderMsg' + msgObj.id + '">');
 
@@ -34,7 +34,7 @@ function sendMsg(event) {
 
         $('.msglist').append(msg_container.append(listItem.append($('<div class ="msg-status">').append(statusItem))));
 
-        
+
         $('.msglist')[0].scrollTop = $('.msglist')[0].scrollHeight;
         // document.getElementById('messageHolder').scrollTop = document.getElementById('messageHolder').scrollHeight;
         socket.emit('send-msg', msgObj);
@@ -47,16 +47,17 @@ function setMessageInList(msg) {
     // $('#initialMsg').hide();
 
     if (msg.sender_id == currentUser._id) {
-        if (!msg.is_recieved) {
-            $('#msgIcon' + msg.id).text('done');
-        }
-        else {
+
+        if (msg.is_recieved == true || msg.is_seen == true) {
             if (!msg.is_seen) {
                 $('#msgIcon' + msg.id).text('done_all');
             }
             else {
                 $('#msgIcon' + msg.id).addClass('seen').text('done_all');
             }
+        }
+        else {
+            $('#msgIcon' + msg.id).text('done');
         }
     }
     else {
@@ -72,7 +73,7 @@ function setMessageInList(msg) {
 }
 function setChat(x) {
     // $('#initialMsg').show();
-    currentRoom='undefined';
+    currentRoom = 'undefined';
     $('.chat-section').removeClass('display');
     $('.chat-section').addClass('display');
     $('li').removeClass('on-screen');
@@ -116,7 +117,7 @@ function setChat(x) {
                             // var statusItem = $('<span class="material-icons" id="msgIcon' + msgObj.id + '"></span>');
                             // $('.chat_ul').append(listItem.append(statusItem));
                             // document.getElementById('messageHolder').scrollTop = document.getElementById('messageHolder').scrollHeight
-                           
+
                             messages.push(msgObj);
                         }
                         setMessageInList(msgObj);
