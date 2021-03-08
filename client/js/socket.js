@@ -80,6 +80,7 @@ socket.on('set-msg-seen', room => {
         if (currentRoom.room_id === room.room_id) {
             if (typeof messages != 'undefined') {
                 messages.forEach(msg => {
+                    $('#msgIcon' + msg.id).text("done_all");
                     $('#msgIcon' + msg.id).addClass('seen');
                 });
             }
